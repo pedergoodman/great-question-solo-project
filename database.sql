@@ -48,7 +48,7 @@ CREATE TABLE "user_favorited" (
 	"question_id" integer NOT NULL REFERENCES "questions"
 	);
 
-
+-- table name is "great_question"
 -- dummy data for initial stuff!
 
 -- categories
