@@ -1,8 +1,5 @@
+-- database name is "great_question"
 
--- USER is a reserved keyword with Postgres
--- You must use double quotes in every query that user is in:
--- ex. SELECT * FROM "user";
--- Otherwise you will have errors!
 -- user login data.
 CREATE TABLE "user" (
 	"id" serial PRIMARY KEY,
@@ -10,14 +7,14 @@ CREATE TABLE "user" (
 	"password" varchar(1000) NOT NULL
 	);
 	
--- table to hold questions, captures user id of questions added by user. 
+-- questions data. "user_id" associates questions added by user. 
 CREATE TABLE "questions" (
 	"id" serial PRIMARY KEY,
 	"question" varchar(300) NOT NULL,
 	"user_added_id" integer REFERENCES "user"
 	);
 
--- stores users journals 
+-- journal entry data.
 CREATE TABLE "journals" (
 	"id" serial PRIMARY KEY,
 	"title" varchar(300) NOT NULL,
@@ -29,7 +26,7 @@ CREATE TABLE "journals" (
 	);
 
 -- list of question categories 
-CREATE TABLE "category" (
+CREATE TABLE "categories" (
 	"id" serial  PRIMARY KEY,
 	"category_name" varchar(100) NOT NULL
 	);
@@ -48,8 +45,9 @@ CREATE TABLE "user_favorited" (
 	"question_id" integer NOT NULL REFERENCES "questions"
 	);
 
--- table name is "great_question"
--- dummy data for initial stuff!
+
+
+-- THIS IS TEMP DATA
 
 -- categories
 INSERT INTO "category" ("category_name")
@@ -63,7 +61,6 @@ VALUES
 ('Relationships'),
 ('Aspirations'),
 ('Society');
-
 
 
 -- default test questions!
@@ -115,7 +112,36 @@ VALUES
   ('Discuss the role of social media in modern society and its impact on relationships and mental health.');
 
 
-
+-- link base questions and data
+INSERT INTO question_categories (question_id, category_id)
+VALUES 
+  (1, 1),
+  (2, 1),
+  (3, 1),
+  (4, 2),
+  (5, 2),
+  (6, 2),
+  (7, 3),
+  (8, 3),
+  (9, 3),
+  (10, 4),
+  (11, 4),
+  (12, 4),
+  (13, 5),
+  (14, 5),
+  (15, 5),
+  (16, 6),
+  (17, 6),
+  (18, 6),
+  (19, 7),
+  (20, 7),
+  (21, 7),
+  (22, 8),
+  (23, 8),
+  (24, 8),
+  (25, 9),
+  (26, 9),
+  (27, 9);
 
 
 
