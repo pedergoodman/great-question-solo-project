@@ -18,6 +18,7 @@ function LandingPage({ category }) {
     height: "150px",
     borderRadius: "100%",
     background: "chocolate",
+    m: '10px'
   };
 
 
@@ -28,12 +29,11 @@ function LandingPage({ category }) {
           <CardContent>
             <Typography
               gutterBottom
-              variant="h5"
+              variant="subtitle1"
               component="div"
               sx={{ textAlign: "center", m: 0 }}
             >
-              TESXT
-              {/* {category} */}
+              {category}
             </Typography>
           </CardContent>
         </CardActionArea>
