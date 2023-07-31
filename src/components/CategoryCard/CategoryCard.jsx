@@ -10,7 +10,7 @@ import { CardActionArea } from "@mui/material";
 
 // CUSTOM COMPONENTS
 
-function LandingPage({ category }) {
+function CategoryCard({ category }) {
   const history = useHistory();
 
   const bubbleContainerStyling = {
@@ -42,4 +42,4 @@ function LandingPage({ category }) {
   );
 }
 
-export default LandingPage;
+export default CategoryCard;
