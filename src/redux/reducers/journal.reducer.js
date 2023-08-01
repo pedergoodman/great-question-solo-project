@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 
 const allUserJournals = (state = [], action) => {
   switch (action.type) {
-    case '':
+    case 'SET_JOURNAL_LIST':
       return action.payload;
     case '':
       return {};
@@ -13,12 +13,10 @@ const allUserJournals = (state = [], action) => {
 }
 
 
-const activeJournal = (state = {}, action) => {
+const activeJournal = (state = {title: '', textBody: '', createdDate: '', lastEdited: ''}, action) => {
   switch (action.type) {
     case '':
       return action.payload;
-    case '':
-      return {};
     default:
       return state;
   }

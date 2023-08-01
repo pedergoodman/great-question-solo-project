@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./LandingPage.css";
 import CategoryCard from "../CategoryCard/CategoryCard";
+import { useDispatch, useSelector } from "react-redux";
+
 
 // CUSTOM COMPONENTS
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 
+
+
+
 function LandingPage() {
-  const [heading, setHeading] = useState("Select a Category!");
+
+  const questionsList = useSelector(store => store.questions)
   const history = useHistory();
+  const dispatch = useDispatch();
 
   // temp map data!
   const categories = [
@@ -24,6 +31,13 @@ function LandingPage() {
     "Society",
   ];
 
+  useEffect(() => {
+    dispatch({
+      type: "FETCH_QUESTIONS",
+    })
+  }, [])
+
+
   return (
     <div className="container">
       <Typography
@@ -32,7 +46,7 @@ function LandingPage() {
         component="div"
         sx={{ textAlign: "center" }}
       >
-        {heading}
+        Select a Category!
       </Typography>
       <Box
         sx={{

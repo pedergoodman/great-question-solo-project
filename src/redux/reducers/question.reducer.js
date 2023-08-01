@@ -1,9 +1,7 @@
-const questions = (state = {}, action) => {
+const questions = (state = [], action) => {
   switch (action.type) {
-    case '':
+    case 'SET_QUESTION_LIST':
       return action.payload;
-    case '':
-      return {};
     default:
       return state;
   }
