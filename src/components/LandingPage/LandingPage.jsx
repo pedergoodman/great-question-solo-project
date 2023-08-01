@@ -13,10 +13,11 @@ import { Box } from "@mui/material";
 
 
 function LandingPage() {
-
+  const user = useSelector(store => store.user)
   const questionsList = useSelector(store => store.questions)
   const history = useHistory();
   const dispatch = useDispatch();
+
 
   // temp map data!
   const categories = [
@@ -32,8 +33,9 @@ function LandingPage() {
   ];
 
   useEffect(() => {
+    console.log('in USE EFFECT', user.id);
     dispatch({
-      type: "FETCH_QUESTIONS",
+      type: "FETCH_QUESTIONS"
     })
   }, [])
 
@@ -55,8 +57,8 @@ function LandingPage() {
           justifyContent: "space-evenly",
         }}
       >
-        {categories.map(category => (
-          <CategoryCard category={category} />
+        {categories.map((category, i) => (
+          <CategoryCard key={i} category={category} />
         ))}
       </Box>
     </div>
