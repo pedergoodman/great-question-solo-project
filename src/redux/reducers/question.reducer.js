@@ -1,15 +1,11 @@
 const questions = (state = [], action) => {
-if(action.type == 'SET_QUESTION_LIST'){
-  return action.payload;
-  console.log('in reducer! Action is action is:', action);  
-}
-return state;
-  // switch (action.) {
-  //   case 'SET_QUESTION_LIST':
-  //     return action.payload;
-  //   default:
-  //     return state;
-  // }
+
+  switch (action.type) {
+    case 'SET_QUESTION_LIST':
+      return action.payload;
+    default:
+      return state;
+  }
 };
 
 

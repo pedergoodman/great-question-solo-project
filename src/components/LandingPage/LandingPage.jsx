@@ -33,7 +33,7 @@ function LandingPage() {
   ];
 
   useEffect(() => {
-    console.log('in USE EFFECT', user.id);
+    console.log('in use effect! user id is:', user.id);
     dispatch({
       type: "FETCH_QUESTIONS"
     })
