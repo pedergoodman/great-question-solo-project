@@ -19,21 +19,7 @@ function LandingPage() {
   const dispatch = useDispatch();
 
 
-  // temp map data!
-  const categories = [
-    "Self-Discovery",
-    "Philosophy",
-    "Reflection",
-    "Creativity",
-    "Ethics",
-    "Environment",
-    "Relationships",
-    "Aspirations",
-    "Society",
-  ];
-
   useEffect(() => {
-    console.log('in use effect! user id is:', user.id);
     dispatch({
       type: "FETCH_QUESTIONS"
     })
@@ -57,8 +43,11 @@ function LandingPage() {
           justifyContent: "space-evenly",
         }}
       >
-        {categories.map((category, i) => (
-          <CategoryCard key={i} category={category} />
+        {questionsList.map(questionCategory => (
+          <CategoryCard 
+            key={questionCategory.category_data.categoryId} 
+            questionCategory={questionCategory} 
+          />
         ))}
       </Box>
     </div>

@@ -10,8 +10,16 @@ import { CardActionArea } from "@mui/material";
 
 // CUSTOM COMPONENTS
 
-function CategoryCard({ category }) {
+function CategoryCard({ questionCategory }) {
   const history = useHistory();
+  const categoryName = questionCategory.category_data.categoryName;
+  const questionData = questionCategory.question_data
+
+  // console.log('in CategoryCard: questionCategory is:', questionCategory);
+
+  const handleClickCategory = () => {
+  console.log(`${categoryName} clicked! questions are:`, questionData);  
+  }
 
   const bubbleContainerStyling = {
     width: "150px",
@@ -25,7 +33,10 @@ function CategoryCard({ category }) {
   return (
     <>
       <Card sx={bubbleContainerStyling}>
-        <CardActionArea sx={{ height: "100%" }}>
+        <CardActionArea 
+          sx={{ height: "100%" }}
+          onClick={handleClickCategory}
+        >
           <CardContent>
             <Typography
               gutterBottom
@@ -33,7 +44,7 @@ function CategoryCard({ category }) {
               component="div"
               sx={{ textAlign: "center", m: 0 }}
             >
-              {category}
+              {categoryName}
             </Typography>
           </CardContent>
         </CardActionArea>
