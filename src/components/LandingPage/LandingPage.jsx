@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./LandingPage.css";
-import CategoryCard from "../CategoryCard/CategoryCard";
+import CategoryCard from "../CategoryBubble/CategoryBubble";
 import { useDispatch, useSelector } from "react-redux";
 
 
 // CUSTOM COMPONENTS
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
+import RandomQuestion from "../RandomAllBubble/RandomAllBubble";
 
 
 
@@ -36,6 +37,7 @@ function LandingPage() {
       >
         Select a Category!
       </Typography>
+      <RandomQuestion />
       <Box
         sx={{
           display: "flex",
