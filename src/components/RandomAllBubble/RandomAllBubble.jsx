@@ -6,22 +6,30 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { CardActionArea, colors } from "@mui/material";
-import {createCategoryList, otherTestFunction} from '../../utils/utils'
-import helpers from "../../utils/utils";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Button from "@mui/material/Button";
 
 // CUSTOM COMPONENTS
+import QuestionCard from "../QuestionCard/QuestionCard";
+import { createCategoryList, otherTestFunction } from "../../utils/utils";
 
-function RandomQuestion() {
+function RandomAllBubble() {
   // questionList from store, sorted by category by objects {category_data, question_data}
   const questionsList = useSelector(store => store.questions);
-  
+
   // create list of all all questions with category data attached to each question
-  const allQuestions = createCategoryList(questionsList)
+  const categoryList = createCategoryList(questionsList);
 
+  // QuestionCard Modal control
+  const [open, setOpen] = useState(false);
 
+  const handleOpenCategory = () => {
+    setOpen(true);
+  };
 
-  const selectRandomQuestion = () => {
-    console.log(allQuestions);
+  const handleCloseCategory = () => {
+    setOpen(false);
   };
 
   // styling for "random all" button
@@ -37,7 +45,7 @@ function RandomQuestion() {
   return (
     <>
       <Card sx={bubbleContainerStyling} id="randomAllQuestions">
-        <CardActionArea sx={{ height: "100%" }} onClick={selectRandomQuestion}>
+        <CardActionArea sx={{ height: "100%" }} onClick={handleOpenCategory}>
           <CardContent>
             <Typography
               gutterBottom
@@ -50,8 +58,18 @@ function RandomQuestion() {
           </CardContent>
         </CardActionArea>
       </Card>
+      <>
+        <Modal
+          open={open}
+          onClose={handleCloseCategory}
+          aria-labelledby="parent-modal-title"
+          aria-describedby="parent-modal-description"
+        >
+          <QuestionCard handleCloseCategory={handleCloseCategory} categoryList={categoryList}/>
+        </Modal>
+      </>
     </>
   );
 }
 
-export default RandomQuestion;
+export default RandomAllBubble;

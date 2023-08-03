@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 // CUSTOM COMPONENTS
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
-import RandomQuestion from "../RandomAllBubble/RandomAllBubble";
+import RandomAllBubble from "../RandomAllBubble/RandomAllBubble";
 
 
 
@@ -19,7 +19,7 @@ function LandingPage() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-
+  // grabs question data and fill bubbles!
   useEffect(() => {
     dispatch({
       type: "FETCH_QUESTIONS"
@@ -37,7 +37,7 @@ function LandingPage() {
       >
         Select a Category!
       </Typography>
-      <RandomQuestion />
+      <RandomAllBubble />
       <Box
         sx={{
           display: "flex",
