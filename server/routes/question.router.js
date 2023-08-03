@@ -2,12 +2,11 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
- * GET route template
- */
+// get questions from server
 router.get('/all', (req, res) => {
+  // grab user id
   const userId = req?.user?.id;
-  console.log('req.user.id is:', req?.user?.id);
+  // console.log('req.user.id is:', req?.user?.id);
 
 
   // grab items by category with all the sub questions
@@ -23,7 +22,7 @@ router.get('/all', (req, res) => {
           'questionId', questions.id, 
           'questionText', question, 
           'userAddedId', questions.user_added_id,
-          'isfavorited', user_favorited.user_id
+          'isFavorited', user_favorited.user_id
         )
       ) AS question_data
     FROM categories
@@ -88,22 +87,19 @@ router.get('/all', (req, res) => {
       });
   }
 
-
-
-
-
-
-
-
-
-
 });
 
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-  // POST route code here
+
+
+
+// TODO - user post new question, add user auth
+router.post('/favorite', (req, res) => {
+
+  // grab user id
+  const userId = req?.user?.id;
+
+
+
 });
 
 module.exports = router;
