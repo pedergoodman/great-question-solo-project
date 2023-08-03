@@ -14,6 +14,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Favorite } from "@mui/icons-material";
 import RedoIcon from "@mui/icons-material/Redo";
 import UndoIcon from "@mui/icons-material/Undo";
+import { useDispatch } from "react-redux";
 
 const style = {
   position: "absolute",
@@ -34,7 +35,9 @@ export default function QuestionCard({
   categoryList,
   selectedQuestion,
 }) {
-  const [isFavorited, setIsFavorited] = useState(true);
+// managing data state
+  const dispatch = useDispatch()
+  
   const [currentQuestion, setCurrentQuestion] = useState("");
   // const [questionHistory, setQuestionHistory] = useState([]);
 
@@ -55,15 +58,31 @@ export default function QuestionCard({
     return categoryList[randomIndex];
   }
 
+  // eventually will go to a new page!!
   const handleNewJournalBtn = () => {
     console.log("New Journal Button Clicked!");
     console.log("This will take you to a new page 📓");
   };
 
   const handleToggleFavorite = () => {
-    console.log("Favorite clicked!");
-    console.log("isFavorited is:", isFavorited);
-    setIsFavorited(!isFavorited);
+    // check if currentQuestion.isFavorited is true or not
+    if (currentQuestion.isFavorited) {
+      // if it is true send dispatch 
+      console.log('isFavorited is true! This would dispatch a "DELETE from favorites" route');
+      dispatch({
+        type: 'REMOVE_FAVORITE',
+        payload: currentQuestion.questionId
+      })
+    } else {
+      console.log('isFavorited is false! This would dispatch a "POST to favorites" route');
+
+      dispatch({
+        type: 'ADD_FAVORITE',
+        payload: currentQuestion.questionId
+      })
+
+    }
+
   };
 
   const handleNewQuestion = () => {
@@ -117,7 +136,7 @@ export default function QuestionCard({
         </div>
         <div id="question-modal-lower-btn-bar">
           <Button variant="contained" onClick={handleToggleFavorite}>
-            {isFavorited ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+            {currentQuestion.isFavorited ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </Button>
           <Button
             variant="contained"
