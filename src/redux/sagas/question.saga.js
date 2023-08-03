@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 
 
-function* fetchQuestions(action){
+function* fetchQuestions(action) {
   // const userId = action.payload
   // console.log('in question saga, payload is:', action.payload);
   try {
@@ -19,16 +19,7 @@ function* fetchQuestions(action){
     console.log('Error getting questions List', error);
   }
 
-
-
-
-}
-
-
-
-
-
-
+} // end fetchQuestions
 
 
 
