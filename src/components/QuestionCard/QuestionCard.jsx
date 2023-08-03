@@ -1,7 +1,6 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./QuestionCard.css";
-
 
 // MUI
 import Box from "@mui/material/Box";
@@ -13,7 +12,8 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Favorite } from "@mui/icons-material";
-
+import RedoIcon from "@mui/icons-material/Redo";
+import UndoIcon from "@mui/icons-material/Undo";
 
 const style = {
   position: "absolute",
@@ -29,12 +29,31 @@ const style = {
   pb: 3,
 };
 
+export default function QuestionCard({
+  handleCloseCategory,
+  categoryList,
+  selectedQuestion,
+}) {
+  const [isFavorited, setIsFavorited] = useState(true);
+  const [currentQuestion, setCurrentQuestion] = useState("");
+  // const [questionHistory, setQuestionHistory] = useState([]);
 
+  useEffect(() => {
+    // selected question would be passed from the profile page,
+    // it isn't always expected, but if received needs to display first
+    if (selectedQuestion) {
+      setCurrentQuestion(selectedQuestion);
+    } else {
+      setCurrentQuestion(getRandomQuestion(categoryList));
+    }
+  }, []);
 
-export default function QuestionCard({ handleCloseCategory, categoryList}) {
-  const [isFavorited, setIsFavorited] = useState(true)
-  
-
+  function getRandomQuestion(categoryList) {
+    // get random index
+    const randomIndex = Math.floor(Math.random() * categoryList.length);
+    // return random index in categoryList
+    return categoryList[randomIndex];
+  }
 
   const handleNewJournalBtn = () => {
     console.log("New Journal Button Clicked!");
@@ -44,39 +63,57 @@ export default function QuestionCard({ handleCloseCategory, categoryList}) {
   const handleToggleFavorite = () => {
     console.log("Favorite clicked!");
     console.log("isFavorited is:", isFavorited);
-    setIsFavorited(!isFavorited)
+    setIsFavorited(!isFavorited);
   };
 
-
   const handleNewQuestion = () => {
-    console.log('a new question will appear here!!!');
-    console.log('the question set is:');
-    console.log(categoryList);
+    // setQuestionHistory([...questionHistory, currentQuestion]);
+    // console.log(questionHistory);
+    setCurrentQuestion(getRandomQuestion(categoryList));
+  };
+
+  /*   
+  const handleUndo = () => {
+    
   }
 
+  const handleRedo = () => {
+    
+  } 
+  */
 
   return (
     <>
       <Box sx={{ ...style, width: 600 }}>
         <div id="question-modal-top-row">
-          <p>category</p>
+          <p>{categoryList[0].categoryName}</p>
           <Button variant="contained" onClick={handleCloseCategory}>
             <ClearIcon />
           </Button>
         </div>
         <div id="question-modal-main-text">
-          <h2 id="parent-modal-title">
-            Would you take it if you had the opportunity to be immortal?
-          </h2>
+          <h2 id="parent-modal-title">{currentQuestion.questionText}</h2>
         </div>
         <div id="question-modal-refresh-button">
-          <Button 
+          {/* <Button 
+            variant="contained"
+            onClick={handleUndo}
+          >
+            <UndoIcon />
+          </Button> */}
+          <Button
             variant="contained"
             endIcon={<RefreshIcon />}
             onClick={handleNewQuestion}
           >
             New Question
           </Button>
+          {/* <Button 
+            variant="contained"
+            onClick={handleRedo}
+          >
+            <RedoIcon />
+          </Button> */}
         </div>
         <div id="question-modal-lower-btn-bar">
           <Button variant="contained" onClick={handleToggleFavorite}>
