@@ -1,0 +1,20 @@
+#question-modal-top-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+#question-modal-main-text {
+  display: flex;
+}
+
+#question-modal-refresh-button {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+}
+
+#question-modal-lower-btn-bar {
+  display: flex;
+  justify-content: space-between;
+}
