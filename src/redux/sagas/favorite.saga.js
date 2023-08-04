@@ -5,33 +5,43 @@ import { useSelector } from 'react-redux';
 
 
 
-
+// ADD a favorited question from the user_favorited table
 function* addFavorite(action) {
-  const questionID = action.payload
-  console.log('in saga, addFavorite, question id is:', questionID);
+  const questionID = {questionID: action.payload}
+  // console.log('in saga, addFavorite, question id is:', questionID);
 
-  // try {
-  //   yield axios.post('/api/questions/favorite', )
-  // } catch (error) {
-  //   console.log('Error getting questions List', error);
-  // }
+  try {
+    yield axios.post('/api/favorite', questionID)
+    yield put({
+      type: 'FETCH_QUESTIONS'
+    })
+
+    
+  } catch (error) {
+    console.log('Error ADDING question to favs', error);
+
+  }
 
 } // end addFavorite
 
 
+
+// REMOVE a favorited question from the user_favorited table
 function* removeFavorite(action) {
   const questionID = action.payload
-  console.log('in saga, removeFavorite, question id is:', questionID);
+  // console.log('in saga, removeFavorite, question id is:', questionID);
 
-  // try {
-  //   yield axios.post(`/api/questions/favorite/:questionId`)
-  // } catch (error) {
-  //   console.log('Error getting questions List', error);
-  // }
+  try {
+    yield axios.delete(`/api/favorite/${questionID}`);
+    yield put({
+      type: 'FETCH_QUESTIONS'
+    })
+
+  } catch (error) {
+    console.log('Error REMOVING question from favs', error);
+  }
 
 } // end addFavorite
-
-
 
 
 

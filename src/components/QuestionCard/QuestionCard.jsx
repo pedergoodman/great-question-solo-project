@@ -35,9 +35,9 @@ export default function QuestionCard({
   categoryList,
   selectedQuestion,
 }) {
-// managing data state
-  const dispatch = useDispatch()
-  
+  // managing data state
+  const dispatch = useDispatch();
+
   const [currentQuestion, setCurrentQuestion] = useState("");
   // const [questionHistory, setQuestionHistory] = useState([]);
 
@@ -67,22 +67,20 @@ export default function QuestionCard({
   const handleToggleFavorite = () => {
     // check if currentQuestion.isFavorited is true or not
     if (currentQuestion.isFavorited) {
-      // if it is true send dispatch 
-      console.log('isFavorited is true! This would dispatch a "DELETE from favorites" route');
+      // Sends an update to the DB to remove a favorite
       dispatch({
-        type: 'REMOVE_FAVORITE',
-        payload: currentQuestion.questionId
-      })
+        type: "REMOVE_FAVORITE",
+        payload: currentQuestion.questionId,
+      });
+
+      
     } else {
-      console.log('isFavorited is false! This would dispatch a "POST to favorites" route');
-
+      // Sends an update to the DB to add a favorite
       dispatch({
-        type: 'ADD_FAVORITE',
-        payload: currentQuestion.questionId
-      })
-
+        type: "ADD_FAVORITE",
+        payload: currentQuestion.questionId,
+      });
     }
-
   };
 
   const handleNewQuestion = () => {
@@ -136,7 +134,11 @@ export default function QuestionCard({
         </div>
         <div id="question-modal-lower-btn-bar">
           <Button variant="contained" onClick={handleToggleFavorite}>
-            {currentQuestion.isFavorited ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+            {currentQuestion.isFavorited ? (
+              <FavoriteIcon />
+            ) : (
+              <FavoriteBorderIcon />
+            )}
           </Button>
           <Button
             variant="contained"
