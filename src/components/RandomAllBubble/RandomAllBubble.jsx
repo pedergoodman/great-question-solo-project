@@ -12,8 +12,12 @@ import Button from "@mui/material/Button";
 
 // CUSTOM COMPONENTS
 import QuestionCard from "../QuestionCard/QuestionCard";
-import { createCategoryList, otherTestFunction } from "../../utils/utils";
+import { createCategoryList } from "../../utils/utils";
 
+
+
+// RANDOM ALL BUBBLE
+  // Button to 
 function RandomAllBubble() {
   // questionList from store, sorted by category by objects {category_data, question_data}
   const questionsList = useSelector(store => store.questions);
