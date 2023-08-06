@@ -11,14 +11,16 @@ import { ChevronRight } from "@mui/icons-material";
 // CUSTOM COMPONENTS
 import FavoriteQuestionItem from "../FavoriteQuestionItem/FavoriteQuestionItem";
 
+// Display Category header & collapse list container
 export default function FavoriteCategoryHeader({ questionCategory }) {
-  // question data to display
+  // question List data
   const { question_data, category_data } = questionCategory;
   const categoryName = category_data.categoryName;
 
-  // toggle hide/show individual category list
+  // list view toggle state
   const [open, setOpen] = useState(true);
 
+  // toggle hide/show individual category list
   const toggleCategorySection = () => {
     setOpen(!open);
   };

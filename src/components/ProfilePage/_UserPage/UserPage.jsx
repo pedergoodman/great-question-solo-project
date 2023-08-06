@@ -9,11 +9,8 @@ import { Box } from "@mui/material";
 import JournalContainer from "../JournalView/JournalContainer/JournalContainer";
 import FavoritesContainer from "../FavoritesView/FavoritesContainer/FavoritesContainer";
 
-
 function UserPage() {
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
-  const user = useSelector(store => store.user);
-
+  
   const viewContainerStyle = {
     display: "flex",
     justifyContent: "center",
@@ -21,30 +18,25 @@ function UserPage() {
   };
 
   const favoritesContainerStyle = {
-    padding: '6px',
-    margin: '0 5px',
-    backgroundColor: 'cadetblue',
-    maxWidth: '45%',
-    minWidth: '40%',
-    width: '45%',
-    maxHeight: '675px'
+    padding: "6px",
+    margin: "0 5px",
+    backgroundColor: "cadetblue",
+    maxWidth: "45%",
+    minWidth: "40%",
+    width: "45%",
+    maxHeight: "675px",
   };
 
   const journalContainerStyle = {
-    backgroundColor: 'cadetblue',
-    padding: '8px',
-    maxWidth: '45%',
-    width: '100%',
-    maxHeight: '675px'
+    backgroundColor: "cadetblue",
+    padding: "8px",
+    maxWidth: "45%",
+    width: "100%",
+    maxHeight: "675px",
   };
 
   return (
     <>
-      {/* <div className="container">
-        <h2>Welcome, {user.username}!</h2>
-        <p>Your ID is: {user.id}</p>
-        <LogOutButton className="btn" />
-      </div> */}
       <Box sx={viewContainerStyle}>
         <Box sx={favoritesContainerStyle}>
           <FavoritesContainer />

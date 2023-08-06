@@ -34,6 +34,7 @@ export default function JournalContainer() {
     });
   }, []);
 
+  // styling for favorites list headers
   const listHeaderStyle = {
     width: "100%",
     bgcolor: "background.paper",
@@ -46,6 +47,7 @@ export default function JournalContainer() {
 
   return (
     <List sx={listHeaderStyle} subheader={<li />}>
+      {/* mapping categories and reflated questions to list */}
       {questionsList.map(questionCategory => (
         <li key={questionCategory.category_data.categoryName}>
           <FavoriteCategoryHeader questionCategory={questionCategory} />

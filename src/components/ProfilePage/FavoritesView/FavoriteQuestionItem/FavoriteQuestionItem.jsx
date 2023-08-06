@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import React from "react";
 
 // MUI COMPONENTS
-import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import ListSubheader from "@mui/material/ListSubheader";
-import { Box, Collapse, IconButton, Typography } from "@mui/material";
+import { IconButton } from "@mui/material";
 
 // MUI ICONS
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -22,7 +18,7 @@ export default function FavoriteQuestionItem({ questionItem }) {
     console.log("clicked Fav: id to update:", questionId);
   };
 
-  // TODO - start journal page
+  // TODO - functionality to open journal page and start new journal
   const startJournal = () => {
     console.log("clicked start journal! Question selected is:", questionId);
   };
@@ -31,14 +27,14 @@ export default function FavoriteQuestionItem({ questionItem }) {
     <ListItem>
       <ListItemText primary={questionText} />
       <IconButton
-        aria-label="fingerprint"
+        aria-label="favorite"
         color="secondary"
         onClick={handleClickFavBtn}
       >
         {isFavorited ? <FavoriteIcon /> : <FavoriteBorderIcon />}
       </IconButton>
       <IconButton
-        aria-label="fingerprint"
+        aria-label="start-journal"
         color="secondary"
         onClick={startJournal}
       >
