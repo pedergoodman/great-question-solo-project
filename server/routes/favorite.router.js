@@ -2,13 +2,56 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+// TODO - add auth to all routes
 
+// GET - grabbing logged in user's favorite questions 
+router.get('/:id', (req, res) => {
 
+  const userId = req.params.id;
+  // const userId = req?.user?.id;
 
+  const sqlText = `
+    SELECT
+      json_build_object(
+        'categoryId', categories.id, 
+        'categoryName', category_name
+      ) AS "categoryData",
+      json_agg(
+        json_build_object(
+          'questionId', questions.id, 
+          'questionText', question, 
+          'userAddedId', questions.user_added_id,
+          'isFavorited', user_favorited.user_id
+        )
+      ) AS "questionData"
+    FROM "categories" 
+    JOIN "question_categories" 
+      ON "categories".id = "question_categories"."category_id" 
+    JOIN "questions"
+      ON "question_categories"."question_id" = "questions"."id"
+    JOIN "user_favorited"
+      ON "user_favorited"."question_id" = "questions"."id"	      
+    WHERE 
+      "user_favorited"."user_id" = $1
+    GROUP BY categories.id
+  ;`
+
+  pool.query(sqlText, [userId])
+    .then((result) => {
+      console.log(result.rows);
+      res.send(result.rows)
+    }).catch((err) => {
+      console.log('error ADDING favorite to database', err);
+      res.sendStatus(500)
+    });
+
+});
+
+// POST - link user & question data
 router.post('/', (req, res) => {
 
+  // user id and question id to post
   const questionId = req.body.questionID
-  // grab user id
   const userId = req?.user?.id;
 
 
@@ -17,10 +60,6 @@ router.post('/', (req, res) => {
       "user_favorited" ("question_id", "user_id")
     VALUES
       ($1, $2);`
-
-
-  // console.log('in server favorite POST route');
-  // console.log('questionId is:', questionId, 'userId is:', userId);
 
   pool.query(sqlText, [questionId, userId])
     .then((result) => {
@@ -32,7 +71,7 @@ router.post('/', (req, res) => {
 
 });
 
-
+// DELETE - unlink user & question data
 router.delete('/:question', (req, res) => {
   const questionId = req.params.question
 
@@ -46,7 +85,7 @@ router.delete('/:question', (req, res) => {
   WHERE question_id = $1 AND user_id = $2
   ;`
 
-  
+
 
   // console.log('in server favorite DELETE route');
   // console.log('questionId is:', questionId, 'userId is:', userId);
