@@ -3,9 +3,9 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 // get all base category questions from server
-router.get('/all', (req, res) => {
+router.get('/all/', async (req, res) => {
   const userId = req?.user?.id;
-
+  
   // grab items by category with all the sub questions
   // also grabs user added quetions and user favorited items 
   const loggedInSqlQuery = `
@@ -63,29 +63,24 @@ router.get('/all', (req, res) => {
       user_added_id IS NULL
     GROUP BY categories.id
     ;`
-
-  if (req?.user?.id) {
-    // if a user is logged in send this query
-    pool.query(loggedInSqlQuery, [userId])
-      .then((result) => {
-        res.send(result.rows)
-      }).catch((err) => {
-        console.log('error GETing categories from database', err);
-        res.sendStatus(500)
-      });
-  } else {
-    // if no user is logged in send this query
-    pool.query(noUserSqlQuery)
-      .then((result) => {
-        res.send(result.rows)
-      }).catch((err) => {
-        console.log('error GETing categories from database', err);
-        res.sendStatus(500)
-      });
-  }
-
-
   
+  try {
+    if (req?.user?.id) {
+      // if a user is logged in send this query
+      const result = await pool.query(loggedInSqlQuery, [userId])
+      console.log(result);
+      res.send(result)
+    } else {
+      // if no user is logged in send this query
+      const result = pool.query(noUserSqlQuery)
+      console.log(result);
+      res.send(result)
+    }
+
+  } catch (error) {
+    console.log('error GETing categories from database', error);
+    res.sendStatus(500)
+  }
 
 });
 
