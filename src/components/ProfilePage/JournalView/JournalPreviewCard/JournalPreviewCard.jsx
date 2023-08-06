@@ -1,16 +1,17 @@
 import * as React from "react";
+
+// MUI COMPONENTS
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, Fab, Grid, IconButton } from "@mui/material";
+import { CardActionArea, Fab } from "@mui/material";
+
+// MUI ICONS
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 
 
+// STYLING
 const titleBarStyle = {
   display: "flex",
   justifyContent: "space-between",
@@ -47,9 +48,12 @@ const fabStyle = {
 
 const card = (
   <>
+    {/* TODO - Opens journal editor */}
     <Fab color="primary" aria-label="edit" size="small" sx={fabStyle}>
       <EditIcon />
     </Fab>
+
+    {/* TODO - action area opens to modal view */}
     <CardActionArea>
       <CardContent sx={{ padding: "2px 8px 12px" }}>
         <Box sx={titleBarStyle}>
@@ -84,7 +88,7 @@ const card = (
 export default function JournalPreviewCard() {
   return (
     <Box xs={6} sx={journalCardContainerStyle}>
-        <Card variant="outlined">{card}</Card>
+      <Card variant="outlined">{card}</Card>
     </Box>
   );
 }
