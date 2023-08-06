@@ -2,10 +2,11 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-// get questions from server
-router.get('/all', (req, res) => {
+// get all base category questions from server
+router.get('/all/:id', (req, res) => {
+  // TODO - change back to user
   // grab user id
-  const userId = req?.user?.id;
+  const userId = req?.params?.id;
   // console.log('req.user.id is:', req?.user?.id);
 
 
@@ -89,11 +90,41 @@ router.get('/all', (req, res) => {
 
 });
 
+// GET - grabbing logged-in user added questions 
+router.get('/custom/:id', (req, res) => {
 
+  const userId = req.params.id;
+  // const userId = req?.user?.id;
+
+  const sqlText = `
+  SELECT
+    category_id AS "categoryId",
+    category_name AS "categoryName",
+    question_id AS "questionId", 
+    question AS "questionText"
+  FROM categories 
+  JOIN question_categories 
+    ON categories.id = question_categories.category_id 
+  JOIN questions
+    ON question_categories.question_id = questions.id
+  WHERE
+    user_added_id = $1
+  ;`
+
+  pool.query(sqlText, [userId])
+    .then((result) => {
+      console.log(result.rows);
+      res.send(result.rows)
+    }).catch((err) => {
+      console.log('error ADDING favorite to database', err);
+      res.sendStatus(500)
+    });
+
+});
 
 
 // TODO - user post new question, add user auth
-router.post('/favorite', (req, res) => {
+router.post('/', (req, res) => {
 
   // grab user id
   const userId = req?.user?.id;
