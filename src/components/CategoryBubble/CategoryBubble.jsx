@@ -7,7 +7,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import { createCategoryList } from "../../utils/utils";
+import { createQuestionList } from "../../utils/utils";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
@@ -19,8 +19,8 @@ import QuestionCard from '../QuestionCard/QuestionCard'
 function CategoryCard({ questionCategory }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const categoryName = questionCategory.category_data.categoryName;
-  const questionData = questionCategory.question_data;
+  const categoryName = questionCategory.categoryData.categoryName;
+  const questionData = questionCategory.questionData;
 
   // CategoryBubble styling
   const bubbleContainerStyling = {
@@ -32,7 +32,7 @@ function CategoryCard({ questionCategory }) {
   };
   // console.log('in CategoryCard: questionCategory is:', questionCategory);
 
-  const categoryList = createCategoryList([questionCategory]);
+  const categoryList = createQuestionList([questionCategory]);
   const handleClickCategory = () => {
 
     console.log(`${categoryName} clicked! questions are:`, categoryList);

@@ -49,7 +49,7 @@ export default function JournalContainer() {
     <List sx={listHeaderStyle} subheader={<li />}>
       {/* mapping categories and reflated questions to list */}
       {questionsList.map(questionCategory => (
-        <li key={questionCategory.category_data.categoryName}>
+        <li key={questionCategory.categoryData.categoryName}>
           <FavoriteCategoryHeader questionCategory={questionCategory} />
         </li>
       ))}

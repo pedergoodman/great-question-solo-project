@@ -6,7 +6,7 @@
         'categoryId', categories.id, 
         'categoryName', category_name
       ) 
-      AS category_data,
+      AS "categoryData",
       json_agg(
 			  json_build_object(
           'questionId', questions.id, 
@@ -15,7 +15,7 @@
       	  'isfavorited', user_favorited.user_id
         )
 		  ) 
-      AS question_data
+      AS "questionData"
 FROM categories
 JOIN question_categories 
     ON categories.id = question_categories.category_id

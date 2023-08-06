@@ -47,7 +47,7 @@ function LandingPage() {
       >
         {questionsList.map(questionCategory => (
           <CategoryCard 
-            key={questionCategory.category_data.categoryId} 
+            key={questionCategory.categoryData.categoryId} 
             questionCategory={questionCategory} 
           />
         ))}

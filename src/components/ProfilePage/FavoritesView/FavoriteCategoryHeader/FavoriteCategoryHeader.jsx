@@ -14,8 +14,8 @@ import FavoriteQuestionItem from "../FavoriteQuestionItem/FavoriteQuestionItem";
 // Display Category header & collapse list container
 export default function FavoriteCategoryHeader({ questionCategory }) {
   // question List data
-  const { question_data, category_data } = questionCategory;
-  const categoryName = category_data.categoryName;
+  const { questionData, categoryData } = questionCategory;
+  const categoryName = categoryData.categoryName;
 
   // list view toggle state
   const [open, setOpen] = useState(true);
@@ -41,7 +41,7 @@ export default function FavoriteCategoryHeader({ questionCategory }) {
 
       {/* mapping the sub headers, collapsible */}
       <Collapse in={open} timeout="auto" unmountOnExit>
-        {question_data.map(questionItem => (
+        {questionData.map(questionItem => (
           <FavoriteQuestionItem
             key={`question-${questionItem.questionId}`}
             questionItem={questionItem}

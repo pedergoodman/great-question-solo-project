@@ -72,7 +72,6 @@ export default function QuestionCard({
         type: "REMOVE_FAVORITE",
         payload: currentQuestion.questionId,
       });
-
       
     } else {
       // Sends an update to the DB to add a favorite

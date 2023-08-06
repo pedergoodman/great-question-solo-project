@@ -12,18 +12,21 @@ import Button from "@mui/material/Button";
 
 // CUSTOM COMPONENTS
 import QuestionCard from "../QuestionCard/QuestionCard";
-import { createCategoryList } from "../../utils/utils";
+import { createQuestionList } from "../../utils/utils";
 
 
 
 // RANDOM ALL BUBBLE
   // Button to 
 function RandomAllBubble() {
-  // questionList from store, sorted by category by objects {category_data, question_data}
-  const questionsList = useSelector(store => store.questions);
+  // questionList from store, sorted by category by objects {categoryData, questionData}
+  const allQuestionsList = useSelector(store => store.questions);
 
   // create list of all all questions with category data attached to each question
-  const categoryList = createCategoryList(questionsList);
+  const categoryList = createQuestionList(allQuestionsList);
+
+  console.log('in random bubbule allQuestionsList is:', allQuestionsList );
+
 
   // QuestionCard Modal control
   const [open, setOpen] = useState(false);
