@@ -3,10 +3,10 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 // get all base category questions from server
-router.get('/all/:id', (req, res) => {
+router.get('/all', (req, res) => {
   // TODO - change back to user
   // grab user id
-  const userId = req?.params?.id;
+  const userId = req?.user?.id;
   // console.log('req.user.id is:', req?.user?.id);
 
 
@@ -17,7 +17,8 @@ router.get('/all/:id', (req, res) => {
       json_build_object(
         'categoryId', categories.id, 
         'categoryName', category_name
-      ) AS category_data,
+      ) AS "categoryData",
+      
       json_agg(
         json_build_object(
           'questionId', questions.id, 
@@ -25,7 +26,7 @@ router.get('/all/:id', (req, res) => {
           'userAddedId', questions.user_added_id,
           'isFavorited', user_favorited.user_id
         )
-      ) AS question_data
+      ) AS "questionData"
     FROM categories
     JOIN question_categories 
       ON categories.id = question_categories.category_id
@@ -46,17 +47,17 @@ router.get('/all/:id', (req, res) => {
   // is logged in. 
   const noUserSqlQuery = `
     SELECT 
-    json_build_object(
-      'categoryId', categories.id, 
-      'categoryName', category_name
-    ) AS category_data,
-      
-    json_agg(
       json_build_object(
-        'questionId', questions.id, 
-        'questionText', question 
-      )
-    ) AS question_data
+        'categoryId', categories.id, 
+        'categoryName', category_name
+      ) AS "categoryData",
+        
+      json_agg(
+        json_build_object(
+          'questionId', questions.id, 
+          'questionText', question 
+        )
+      ) AS "questionData"
     
     FROM categories
     JOIN question_categories 
@@ -124,6 +125,7 @@ router.get('/custom/:id', (req, res) => {
 
 
 // TODO - user post new question, add user auth
+  // 
 router.post('/', (req, res) => {
 
   // grab user id
