@@ -1,48 +1,50 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import React, { useState } from "react";
 
 // MUI COMPONENTS
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import { Box, Collapse, IconButton, Typography } from "@mui/material";
 
 // MUI ICONS
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { ChevronRight } from "@mui/icons-material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
 
 // CUSTOM COMPONENTS
-import FavoriteCategoryList from "../FavoriteCategoryList/FavoriteCategoryList";
+import FavoriteQuestionItem from "../FavoriteQuestionItem/FavoriteQuestionItem";
 
 export default function FavoriteCategoryHeader({ questionCategory }) {
-  const [open, setOpen] = useState(true);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
+  // question data to display
   const { question_data, category_data } = questionCategory;
   const categoryName = category_data.categoryName;
 
+  // toggle hide/show individual category list
+  const [open, setOpen] = useState(true);
+
+  const toggleCategorySection = () => {
+    setOpen(!open);
+  };
+
   return (
     <ul>
+      {/* List header with  */}
       <ListSubheader sx={{ display: "flex", alignItems: "center" }}>
         <IconButton
           aria-label="fingerprint"
           color="secondary"
-          onClick={handleClick}
+          onClick={toggleCategorySection}
         >
           {open ? <ExpandMore /> : <ChevronRight />}
         </IconButton>
         <Typography>{categoryName}</Typography>
       </ListSubheader>
+
+      {/* mapping the sub headers, collapsible */}
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <FavoriteCategoryList question_data={question_data} />
+        {question_data.map(questionItem => (
+          <FavoriteQuestionItem
+            key={`question-${questionItem.questionId}`}
+            questionItem={questionItem}
+          />
+        ))}
       </Collapse>
     </ul>
   );

@@ -19,21 +19,13 @@ import MenuBookIcon from "@mui/icons-material/MenuBook";
 // CUSTOM COMPONENTS
 import FavoriteCategoryHeader from "../FavoriteCategoryHeader/FavoriteCategoryHeader";
 
-
-
-
-
 export default function JournalContainer() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-
-
   // need to replace this with favories but the full list is nice so i have more data to view
   const questionsList = useSelector(store => store.questions);
   console.log("in profile questionsList is:", questionsList);
-
-  
 
   // grabs question data and fill bubbles!
   useEffect(() => {
@@ -42,33 +34,23 @@ export default function JournalContainer() {
     });
   }, []);
 
-const listHeaderStyle = {
-  width: "100%",
-  bgcolor: "background.paper",
-  position: "relative",
-  overflow: "auto",
-  maxHeight: "675px",
-  paddingBottom: 0,
-  "& ul": { padding: 0 },
-}
+  const listHeaderStyle = {
+    width: "100%",
+    bgcolor: "background.paper",
+    position: "relative",
+    overflow: "auto",
+    maxHeight: "675px",
+    paddingBottom: 0,
+    "& ul": { padding: 0 },
+  };
 
   return (
-    <List sx={listHeaderStyle} subheader={<li />} >
-
-      {/* maping the header -- TODO - REPLACE with question data */}
-      {/* {[0, 1, 2, 3, 4, 5].map(sectionId => (
-        <li key={`section-${sectionId}`}>
-          <FavoriteCategoryHeader sectionId={sectionId}/>
+    <List sx={listHeaderStyle} subheader={<li />}>
+      {questionsList.map(questionCategory => (
+        <li key={questionCategory.category_data.categoryName}>
+          <FavoriteCategoryHeader questionCategory={questionCategory} />
         </li>
-      ))} */}
-
-{questionsList.map(questionCategory => (
-  <li key={questionCategory.category_data.categoryName}>
-  <FavoriteCategoryHeader questionCategory={questionCategory}/>
-</li>
-))}
-
+      ))}
     </List>
   );
 }
-
