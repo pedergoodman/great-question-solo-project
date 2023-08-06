@@ -5,56 +5,88 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import { CardActionArea, Fab, Grid, IconButton } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
+
+const titleBarStyle = {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+};
+
+const subTitleStyle = {
+  display: "flex",
+  WebkitAlignItems: "center",
+  WebkitBoxAlign: "center",
+  MsFlexAlign: "center",
+  alignItems: "center",
+  justifyContent: "space-between",
+  width: "50%",
+  marginLeft: "8px",
+};
+
+const journalCardContainerStyle = {
+  width: "100%",
+  maxHeight: "675px",
+  backgroundColor: "transparent",
+  position: "relative",
+  overflowY: "scroll",
+  flexBasis: "calc(50% + -5px)",
+  padding: "0 0 0 0",
+};
+
+
+const fabStyle = {
+  scale: '65%',
+  position: 'absolute',
+  top: 0,
+  right: 0,
+
+}
 
 const card = (
-  <React.Fragment>
-          <CardActionArea>
-    <CardContent>
-      <Typography
-        sx={{ fontSize: 14 }}
-        color="text.secondary"
-        gutterBottom
-      ></Typography>
-      <Typography variant="h5" component="div">
-        be{bull}nev{bull}o{bull}lent
-      </Typography>
-      <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        adjective
-      </Typography>
-      <Typography variant="body2">
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
-      </Typography>
-    </CardContent>
-    <CardActions>
-      <Button size="small">Learn More</Button>
-    </CardActions>
+  <>
+      <Fab color="primary" aria-label="edit" size="small" sx={fabStyle}>
+      <EditIcon />
+      </Fab>
+    <CardActionArea >
+      <CardContent sx={{ padding: "2px 8px 12px" }}>
+        <Box sx={titleBarStyle}>
+          <Typography variant="h5" component="div">
+            Title Goes Here
+          </Typography>
+        </Box>
+        <Box component="span" sx={subTitleStyle}>
+          <Typography sx={{ m: "-8px 0 10px 7px" }} color="text.secondary">
+            category
+          </Typography>
+          <Typography sx={{ m: "-8px 0 10px 7px" }} color="text.secondary">
+            8.23.23
+          </Typography>
+        </Box>
+        <Typography variant="body2">
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only
+          five centuries, but also the leap into electronic typesetting,
+          remaining essentially unchanged. It was popularised in the 1960s with
+          the release of Letraset sheets containing Lorem Ipsum passages, and
+          more recently with desktop publishing software like Aldus PageMaker
+          including versions of Lorem Ipsum.
+        </Typography>
+      </CardContent>
     </CardActionArea>
-  </React.Fragment>
+  </>
 );
 
 export default function JournalPreviewCard() {
   return (
-    <Box sx={{ minWidth: 275, margin: '5px', margin: '8px 0' }}>
+    <Grid xs={6} sx={journalCardContainerStyle}>
       <Card variant="outlined">{card}</Card>
-    </Box>
+    </Grid>
   );
 }

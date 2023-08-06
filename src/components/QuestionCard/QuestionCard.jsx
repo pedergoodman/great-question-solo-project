@@ -5,7 +5,7 @@ import "./QuestionCard.css";
 // MUI
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { Icon, Modal } from "@mui/material";
+import { Icon, IconButton, Modal } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import RefreshIcon from "@mui/icons-material/Refresh";

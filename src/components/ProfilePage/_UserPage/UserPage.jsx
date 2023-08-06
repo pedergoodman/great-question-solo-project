@@ -16,13 +16,13 @@ function UserPage() {
   const viewContainerStyle = {
     display: "flex",
     justifyContent: "center",
-    padding: "0 16px",
+    padding: "0 px",
   };
 
   const favoritesContainerStyle = {
-    padding: '10px',
+    padding: '6px',
     margin: '0 5px',
-    backgroundColor: 'red',
+    backgroundColor: 'cadetblue',
     maxWidth: '45%',
     minWidth: '40%',
     width: '45%',
@@ -31,7 +31,7 @@ function UserPage() {
 
   const journalContainerStyle = {
     backgroundColor: 'cadetblue',
-    padding: '10px',
+    padding: '6px',
     maxWidth: '45%',
     width: '100%',
     maxHeight: '675px'
