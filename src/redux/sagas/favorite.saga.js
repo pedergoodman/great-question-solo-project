@@ -3,8 +3,6 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 
 
-
-
 // ADD a favorited question from the user_favorited table
 function* addFavorite(action) {
   const questionID = {questionID: action.payload}
@@ -24,8 +22,6 @@ function* addFavorite(action) {
 
 } // end addFavorite
 
-
-
 // REMOVE a favorited question from the user_favorited table
 function* removeFavorite(action) {
   const questionID = action.payload
@@ -42,9 +38,6 @@ function* removeFavorite(action) {
   }
 
 } // end addFavorite
-
-
-
 
 
 function* favoriteSaga() {
