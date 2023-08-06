@@ -2,11 +2,12 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-// GET user journals
-router.get('/:id', (req, res) => {
 
-  const userId = req.params.id;
-  // const userId = req?.user?.id;
+
+// GET all user journals
+router.get('/', (req, res) => {
+
+  const userId = req?.user?.id;
 
   const sqlText = `
     SELECT 
@@ -38,11 +39,8 @@ router.get('/:id', (req, res) => {
       console.log('error ADDING favorite to database', err);
       res.sendStatus(500)
     });
-
-
-
-
 });
+
 
 /**
  * POST route template

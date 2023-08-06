@@ -4,11 +4,7 @@ const router = express.Router();
 
 // get all base category questions from server
 router.get('/all', (req, res) => {
-  // TODO - change back to user
-  // grab user id
   const userId = req?.user?.id;
-  // console.log('req.user.id is:', req?.user?.id);
-
 
   // grab items by category with all the sub questions
   // also grabs user added quetions and user favorited items 
@@ -41,7 +37,6 @@ router.get('/all', (req, res) => {
       categories.id,
       category_name
     ;`
-
 
   // grab the base set of questions for the home page if no user 
   // is logged in. 
@@ -89,13 +84,14 @@ router.get('/all', (req, res) => {
       });
   }
 
+
+  
+
 });
 
 // GET - grabbing logged-in user added questions 
-router.get('/custom/:id', (req, res) => {
-
-  const userId = req.params.id;
-  // const userId = req?.user?.id;
+router.get('/custom/', (req, res) => {
+  const userId = req?.user?.id;
 
   const sqlText = `
   SELECT
@@ -127,8 +123,6 @@ router.get('/custom/:id', (req, res) => {
 // TODO - user post new question, add user auth
   // 
 router.post('/', (req, res) => {
-
-  // grab user id
   const userId = req?.user?.id;
 
 

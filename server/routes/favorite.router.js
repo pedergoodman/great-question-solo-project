@@ -5,10 +5,8 @@ const router = express.Router();
 // TODO - add auth to all routes
 
 // GET - grabbing logged in user's favorite questions 
-router.get('/:id', (req, res) => {
-
-  const userId = req.params.id;
-  // const userId = req?.user?.id;
+router.get('/', (req, res) => {
+  const userId = req?.user?.id;
 
   const sqlText = `
     SELECT
@@ -49,11 +47,9 @@ router.get('/:id', (req, res) => {
 
 // POST - link user & question data
 router.post('/', (req, res) => {
-
   // user id and question id to post
   const questionId = req.body.questionID
   const userId = req?.user?.id;
-
 
   const sqlText = `
     INSERT INTO
@@ -68,7 +64,6 @@ router.post('/', (req, res) => {
       console.log('error ADDING favorite to database', err);
       res.sendStatus(500)
     });
-
 });
 
 // DELETE - unlink user & question data
@@ -85,11 +80,6 @@ router.delete('/:question', (req, res) => {
   WHERE question_id = $1 AND user_id = $2
   ;`
 
-
-
-  // console.log('in server favorite DELETE route');
-  // console.log('questionId is:', questionId, 'userId is:', userId);
-
   pool.query(sqlText, [questionId, userId])
     .then((result) => {
       res.sendStatus(200)
@@ -97,8 +87,6 @@ router.delete('/:question', (req, res) => {
       console.log('error REMOVING favorite from database', err);
       res.sendStatus(500)
     });
-
-
 });
 
 module.exports = router;
