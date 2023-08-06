@@ -95,7 +95,7 @@ export default function JournalContainer() {
             </Collapse>
           </ul>
 
-          
+
         </li>
       ))}
     </List>
