@@ -6,8 +6,9 @@ import { useSelector } from "react-redux";
 import { Box } from "@mui/material";
 
 // CUSTOM COMPONENTS
-import JournalContainer from "../JournalContainer/JournalContainer";
-import FavoritesContainer from "../FavoritesContainer/FavoritesContainer";
+import JournalContainer from "../JournalView/JournalContainer/JournalContainer";
+import FavoritesContainer from "../FavoritesView/FavoritesContainer/FavoritesContainer";
+
 
 function UserPage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
@@ -31,7 +32,7 @@ function UserPage() {
 
   const journalContainerStyle = {
     backgroundColor: 'cadetblue',
-    padding: '6px',
+    padding: '8px',
     maxWidth: '45%',
     width: '100%',
     maxHeight: '675px'

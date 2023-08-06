@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea, Fab, Grid, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 
 
 const titleBarStyle = {
@@ -38,21 +38,19 @@ const journalCardContainerStyle = {
   padding: "0 0 0 0",
 };
 
-
 const fabStyle = {
-  scale: '65%',
-  position: 'absolute',
+  scale: "65%",
+  position: "absolute",
   top: 0,
   right: 0,
-
-}
+};
 
 const card = (
   <>
-      <Fab color="primary" aria-label="edit" size="small" sx={fabStyle}>
+    <Fab color="primary" aria-label="edit" size="small" sx={fabStyle}>
       <EditIcon />
-      </Fab>
-    <CardActionArea >
+    </Fab>
+    <CardActionArea>
       <CardContent sx={{ padding: "2px 8px 12px" }}>
         <Box sx={titleBarStyle}>
           <Typography variant="h5" component="div">
@@ -85,8 +83,8 @@ const card = (
 
 export default function JournalPreviewCard() {
   return (
-    <Grid xs={6} sx={journalCardContainerStyle}>
-      <Card variant="outlined">{card}</Card>
-    </Grid>
+    <Box xs={6} sx={journalCardContainerStyle}>
+        <Card variant="outlined">{card}</Card>
+    </Box>
   );
 }

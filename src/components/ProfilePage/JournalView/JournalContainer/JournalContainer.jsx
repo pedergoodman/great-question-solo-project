@@ -19,7 +19,7 @@ export default function FavoritesContainer() {
           overflow: "auto",
           maxHeight: "675px",
           backgroundColor: 'transparent',
-          flexBasis: 'calc(50% + -5px)',
+          flexBasis: 'calc(50% + -4px)',
           WebkitFlexBasis: 'calc(50% - 4px)',
           justifyContent: 'space-between',
           
