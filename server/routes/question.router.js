@@ -68,13 +68,13 @@ router.get('/all/', async (req, res) => {
     if (req?.user?.id) {
       // if a user is logged in send this query
       const result = await pool.query(loggedInSqlQuery, [userId])
-      console.log(result);
-      res.send(result)
+      // console.log(result.rows);
+      res.send(result.rows)
     } else {
       // if no user is logged in send this query
       const result = pool.query(noUserSqlQuery)
-      console.log(result);
-      res.send(result)
+      // console.log(result);
+      res.send(result.rows)
     }
 
   } catch (error) {
@@ -85,7 +85,7 @@ router.get('/all/', async (req, res) => {
 });
 
 // GET - grabbing logged-in user added questions 
-router.get('/custom/', (req, res) => {
+router.get('/custom', (req, res) => {
   const userId = req?.user?.id;
 
   const sqlText = `
