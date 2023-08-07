@@ -20,12 +20,16 @@ import { createQuestionList } from "../../utils/utils";
   // Button to 
 function RandomAllBubble() {
   // questionList from store, sorted by category by objects {categoryData, questionData}
-  const allQuestionsList = useSelector(store => store.allQuestions);
+  const {
+    allQuestions, 
+    favoriteQuestions, 
+    customQuestions
+  } = useSelector(store => store.questions)
 
   // create list of all all questions with category data attached to each question
-  const categoryList = createQuestionList(allQuestionsList);
+  const categoryList = createQuestionList(allQuestions);
 
-  console.log('in random bubbule allQuestionsList is:', allQuestionsList );
+  console.log('in random bubbule allQuestionsList is:', allQuestions);
 
 
   // QuestionCard Modal control

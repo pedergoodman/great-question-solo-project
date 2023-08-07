@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import "./LandingPage.css";
 import CategoryCard from "../CategoryBubble/CategoryBubble";
 import { useDispatch, useSelector } from "react-redux";
+// import { createQuestionList, createCategoryListItem } from "../../utils/utils";
+import { createQuestionList, createCategoryListItem } from "../../utils/utils";
 
 
 // CUSTOM COMPONENTS
@@ -14,14 +16,22 @@ import RandomAllBubble from "../RandomAllBubble/RandomAllBubble";
 
 
 function LandingPage() {
-  const user = useSelector(store => store.user)
-  const questionsList = useSelector(store => store.allQuestions)
   const history = useHistory();
   const dispatch = useDispatch();
+  
+  // bring data in from store
+  const user = useSelector(store => store.user)
+  const {
+    allQuestions, 
+    favoriteQuestions, 
+    customQuestions
+  } = useSelector(store => store.questions)
 
-  // console.log('in Landing page questionsList is:', questionsList);
+  console.log('allQuestions is', allQuestions);
 
-  // grabs question data and fill bubbles!
+
+
+  // grabs question data and user specific data to fill bubbles!
   useEffect(() => {
     dispatch({
       type: "FETCH_QUESTIONS"
@@ -47,7 +57,7 @@ function LandingPage() {
           justifyContent: "space-evenly",
         }}
       >
-        {questionsList.map(questionCategory => (
+        {allQuestions?.map(questionCategory => (
           <CategoryCard 
             key={questionCategory.categoryData.categoryId} 
             questionCategory={questionCategory} 
