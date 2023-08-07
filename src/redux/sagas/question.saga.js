@@ -8,51 +8,51 @@ function* fetchQuestions(action) {
   // console.log('in question saga, payload is:', action.payload);
   try {
     // allQuestions comes in as an array of category objects
-    const allQuestionsList = yield axios.get(`/api/questions/all`)
+    const allQuestionsResult = yield axios.get(`/api/questions/all`)
     // favoriteQuestions comes in as an array of category objects 
-    const favoriteQuestionsList = yield axios.get(`/api/favorite`)
+    const favoriteQuestionsResult = yield axios.get(`/api/favorite`)
     // customQuestions comes in as an array of question objects
-    const customQuestionsList = yield axios.get(`/api/questions/custom`)
+    const customQuestionsResult = yield axios.get(`/api/questions/custom`)
 
-    // checking data 
-    console.log('allQuestionsList data is:', allQuestionsList.data);
-    console.log('favoriteQuestionsList data is:', favoriteQuestionsList.data);
-    console.log('customQuestionsList data is:', customQuestionsList.data);
+    // query results to variables
+    let allCategoriesList = allQuestionsResult.data
+    let favoriteCategoryList = favoriteQuestionsResult.data
+    let customQuestionsList = customQuestionsResult.data
 
+    console.log('allCategoriesList data is:', allCategoriesList);
+    console.log('favoriteQuestionsList data is:', favoriteCategoryList);
+    console.log('customQuestionsList data is:', customQuestionsList);
 
-    // TODO - convert fav questions to question object
-    const favAsList = createQuestionList(favoriteQuestionsList.data)
-
-    console.log('favAsList is converted', favAsList);
-
-
-
-    // TODO - convert fav questions to category object
-    // no id, categoryName = Favorites 
-    console.log('createCategoryListItem favAsList result:', createCategoryListItem(favAsList, 'Favorites'));
-    // TODO append to allQuestionsList
+    // convert fav questions to "question object"
+    const favAsQuestionList = createQuestionList(favoriteCategoryList)
+    console.log('favAsList is converted', favAsQuestionList);
 
 
-    // TODO - convert custom questions to category object
-    console.log('createCategoryListItem customQuestionsList result:', createCategoryListItem(customQuestionsList, 'Custom Questions'));
-    // no id, categoryName = Custom Questions
-    // TODO append to allQuestionsList
-    // TODO append to favoriteQuestionsList
+    // convert fav and custom questions to "category object"
+    const favAsCategory = createCategoryListItem(favAsQuestionList, 'Favorites');
+    const customAsCategory = createCategoryListItem(customQuestionsList, 'Custom Questions')
 
-    // TODO - send allQuestionsList package
+    console.log('favAsCategory is:', favAsCategory);
+    console.log('customAsCategory is:', customAsCategory);
+
+    
+    // add to allQuestionsList
+    allCategoriesList.push(favAsCategory)
+    allCategoriesList.push(customAsCategory)
+    console.log('NEW allCategoriesList data is:', allCategoriesList);
+
+
+    // send allQuestionsList to reducer 
     yield put({
       type: 'SET_QUESTION_LIST',
-      payload: allQuestionsList.data
+      payload: allCategoriesList
     })
 
-    // TODO - send favoriteQuestionsList package
+    // // TODO - send favoriteQuestionsList package
     yield put({
       type: 'SET_FAVORITES_LIST',
-      payload: favoriteQuestionsList.data
+      payload: favoriteCategoryList
     })
-
-
-
 
   } catch (error) {
     console.log('Error getting questions List', error);
