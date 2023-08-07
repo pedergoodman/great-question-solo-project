@@ -1,12 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { createCategoryListItem } from "../../../../utils/utils";
 
 // MUI COMPONENTS
 import List from "@mui/material/List";
 // CUSTOM COMPONENTS
 import FavoriteCategoryHeader from "../FavoriteCategoryHeader/FavoriteCategoryHeader";
-
 
 const listHeaderStyle = {
   width: "100%",
@@ -18,20 +18,36 @@ const listHeaderStyle = {
   "& ul": { padding: 0 },
 };
 
+// JOURNAL CONTAINER
 export default function JournalContainer() {
+  const { favoriteQuestions, customQuestions } = useSelector(
+    store => store.questions
+  );
 
-  const favoritesList = useSelector(store => store.favoriteQuestions)
+  // // convert custom list to "category obj" and add to favorites list
+  const customAsCategory = createCategoryListItem(
+    customQuestions,
+    "Custom Questions"
+  );
+  const favoriteListToMap = [...favoriteQuestions, customAsCategory];
+
   // styling for favorites list headers
-  console.log('favoritesList is', favoritesList);
+  // console.group('Figuring out favs display');
+  // console.log("favoritesList is:", favoriteQuestions);
+  // console.log("customQuestions is:", customQuestions);
+  // console.log("customAsCategory is:", customAsCategory);
+  // console.log("favoriteListToMap is:", favoriteListToMap);
+  // console.groupEnd()
 
   return (
     <List sx={listHeaderStyle} subheader={<li />}>
       {/* mapping categories and reflated questions to list */}
-      {favoritesList.map(questionCategory => (
+      {favoriteListToMap.map(questionCategory => (
         <li key={questionCategory.categoryData.categoryName}>
           <FavoriteCategoryHeader questionCategory={questionCategory} />
         </li>
       ))}
+      {/* <FavoriteCategoryHeader customAsCategory={customAsCategory} /> */}
     </List>
   );
 }
