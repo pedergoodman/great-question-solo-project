@@ -3,9 +3,9 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 // get all base category questions from server
-router.get('/all/', async (req, res) => {
+router.get('/all', async (req, res) => {
   const userId = req?.user?.id;
-  
+  console.log('in question router userId is:', userId);
   // grab items by category with all the sub questions
   // also grabs user added quetions and user favorited items 
   const loggedInSqlQuery = `
@@ -68,12 +68,10 @@ router.get('/all/', async (req, res) => {
     if (req?.user?.id) {
       // if a user is logged in send this query
       const result = await pool.query(loggedInSqlQuery, [userId])
-      // console.log(result.rows);
       res.send(result.rows)
     } else {
       // if no user is logged in send this query
-      const result = pool.query(noUserSqlQuery)
-      // console.log(result);
+      const result = await pool.query(noUserSqlQuery)
       res.send(result.rows)
     }
 
@@ -105,7 +103,7 @@ router.get('/custom', (req, res) => {
 
   pool.query(sqlText, [userId])
     .then((result) => {
-      console.log(result.rows);
+      // console.log('server side, custom Q get', result.rows);
       res.send(result.rows)
     }).catch((err) => {
       console.log('error ADDING favorite to database', err);
