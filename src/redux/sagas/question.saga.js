@@ -1,8 +1,17 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
-import { createQuestionList, createCategoryListItem } from "../../utils/utils";
 
+
+// condensing these so refresh always grabs both
 function* fetchQuestions(action) {
+  yield put({ type: 'FETCH_GENERAL_QUESTIONS' })
+  yield put({ type: 'FETCH_USER_QUESTIONS' })
+}
+
+
+// grab data for general categories
+// user questions are omitted if user isn't logged in
+function* fetchGeneralQuestions(action) {
   // const userId = action.payload
   // console.log('in question saga, payload is:', action.payload);
   // console.log('isAuthenticated is:', isAuthenticated);
@@ -20,12 +29,6 @@ function* fetchQuestions(action) {
       payload: allCategoriesList
     })
 
-    // put to grab user questions, send allCategories along 
-    // yield put({ 
-    //   type: 'FETCH_USER_QUESTIONS',
-    //   payload: allCategoriesList
-    // })
-
   } catch (error) {
     console.log('Error getting questions List', error);
   }
@@ -38,9 +41,6 @@ function* fetchQuestions(action) {
 function* fetchUserQuestions(action) {
 
   try {
-    
-    // passed allCategoriesList from first axios call
-    let allCategoriesList = action.payload 
     // favoriteQuestions comes in as an array of category objects 
     const favoriteQuestionsResult = yield axios.get(`/api/favorite`)
     // customQuestions comes in as an array of question objects
@@ -50,28 +50,8 @@ function* fetchUserQuestions(action) {
     const favoriteCategoryList = favoriteQuestionsResult.data
     const customQuestionsList = customQuestionsResult.data
 
-    // convert list of custom questions to a "category object"
-    const customAsCategory = createCategoryListItem(customQuestionsList, 'Custom Questions')
 
-    // add to favorites list
-    favoriteCategoryList.push(customAsCategory)
-
-
-    // MOVE TO PAGES TAHT NEED IT. ID LANDING PAGE
-    // // Converting to "category objects"
-    // // convert fav questions to "question object"
-    // const favAsQuestionList = createQuestionList(favoriteCategoryList)
-    // // convert fav and custom questions to "category object"
-    // const favAsCategory = createCategoryListItem(favAsQuestionList, 'Favorites');
-
-    // // add to allQuestionsList
-    //   allCategoriesList.push(favAsCategory)
-    //   allCategoriesList.push(customAsCategory)
-
-    // END ITEMS TO MOVE
-    
-
-    // // TODO - send favoriteQuestionsList package
+    // // send favoriteQuestionsList package
     yield put({
       type: 'SET_FAVORITES_LIST',
       payload: favoriteCategoryList
@@ -83,16 +63,15 @@ function* fetchUserQuestions(action) {
       payload: customQuestionsList
     })
 
-
   } catch (error) {
     console.log('Error getting user questions lists', error);
   }
 } // END fetchUserQuestions
 
 
-
 function* questionSaga() {
   yield takeLatest('FETCH_QUESTIONS', fetchQuestions);
+  yield takeLatest('FETCH_GENERAL_QUESTIONS', fetchGeneralQuestions);
   yield takeLatest('FETCH_USER_QUESTIONS', fetchUserQuestions);
 }
 
