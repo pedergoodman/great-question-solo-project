@@ -21,10 +21,10 @@ function* fetchQuestions(action) {
     })
 
     // put to grab user questions, send allCategories along 
-    yield put({ 
-      type: 'FETCH_USER_QUESTIONS',
-      payload: allCategoriesList
-    })
+    // yield put({ 
+    //   type: 'FETCH_USER_QUESTIONS',
+    //   payload: allCategoriesList
+    // })
 
   } catch (error) {
     console.log('Error getting questions List', error);
@@ -50,26 +50,27 @@ function* fetchUserQuestions(action) {
     const favoriteCategoryList = favoriteQuestionsResult.data
     const customQuestionsList = customQuestionsResult.data
 
-
-    // Converting to "category objects"
-    // convert fav questions to "question object"
-    const favAsQuestionList = createQuestionList(favoriteCategoryList)
-    // convert fav and custom questions to "category object"
-    const favAsCategory = createCategoryListItem(favAsQuestionList, 'Favorites');
+    // convert list of custom questions to a "category object"
     const customAsCategory = createCategoryListItem(customQuestionsList, 'Custom Questions')
 
-
-
-    // add to allQuestionsList
-      allCategoriesList.push(favAsCategory)
-      allCategoriesList.push(customAsCategory)
     // add to favorites list
     favoriteCategoryList.push(customAsCategory)
-    console.group('Inside user question saga')
-      console.log('NEW allCategoriesList data is:', allCategoriesList);
-      console.log('favoriteQuestionsList data is:', favoriteCategoryList);
-      console.log('customQuestionsList data is:', customQuestionsList);
-    console.groupEnd
+
+
+    // MOVE TO PAGES TAHT NEED IT. ID LANDING PAGE
+    // // Converting to "category objects"
+    // // convert fav questions to "question object"
+    // const favAsQuestionList = createQuestionList(favoriteCategoryList)
+    // // convert fav and custom questions to "category object"
+    // const favAsCategory = createCategoryListItem(favAsQuestionList, 'Favorites');
+
+    // // add to allQuestionsList
+    //   allCategoriesList.push(favAsCategory)
+    //   allCategoriesList.push(customAsCategory)
+
+    // END ITEMS TO MOVE
+    
+
     // // TODO - send favoriteQuestionsList package
     yield put({
       type: 'SET_FAVORITES_LIST',
@@ -78,10 +79,9 @@ function* fetchUserQuestions(action) {
 
     // should only get here if a user is logged in. 
     yield put({
-      type: 'SET_QUESTION_LIST',
-      payload: allCategoriesList
+      type: 'SET_CUSTOM_QUESTIONS_LIST',
+      payload: customQuestionsList
     })
-
 
 
   } catch (error) {
