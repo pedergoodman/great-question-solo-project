@@ -39,10 +39,10 @@ function UserPage() {
   // grabs question and journal data
   useEffect(() => {
     dispatch({
-      type: "FETCH_QUESTIONS",
+      type: "FETCH_QUESTIONS"
     });
     dispatch({
-      type: "FETCH_JOURNALS",
+      type: "FETCH_JOURNALS"
     });
   }, []);
 
