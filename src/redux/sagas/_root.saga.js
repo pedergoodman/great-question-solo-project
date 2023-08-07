@@ -20,7 +20,6 @@ export default function* rootSaga() {
     userSaga(),
     questionSaga(),
     journalSaga(),
-    favoriteSaga(),
-    
+    favoriteSaga(),  
   ]);
 }

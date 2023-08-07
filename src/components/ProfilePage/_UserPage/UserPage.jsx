@@ -36,12 +36,17 @@ function UserPage() {
     maxHeight: "675px",
   };
 
-  // grabs question data and fill bubbles!
+  // grabs question and journal data
   useEffect(() => {
     dispatch({
       type: "FETCH_QUESTIONS",
     });
+    dispatch({
+      type: "FETCH_JOURNALS",
+    });
   }, []);
+
+    
 
   return (
     <>

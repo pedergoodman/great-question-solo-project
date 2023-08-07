@@ -34,7 +34,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
   pool.query(sqlText, [userId])
     .then((result) => {
-      console.log(result.rows);
+      // console.log(result.rows);
       res.send(result.rows)
     }).catch((err) => {
       console.log('error ADDING favorite to database', err);

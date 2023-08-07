@@ -1,12 +1,11 @@
 import { combineReducers } from 'redux';
 
 
-const allUserJournals = (state = [], action) => {
+const userJournals = (state = [], action) => {
   switch (action.type) {
     case 'SET_JOURNAL_LIST':
+      console.log('in reducer setting userJournals');
       return action.payload;
-    case '':
-      return {};
     default:
       return state;
   }
@@ -15,7 +14,7 @@ const allUserJournals = (state = [], action) => {
 
 const activeJournal = (state = {title: '', textBody: '', createdDate: '', lastEdited: ''}, action) => {
   switch (action.type) {
-    case '':
+    case 'ON_ACTIVE_JOURNAL_CHANGE':
       return action.payload;
     default:
       return state;
@@ -26,6 +25,6 @@ const activeJournal = (state = {title: '', textBody: '', createdDate: '', lastEd
 // journal will be on the redux state at:
 // state.journal
 export default combineReducers({
-  allUserJournals,
+  userJournals,
   activeJournal
 });
