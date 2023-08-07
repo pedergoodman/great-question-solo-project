@@ -1,4 +1,4 @@
-const questions = (state = [], action) => {
+const allQuestions = (state = [], action) => {
 
   switch (action.type) {
     case 'SET_QUESTION_LIST':
@@ -19,4 +19,4 @@ const questions = (state = [], action) => {
 
 // questions will be on the redux state at:
 // state.questions
-export default questions;
+export default allQuestions;

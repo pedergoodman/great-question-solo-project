@@ -15,7 +15,7 @@ import RandomAllBubble from "../RandomAllBubble/RandomAllBubble";
 
 function LandingPage() {
   const user = useSelector(store => store.user)
-  const questionsList = useSelector(store => store.questions)
+  const questionsList = useSelector(store => store.allQuestions)
   const history = useHistory();
   const dispatch = useDispatch();
 

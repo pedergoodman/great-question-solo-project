@@ -20,7 +20,7 @@ import { createQuestionList } from "../../utils/utils";
   // Button to 
 function RandomAllBubble() {
   // questionList from store, sorted by category by objects {categoryData, questionData}
-  const allQuestionsList = useSelector(store => store.questions);
+  const allQuestionsList = useSelector(store => store.allQuestions);
 
   // create list of all all questions with category data attached to each question
   const categoryList = createQuestionList(allQuestionsList);
