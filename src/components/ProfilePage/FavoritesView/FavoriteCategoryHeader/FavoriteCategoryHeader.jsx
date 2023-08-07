@@ -43,7 +43,7 @@ export default function FavoriteCategoryHeader({ questionCategory }) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         {questionData.map(questionItem => (
           <FavoriteQuestionItem
-            key={`question-${questionItem.questionId}`}
+            key={`${categoryName}-${questionItem.questionId}`}
             questionItem={questionItem}
           />
         ))}

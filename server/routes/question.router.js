@@ -94,13 +94,18 @@ router.get('/custom', rejectUnauthenticated, (req, res) => {
   SELECT
     category_id AS "categoryId",
     category_name AS "categoryName",
-    question_id AS "questionId", 
-    question AS "questionText"
+    questions.id AS "questionId", 
+    question AS "questionText",
+    questions.user_added_id AS "userAddedId",
+    user_favorited.question_id AS "isFavorited"
   FROM categories 
   JOIN question_categories 
     ON categories.id = question_categories.category_id 
   JOIN questions
     ON question_categories.question_id = questions.id
+  LEFT JOIN user_favorited
+    ON user_favorited.question_id = questions.id
+    AND user_favorited.user_id = $1
   WHERE
     user_added_id = $1
   ;`

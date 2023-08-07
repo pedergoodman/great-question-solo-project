@@ -73,12 +73,13 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
     const checkFav = await pool.query(ifFavExists, [questionId, userId])
 
-    if (checkFav.length < 1) {
+    if (checkFav.rows.length < 1) {
       await pool.query(insertFav, [questionId, userId])
-      console.log('in fav, this would add somethign to server');
+      console.log('in fav, this would add somethign to server', checkFav.rows);
       res.sendStatus(200)
     } else {
-      console.log('looks like something is in the DB already!');
+      
+      console.log('looks like something is in the DB already!', checkFav.rows);
       res.sendStatus(200)
     }
 
