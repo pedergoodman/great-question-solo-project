@@ -10,12 +10,12 @@ import { IconButton } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
-
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function FavoriteQuestionItem({ questionItem }) {
   const dispatch = useDispatch();
 
-  const { questionId, questionText, isFavorited } = questionItem;
+  const { questionId, questionText, isFavorited, userAddedId } = questionItem;
 
   // TODO - toggle favorite dispatch
   const handleToggleFavorite = () => {
@@ -27,7 +27,6 @@ export default function FavoriteQuestionItem({ questionItem }) {
         type: "REMOVE_FAVORITE",
         payload: questionId,
       });
-      
     } else {
       // Sends an update to the DB to add a favorite
       dispatch({
@@ -37,16 +36,31 @@ export default function FavoriteQuestionItem({ questionItem }) {
     }
   };
 
-
-
   // TODO - functionality to open journal page and start new journal
   const startJournal = () => {
     console.log("clicked start journal! Question selected is:", questionId);
   };
 
+  const deleteCustomQuestion = () => {
+    console.log('Delete Clicked!, question id is:', questionId);
+
+  }
+
+  // create delete button
+  const deleteButton = (
+    <IconButton
+      aria-label="start-journal"
+      color="secondary"
+      onClick={deleteCustomQuestion}
+    >
+      <DeleteIcon />
+    </IconButton>
+  );
+
   return (
     <ListItem>
       <ListItemText primary={questionText} />
+      {userAddedId ? deleteButton : <></>}
       <IconButton
         aria-label="favorite"
         color="secondary"
