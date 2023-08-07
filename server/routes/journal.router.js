@@ -14,9 +14,9 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     SELECT 
       journals.id AS "journalId",
       journals.title AS "journalTitle",
-      journals.journal_entry AS "JournalBody",
-      journals.created_date AS "CreatedDate",
-      journals.edited_date AS "EditedDate",
+      journals.journal_entry AS "journalBody",
+      journals.created_date AS "createdDate",
+      journals.edited_date AS "editedDate",
       journals.question_id AS "questionId",
       questions.question AS "questionText",
       categories.id AS "categoryId",
@@ -34,7 +34,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
   pool.query(sqlText, [userId])
     .then((result) => {
-      // console.log(result.rows);
+      console.log(result.rows);
       res.send(result.rows)
     }).catch((err) => {
       console.log('error ADDING favorite to database', err);
