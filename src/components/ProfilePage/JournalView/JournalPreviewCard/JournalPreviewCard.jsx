@@ -10,7 +10,6 @@ import { CardActionArea, Fab } from "@mui/material";
 // MUI ICONS
 import EditIcon from "@mui/icons-material/Edit";
 
-
 // STYLING
 const titleBarStyle = {
   display: "flex",
@@ -46,49 +45,71 @@ const fabStyle = {
   right: 0,
 };
 
-const card = (
-  <>
-    {/* TODO - Opens journal editor */}
-    <Fab color="primary" aria-label="edit" size="small" sx={fabStyle}>
-      <EditIcon />
-    </Fab>
+const card = <>
 
-    {/* TODO - action area opens to modal view */}
-    <CardActionArea>
-      <CardContent sx={{ padding: "2px 8px 12px" }}>
-        <Box sx={titleBarStyle}>
-          <Typography variant="h5" component="div">
-            Title Goes Here
-          </Typography>
-        </Box>
-        <Box component="span" sx={subTitleStyle}>
-          <Typography sx={{ m: "-8px 0 10px 7px" }} color="text.secondary">
-            category
-          </Typography>
-          <Typography sx={{ m: "-8px 0 10px 7px" }} color="text.secondary">
-            8.23.23
-          </Typography>
-        </Box>
-        <Typography variant="body2">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </Typography>
-      </CardContent>
-    </CardActionArea>
-  </>
-);
+</>;
 
-export default function JournalPreviewCard() {
+export default function JournalPreviewCard({ journalItem }) {
+  const {
+    journalId,
+    journalTitle,
+    journalBody,
+    createdDate,
+    editedDate,
+    questionText,
+    categoryName
+  } = journalItem;
+
+  const formattedCreatedDate = new Date(createdDate).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+  const formattedEditedDate = new Date(editedDate).toLocaleDateString();
+    // add ub toLocalDateString
+  // 'en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}
+  const openJournalEditor = () => {
+    console.log('clicked openJournalEditor');
+  }
+  
+  const openJournalPreview = () => {
+    console.log('clicked openJournalPreview');
+  }
+
   return (
     <Box xs={6} sx={journalCardContainerStyle}>
-      <Card variant="outlined">{card}</Card>
+      <Card variant="outlined">
+        {/* TODO - Opens journal editor */}
+        <Fab 
+          color="primary" 
+          aria-label="edit" 
+          size="small" 
+          sx={fabStyle}
+          onClick={openJournalEditor}
+        >
+          <EditIcon />
+        </Fab>
+
+        {/* TODO - action area opens to modal view */}
+        <CardActionArea
+          onClick={openJournalPreview}
+        >
+          <CardContent sx={{ padding: "2px 8px 12px" }}>
+            <Box sx={titleBarStyle}>
+              <Typography variant="h5" component="div">
+                {journalTitle}
+              </Typography>
+            </Box>
+            <Box component="span" sx={subTitleStyle}>
+              {/* <Typography sx={{ m: "-8px 0 10px 7px" }} color="text.secondary">
+                {categoryName}
+              </Typography> */}
+              <Typography sx={{ m: "-8px 0 10px 7px" }} color="text.secondary">
+                {formattedCreatedDate}
+              </Typography>
+            </Box>
+            <Typography variant="body2">
+              {journalBody}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
     </Box>
   );
 }
