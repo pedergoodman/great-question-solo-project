@@ -1,6 +1,8 @@
 const express = require('express');
 const pool = require('../modules/pool');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const router = express.Router();
+
 
 // get all base category questions from server
 router.get('/all', async (req, res) => {
@@ -83,7 +85,7 @@ router.get('/all', async (req, res) => {
 });
 
 // GET - grabbing logged-in user added questions 
-router.get('/custom', (req, res) => {
+router.get('/custom', rejectUnauthenticated, (req, res) => {
   const userId = req?.user?.id;
 
   const sqlText = `
@@ -115,7 +117,7 @@ router.get('/custom', (req, res) => {
 
 // TODO - user post new question, add user auth
   // 
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
   const userId = req?.user?.id;
 
 

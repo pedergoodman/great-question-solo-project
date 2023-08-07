@@ -1,11 +1,12 @@
 const express = require('express');
 const pool = require('../modules/pool');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const router = express.Router();
 
 // TODO - add auth to all routes
 
 // GET - grabbing logged in user's favorite questions 
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   const userId = req?.user?.id;
 
   const sqlText = `
@@ -46,7 +47,7 @@ router.get('/', (req, res) => {
 });
 
 // POST - link user & question data
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
   // user id and question id to post
   const questionId = req.body.questionID
   const userId = req?.user?.id;
@@ -67,7 +68,7 @@ router.post('/', (req, res) => {
 });
 
 // DELETE - unlink user & question data
-router.delete('/:question', (req, res) => {
+router.delete('/:question', rejectUnauthenticated, (req, res) => {
   const questionId = req.params.question
 
   // grab user id

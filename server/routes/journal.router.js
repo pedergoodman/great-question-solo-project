@@ -1,11 +1,12 @@
 const express = require('express');
 const pool = require('../modules/pool');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const router = express.Router();
 
 
 
 // GET all user journals
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
 
   const userId = req?.user?.id;
 
@@ -45,7 +46,7 @@ router.get('/', (req, res) => {
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
   // POST route code here
 });
 
@@ -53,7 +54,7 @@ router.post('/', (req, res) => {
 /**
  * DELETE route template
  */
-router.delete('/', (req, res) => {
+router.delete('/', rejectUnauthenticated, (req, res) => {
   // DELETE route code here
 });
 
@@ -61,7 +62,7 @@ router.delete('/', (req, res) => {
 /**
  * PUT route template
  */
-router.put('/', (req, res) => {
+router.put('/', rejectUnauthenticated, (req, res) => {
   // PUT route code here
 });
 
