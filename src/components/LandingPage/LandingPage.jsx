@@ -6,38 +6,42 @@ import { useDispatch, useSelector } from "react-redux";
 // import { createQuestionList, createCategoryListItem } from "../../utils/utils";
 import { createQuestionList, createCategoryListItem } from "../../utils/utils";
 
-
 // CUSTOM COMPONENTS
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import RandomAllBubble from "../RandomAllBubble/RandomAllBubble";
 
-
-
-
 function LandingPage() {
   const history = useHistory();
   const dispatch = useDispatch();
-  
+
   // bring data in from store
-  const user = useSelector(store => store.user)
-  const {
-    allQuestions, 
-    favoriteQuestions, 
-    customQuestions
-  } = useSelector(store => store.questions)
+  const user = useSelector(store => store.user);
+  const { allQuestions, favoriteQuestions, customQuestions } = useSelector(
+    store => store.questions
+  );
 
-  console.log('allQuestions is', allQuestions);
+  console.log("allQuestions is", allQuestions);
 
+  // // convert custom list to "category obj" and add to favorites list
+  const customAsCategory = createCategoryListItem(
+    customQuestions,
+    "Custom Questions"
+  );
 
+  const favAsQuestionList = createQuestionList(favoriteQuestions);
+  const favAsCategory = createCategoryListItem(favAsQuestionList, "Favorites");
+
+  const allQuestionsListToMap = [
+    ...allQuestions,
+    favAsCategory,
+    customAsCategory,
+  ];
 
   // grabs question data and user specific data to fill bubbles!
   useEffect(() => {
-    dispatch({
-      type: "FETCH_QUESTIONS"
-    })
-  }, [])
-
+    dispatch({ type: "FETCH_QUESTIONS" });
+  }, []);
 
   return (
     <div className="container">
@@ -49,7 +53,7 @@ function LandingPage() {
       >
         Select a Category!
       </Typography>
-      <RandomAllBubble />
+      <RandomAllBubble allQuestionsListToMap={allQuestionsListToMap} />
       <Box
         sx={{
           display: "flex",
@@ -57,10 +61,10 @@ function LandingPage() {
           justifyContent: "space-evenly",
         }}
       >
-        {allQuestions?.map(questionCategory => (
-          <CategoryCard 
-            key={questionCategory.categoryData.categoryId} 
-            questionCategory={questionCategory} 
+        {allQuestionsListToMap?.map(questionCategory => (
+          <CategoryCard
+            key={questionCategory.categoryData.categoryId}
+            questionCategory={questionCategory}
           />
         ))}
       </Box>
