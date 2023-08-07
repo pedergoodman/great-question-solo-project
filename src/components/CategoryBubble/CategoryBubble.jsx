@@ -16,6 +16,9 @@ import Button from '@mui/material/Button';
 // CUSTOM COMPONENTS
 import QuestionCard from '../QuestionCard/QuestionCard'
 
+
+// CategoryCard function
+  // 
 function CategoryCard({ questionCategory }) {
   const dispatch = useDispatch();
   const history = useHistory();
