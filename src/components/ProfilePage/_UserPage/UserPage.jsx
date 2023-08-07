@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LogOutButton from "../../LogOutButton/LogOutButton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // MUI IMPORTS
 import { Box } from "@mui/material";
@@ -10,7 +10,8 @@ import JournalContainer from "../JournalView/JournalContainer/JournalContainer";
 import FavoritesContainer from "../FavoritesView/FavoritesContainer/FavoritesContainer";
 
 function UserPage() {
-  
+  const dispatch = useDispatch();
+
   const viewContainerStyle = {
     display: "flex",
     justifyContent: "center",
@@ -34,6 +35,13 @@ function UserPage() {
     width: "100%",
     maxHeight: "675px",
   };
+
+  // grabs question data and fill bubbles!
+  useEffect(() => {
+    dispatch({
+      type: "FETCH_QUESTIONS",
+    });
+  }, []);
 
   return (
     <>

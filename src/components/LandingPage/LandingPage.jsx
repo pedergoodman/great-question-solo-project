@@ -19,6 +19,8 @@ function LandingPage() {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  // console.log('in Landing page questionsList is:', questionsList);
+
   // grabs question data and fill bubbles!
   useEffect(() => {
     dispatch({
