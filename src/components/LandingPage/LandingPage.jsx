@@ -17,30 +17,39 @@ function LandingPage() {
 
   // bring data in from store
   const user = useSelector(store => store.user);
+
   const { allQuestions, favoriteQuestions, customQuestions } = useSelector(
     store => store.questions
   );
 
-  console.log("allQuestions is", allQuestions);
+  let allQuestionsListToMap = [...allQuestions];
 
-  // // convert custom list to "category obj" and add to favorites list
-  const customAsCategory = createCategoryListItem(
-    customQuestions,
-    "Custom Questions"
-  );
 
+
+  // conditional for favorites list, if it's empty don't map it
+  if (favoriteQuestions.length > 0) {
+    // convert custom list to "category obj" and add to all question list
+    const customAsCategory = createCategoryListItem(
+      customQuestions,
+      "Custom Questions"
+    );
+    allQuestionsListToMap.push(customAsCategory);
+  }
+  
+  // conditional for custom list, if it's empty don't map it
+  if (customQuestions.length > 0) {
+  // convert favorite list to "category obj" and add to all question list
   const favAsQuestionList = createQuestionList(favoriteQuestions);
   const favAsCategory = createCategoryListItem(favAsQuestionList, "Favorites");
 
-  const allQuestionsListToMap = [
-    ...allQuestions,
-    favAsCategory,
-    customAsCategory,
-  ];
+    allQuestionsListToMap.push(favAsCategory);
+  }
 
   // grabs question data and user specific data to fill bubbles!
   useEffect(() => {
-    dispatch({ type: "FETCH_QUESTIONS" });
+    dispatch({
+      type: "FETCH_QUESTIONS",
+    });
   }, []);
 
   return (

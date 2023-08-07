@@ -8,6 +8,7 @@ import List from "@mui/material/List";
 // CUSTOM COMPONENTS
 import FavoriteCategoryHeader from "../FavoriteCategoryHeader/FavoriteCategoryHeader";
 
+// styling for favorites list headers 
 const listHeaderStyle = {
   width: "100%",
   bgcolor: "background.paper",
@@ -31,7 +32,7 @@ export default function JournalContainer() {
   );
   const favoriteListToMap = [...favoriteQuestions, customAsCategory];
 
-  // styling for favorites list headers
+  
   // console.group('Figuring out favs display');
   // console.log("favoritesList is:", favoriteQuestions);
   // console.log("customQuestions is:", customQuestions);
