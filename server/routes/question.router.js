@@ -7,9 +7,11 @@ const router = express.Router();
 // get all base category questions from server
 router.get('/all', async (req, res) => {
   const userId = req?.user?.id;
-  console.log('in question router userId is:', userId);
+  // console.log('in question router userId is:', userId);
+
+
   // grab items by category with all the sub questions
-  // also grabs user added quetions and user favorited items 
+    // also grabs user added questions and favorites by category
   const loggedInSqlQuery = `
     SELECT 
       json_build_object(
@@ -40,8 +42,8 @@ router.get('/all', async (req, res) => {
       category_name
     ;`
 
-  // grab the base set of questions for the home page if no user 
-  // is logged in. 
+  // grab the base set of questions for the home page by category
+  // if no user  is logged in. 
   const noUserSqlQuery = `
     SELECT 
       json_build_object(

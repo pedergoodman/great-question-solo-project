@@ -9,6 +9,8 @@ const router = express.Router();
 router.get('/', rejectUnauthenticated, (req, res) => {
   const userId = req?.user?.id;
 
+  
+
   const sqlText = `
     SELECT
       json_build_object(
@@ -37,7 +39,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
   pool.query(sqlText, [userId])
     .then((result) => {
-      console.log(result.rows);
+      // console.log(result.rows);
       res.send(result.rows)
     }).catch((err) => {
       console.log('error ADDING favorite to database', err);
@@ -47,24 +49,44 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 // POST - link user & question data
-router.post('/', rejectUnauthenticated, (req, res) => {
+router.post('/', rejectUnauthenticated, async (req, res) => {
   // user id and question id to post
   const questionId = req.body.questionID
   const userId = req?.user?.id;
 
-  const sqlText = `
+  const ifFavExists = `
+    SELECT * 
+    FROM
+      "user_favorited"
+    WHERE
+      question_id = $1 AND user_id = $2
+  ;`
+
+  const insertFav = `
     INSERT INTO
       "user_favorited" ("question_id", "user_id")
     VALUES
-      ($1, $2);`
+      ($1, $2)
+  ;`
 
-  pool.query(sqlText, [questionId, userId])
-    .then((result) => {
+  try {
+
+    const checkFav = await pool.query(ifFavExists, [questionId, userId])
+
+    if (checkFav.length < 1) {
+      await pool.query(insertFav, [questionId, userId])
+      console.log('in fav, this would add somethign to server');
       res.sendStatus(200)
-    }).catch((err) => {
-      console.log('error ADDING favorite to database', err);
-      res.sendStatus(500)
-    });
+    } else {
+      console.log('looks like something is in the DB already!');
+      res.sendStatus(200)
+    }
+
+  } catch (error) {
+    console.log('error ADDING favorite to database', err);
+    res.sendStatus(500)
+  }
+
 });
 
 // DELETE - unlink user & question data
