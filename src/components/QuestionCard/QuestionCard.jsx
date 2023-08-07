@@ -68,6 +68,7 @@ export default function QuestionCard({
     // check if currentQuestion.isFavorited is true or not
     if (currentQuestion.isFavorited) {
       // Sends an update to the DB to remove a favorite
+      console.log('sending remove favorite');
       dispatch({
         type: "REMOVE_FAVORITE",
         payload: currentQuestion.questionId,
@@ -75,6 +76,7 @@ export default function QuestionCard({
       
     } else {
       // Sends an update to the DB to add a favorite
+      console.log('sending add favorite');
       dispatch({
         type: "ADD_FAVORITE",
         payload: currentQuestion.questionId,

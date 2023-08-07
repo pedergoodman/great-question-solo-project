@@ -29,6 +29,7 @@ function* removeFavorite(action) {
 
   try {
     yield axios.delete(`/api/favorite/${questionID}`);
+    
     yield put({
       type: 'FETCH_QUESTIONS'
     })

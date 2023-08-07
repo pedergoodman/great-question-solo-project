@@ -1,7 +1,7 @@
-const allQuestions = (state = [], action) => {
+const favoriteQuestions = (state = [], action) => {
 
   switch (action.type) {
-    case 'SET_QUESTION_LIST':
+    case 'SET_FAVORITES_LIST':
       return action.payload;
     default:
       return state;
@@ -9,7 +9,6 @@ const allQuestions = (state = [], action) => {
 };
 
 
-
 // questions will be on the redux state at:
 // state.questions
-export default allQuestions;
+export default favoriteQuestions;

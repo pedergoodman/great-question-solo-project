@@ -5,13 +5,14 @@ import { createQuestionList, createCategoryListItem } from "../../utils/utils";
 function* fetchQuestions(action) {
   // const userId = action.payload
   // console.log('in question saga, payload is:', action.payload);
+  // console.log('isAuthenticated is:', isAuthenticated);
+
   try {
     // allQuestions comes in as an array of category objects
     const allQuestionsResult = yield axios.get(`/api/questions/all`)
-    console.log('allQuestionsResult is:', allQuestionsResult);
     // query results 
     const allCategoriesList = allQuestionsResult.data
-    console.log('allCategoriesList data is:', allCategoriesList);
+    console.log('fetchQuestions saga, allCategoriesList data is:', allCategoriesList);
 
     // send allQuestionsList to reducer 
     yield put({
@@ -24,34 +25,6 @@ function* fetchQuestions(action) {
       type: 'FETCH_USER_QUESTIONS',
       payload: allCategoriesList
     })
-
-
-    // REFACTORING BELOW THIS LINE, MOVING THINGS ABOVE THAT I NEED HERE
-
-/* // code to merge fav list data and 
-    // BELOW HERE SHOULD BE MANAGED IN THE 
-
-    // convert fav questions to "question object"
-    const favAsQuestionList = createQuestionList(favoriteCategoryList)
-    console.log('favAsList is converted', favAsQuestionList);
-
-
-    // convert fav and custom questions to "category object"
-    const favAsCategory = createCategoryListItem(favAsQuestionList, 'Favorites');
-    const customAsCategory = createCategoryListItem(customQuestionsList, 'Custom Questions')
-
-    console.log('favAsCategory is:', favAsCategory);
-    console.log('customAsCategory is:', customAsCategory);
-
-    // add to allQuestionsList
-    allCategoriesList.push(favAsCategory)
-    allCategoriesList.push(customAsCategory)
-    console.log('NEW allCategoriesList data is:', allCategoriesList);
-
- */
-
-
-
 
   } catch (error) {
     console.log('Error getting questions List', error);
@@ -67,7 +40,7 @@ function* fetchUserQuestions(action) {
   try {
     
     // passed allCategoriesList from first axios call
-    const allCategoriesList = action.payload
+    let allCategoriesList = action.payload 
     // favoriteQuestions comes in as an array of category objects 
     const favoriteQuestionsResult = yield axios.get(`/api/favorite`)
     // customQuestions comes in as an array of question objects
@@ -88,12 +61,15 @@ function* fetchUserQuestions(action) {
 
 
     // add to allQuestionsList
-    allCategoriesList.push(favAsCategory)
-    allCategoriesList.push(customAsCategory)
-    console.log('NEW allCategoriesList data is:', allCategoriesList);
-    console.log('favoriteQuestionsList data is:', favoriteCategoryList);
-    console.log('customQuestionsList data is:', customQuestionsList);
-
+      allCategoriesList.push(favAsCategory)
+      allCategoriesList.push(customAsCategory)
+    // add to favorites list
+    favoriteCategoryList.push(customAsCategory)
+    console.group('Inside user question saga')
+      console.log('NEW allCategoriesList data is:', allCategoriesList);
+      console.log('favoriteQuestionsList data is:', favoriteCategoryList);
+      console.log('customQuestionsList data is:', customQuestionsList);
+    console.groupEnd
     // // TODO - send favoriteQuestionsList package
     yield put({
       type: 'SET_FAVORITES_LIST',
