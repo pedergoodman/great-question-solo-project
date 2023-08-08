@@ -6,35 +6,39 @@ import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/material";
 
 // CUSTOM COMPONENTS
-import JournalContainer from "../JournalView/JournalContainer/JournalContainer";
-import FavoritesContainer from "../FavoritesView/FavoritesContainer/FavoritesContainer";
+import JournalListContainer from "../JournalListView/JournalListContainer/JournalListContainer";
+import FavoritesListContainer from "../FavoritesListView/FavoritesListContainer/FavoritesListContainer";
 
+
+// STYLING
+const viewContainerStyle = {
+  display: "flex",
+  justifyContent: "center",
+  padding: "0 px",
+};
+
+const favoritesContainerStyle = {
+  padding: "6px",
+  margin: "0 5px",
+  backgroundColor: "cadetblue",
+  maxWidth: "45%",
+  minWidth: "40%",
+  width: "45%",
+  maxHeight: "675px",
+};
+
+const journalContainerStyle = {
+  backgroundColor: "cadetblue",
+  padding: "8px",
+  maxWidth: "45%",
+  width: "100%",
+  maxHeight: "675px",
+};
+
+
+// USER PAGE
 function UserPage() {
   const dispatch = useDispatch();
-
-  const viewContainerStyle = {
-    display: "flex",
-    justifyContent: "center",
-    padding: "0 px",
-  };
-
-  const favoritesContainerStyle = {
-    padding: "6px",
-    margin: "0 5px",
-    backgroundColor: "cadetblue",
-    maxWidth: "45%",
-    minWidth: "40%",
-    width: "45%",
-    maxHeight: "675px",
-  };
-
-  const journalContainerStyle = {
-    backgroundColor: "cadetblue",
-    padding: "8px",
-    maxWidth: "45%",
-    width: "100%",
-    maxHeight: "675px",
-  };
 
   // grabs question and journal data
   useEffect(() => {
@@ -52,10 +56,10 @@ function UserPage() {
     <>
       <Box sx={viewContainerStyle}>
         <Box sx={favoritesContainerStyle}>
-          <FavoritesContainer />
+          <FavoritesListContainer />
         </Box>
         <Box sx={journalContainerStyle}>
-          <JournalContainer />
+          <JournalListContainer />
         </Box>
       </Box>
     </>

@@ -1,12 +1,14 @@
 import * as React from "react";
-import "./JournalContainer.css";
-
-import Box from "@mui/material/Box";
-
-import JournalPreviewCard from "../JournalPreviewCard/JournalPreviewCard";
-import { Grid } from "@mui/material";
 import { useSelector } from "react-redux";
+import "./JournalListContainer.css";
 
+// MUI COMPONENTS
+import { Grid } from "@mui/material";
+
+// MUI ICONS
+import JournalListPreviewCard from "../JournalListPreviewCard/JournalListPreviewCard";
+
+// STYLING
 const gridStyling = {
   width: "100%",
   margin: "0 0 0 0",
@@ -23,6 +25,7 @@ const gridStyling = {
   "& .css-10kwm8m-MuiGrid-root": { WebkitFlexBasis: "calc(50% - 4px)" },
 };
 
+// JOURNAL CONTAINER
 export default function JournalContainer() {
   const { userJournals } = useSelector(store => store.journals);
 
@@ -32,7 +35,7 @@ export default function JournalContainer() {
     <>
       <Grid container spacing={1} rowSpacing={2} sx={gridStyling}>
         {userJournals.map(journalItem => (
-          <JournalPreviewCard
+          <JournalListPreviewCard
             key={journalItem.journalId}
             journalItem={journalItem}
           />

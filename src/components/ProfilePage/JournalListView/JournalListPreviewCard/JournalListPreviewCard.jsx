@@ -45,11 +45,9 @@ const fabStyle = {
   right: 0,
 };
 
-const card = <>
-
-</>;
 
 export default function JournalPreviewCard({ journalItem }) {
+  // ~all objects within journalItem
   const {
     journalId,
     journalTitle,
@@ -60,10 +58,10 @@ export default function JournalPreviewCard({ journalItem }) {
     categoryName
   } = journalItem;
 
+  // date formatting
   const formattedCreatedDate = new Date(createdDate).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
-  const formattedEditedDate = new Date(editedDate).toLocaleDateString();
-    // add ub toLocalDateString
-  // 'en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}
+  const formattedEditedDate = new Date(editedDate).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+
   const openJournalEditor = () => {
     console.log('clicked openJournalEditor');
   }

@@ -11,7 +11,8 @@ import { ChevronRight } from "@mui/icons-material";
 // CUSTOM COMPONENTS
 import FavoriteQuestionItem from "../FavoriteQuestionItem/FavoriteQuestionItem";
 
-// Display Category header & collapse list container
+// FAVORITE CATEGORY HEADER
+  // Display Category header & collapse list container
 export default function FavoriteCategoryHeader({ questionCategory }) {
   // question List data
   const { questionData, categoryData } = questionCategory;

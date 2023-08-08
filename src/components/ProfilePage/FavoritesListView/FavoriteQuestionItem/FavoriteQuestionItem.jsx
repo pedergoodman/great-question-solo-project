@@ -12,12 +12,15 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+// FAVORITE QUESTION ITEM
 export default function FavoriteQuestionItem({ questionItem }) {
   const dispatch = useDispatch();
 
+  // values from questionItem
   const { questionId, questionText, isFavorited, userAddedId } = questionItem;
 
-  // TODO - toggle favorite dispatch
+
+  // toggle favorite dispatch
   const handleToggleFavorite = () => {
     console.log("clicked Fav: id to update:", questionId);
     // check if currentQuestion.isFavorited is true or not
@@ -41,9 +44,9 @@ export default function FavoriteQuestionItem({ questionItem }) {
     console.log("clicked start journal! Question selected is:", questionId);
   };
 
+  // TODO - functionality to delete a custom question from the list
   const deleteCustomQuestion = () => {
     console.log('Delete Clicked!, question id is:', questionId);
-
   }
 
   // create delete button
