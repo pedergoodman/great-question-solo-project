@@ -13,12 +13,14 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
+// CUSTOM COMPONENTS
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../ProfilePage/_UserPage/UserPage';
+import ProfilePage from '../UserProfile/_ProfilePage/ProfilePage';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import JournalEditPage from '../JournalEditPage/JournalEditPage';
 
 import './App.css';
 
@@ -57,15 +59,15 @@ function App() {
             exact
             path="/user-profile"
           >
-            <UserPage />
+            <ProfilePage />
           </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/info"
+            path="/edit-journal"
           >
-            <InfoPage />
+            <JournalEditPage />
           </ProtectedRoute>
 
           <Route

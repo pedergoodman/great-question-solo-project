@@ -11,6 +11,8 @@ import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import RandomAllBubble from "../RandomAllBubble/RandomAllBubble";
 
+
+// LANDING PAGE
 function LandingPage() {
   const history = useHistory();
   const dispatch = useDispatch();
