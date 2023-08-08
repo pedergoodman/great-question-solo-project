@@ -1,21 +1,20 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import "./QuestionCard.css";
 
-// MUI
+// MUI COMPONENTS
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { Icon, IconButton, Modal } from "@mui/material";
+
+// MUI ICONS
 import ClearIcon from "@mui/icons-material/Clear";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Favorite } from "@mui/icons-material";
-import RedoIcon from "@mui/icons-material/Redo";
-import UndoIcon from "@mui/icons-material/Undo";
-import { useDispatch } from "react-redux";
 
+// STYLING 
 const style = {
   position: "absolute",
   top: "50%",
@@ -30,6 +29,9 @@ const style = {
   pb: 3,
 };
 
+// 
+
+// Question Card
 export default function QuestionCard({
   handleCloseCategory,
   categoryList,
@@ -57,6 +59,7 @@ export default function QuestionCard({
     // return random index in categoryList
     return categoryList[randomIndex];
   }
+  
 
   // eventually will go to a new page!!
   const handleNewJournalBtn = () => {
@@ -69,12 +72,14 @@ export default function QuestionCard({
     if (currentQuestion.isFavorited) {
       // Sends an update to the DB to remove a favorite
       console.log('sending remove favorite');
+      // !currentQuestion.isFavorited
       dispatch({
         type: "REMOVE_FAVORITE",
         payload: currentQuestion.questionId,
       });
       
     } else {
+      // !currentQuestion.isFavorited
       // Sends an update to the DB to add a favorite
       console.log('sending add favorite');
       dispatch({
