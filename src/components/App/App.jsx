@@ -20,7 +20,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import JournalEditPage from '../JournalEditPage/JournalEditPage';
+import JournalEditForm from '../Journal/JournalEditForm/JournalEditForm';
 
 import './App.css';
 
@@ -67,7 +67,7 @@ function App() {
             exact
             path="/edit-journal"
           >
-            <JournalEditPage />
+            <JournalEditForm />
           </ProtectedRoute>
 
           <Route
