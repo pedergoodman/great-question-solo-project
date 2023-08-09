@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import "./QuestionCard.css";
 
 // MUI COMPONENTS
@@ -14,8 +15,9 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
+
 // STYLING 
-const style = {
+const questionCardStyle = {
   position: "absolute",
   top: "50%",
   left: "50%",
@@ -39,6 +41,7 @@ export default function QuestionCard({
 }) {
   // managing data state
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [currentQuestion, setCurrentQuestion] = useState("");
   // const [questionHistory, setQuestionHistory] = useState([]);
@@ -65,6 +68,14 @@ export default function QuestionCard({
   const handleNewJournalBtn = () => {
     console.log("New Journal Button Clicked!");
     console.log("This will take you to a new page 📓");
+    console.log('currentQuestion is', currentQuestion);
+    
+    dispatch({
+      type: "SET_ACTIVE_JOURNAL",
+      payload: currentQuestion,
+    });
+    
+    history.push('/create-journal')
   };
 
   const handleToggleFavorite = () => {
@@ -107,7 +118,7 @@ export default function QuestionCard({
 
   return (
     <>
-      <Box sx={{ ...style, width: 600 }}>
+      <Box sx={{ ...questionCardStyle, width: 600 }}>
         <div id="question-modal-top-row">
           <p>{currentQuestion.categoryName}</p>
           <Button variant="contained" onClick={handleCloseCategory}>
