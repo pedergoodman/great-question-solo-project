@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 // MUI COMPONENTS
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Button, Grid, TextField } from "@mui/material";
+
 
 // STYLING
 
@@ -13,6 +15,7 @@ export default function JournalEditPage() {
   // ~all objects within journals store
   const { activeJournal, userJournals } = useSelector(store => store.journals);
   const dispatch = useDispatch();
+  const history= useHistory();
 
   const {
     journalId,
@@ -28,6 +31,7 @@ export default function JournalEditPage() {
   } = activeJournal;
 
   console.log("activeJournal is:", activeJournal);
+  console.log("userJournals is:", userJournals);
 
   useEffect(() => {
     dispatch({
@@ -49,6 +53,8 @@ export default function JournalEditPage() {
   const handleClickCancel = () => {
     console.log("clicked handleClickCancel");
     // TODO - useHistory back to profile
+    dispatch({type: 'CLEAR_ACTIVE_JOURNAL'})
+    history.push('/user-profile')
   };
 
   const handleClickSave = () => {
@@ -58,7 +64,7 @@ export default function JournalEditPage() {
     // TODO - handle createdDate and editedDate
       // handle in the backend?
       // POST - timestamp both created & edited in SQL
-    
+    // TODO - clear active
     // TODO - useHistory back to profile
   };
 
@@ -94,8 +100,16 @@ export default function JournalEditPage() {
           mt: "5px",
         }}
       >
-        <Button>discard</Button>
-        <Button>save</Button>
+        <Button
+          onClick={handleClickCancel}
+        >
+          discard
+        </Button>
+        <Button
+          onClick={handleClickSave}
+        >
+          save
+        </Button>
       </Box>
 
       {/* Question text */}
@@ -139,6 +153,7 @@ export default function JournalEditPage() {
             gutterBottom
             sx={{ textAlign: "right", m: "30px 12px 0px", lineHeight: 1 }}
           >
+            {/* add conditional here */}
             {formattedCreatedDate}
           </Typography>
         </Box>

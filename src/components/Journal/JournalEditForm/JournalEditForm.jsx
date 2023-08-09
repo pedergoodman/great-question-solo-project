@@ -1,26 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 // MUI COMPONENTS
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import {
-  Button,
-  Grid,
-  TextField,
-} from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
+
 
 // STYLING
-
 
 // JOURNAL EDIT PAGE
 export default function JournalEditPage() {
   // ~all objects within journals store
-  const { activeJournal, userJournals } = useSelector(
-    store => store.journals
-  );
+  const { activeJournal, userJournals } = useSelector(store => store.journals);
   const dispatch = useDispatch();
-
+  const history = useHistory();
 
   const {
     journalId,
@@ -35,9 +30,7 @@ export default function JournalEditPage() {
     createdDate,
   } = activeJournal;
 
-
-  console.log("activeJournal is:", userJournals[0]);
-
+  console.log("activeJournal is:", activeJournal);
 
   useEffect(() => {
     dispatch({
@@ -45,44 +38,40 @@ export default function JournalEditPage() {
     });
   }, []);
 
-
   // date formatting
   const formattedCreatedDate = new Date(createdDate).toLocaleDateString(
     "en-us",
     { year: "numeric", month: "short", day: "numeric" }
   );
 
-  const formattedEditedDate = new Date(editedDate).toLocaleDateString(
-    "en-us", { year: "numeric", month: "short", day: "numeric" }
-  );
-
+  const formattedEditedDate = new Date(editedDate).toLocaleDateString("en-us", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 
   const handleClickCancel = () => {
     console.log("clicked handleClickCancel");
     // TODO - useHistory back to profile
+    dispatch({ type: "CLEAR_ACTIVE_JOURNAL" });
+    history.push("/user-profile");
   };
 
   const handleClickSave = () => {
     console.log("clicked handleClickSave");
     // TODO -  PUT dispatch (only in edit form)
 
-
     // TODO - handle editedDate
-      // handle in the backend?
-        // PUT - new timestamp edited only
-
+    // handle in the backend?
+    // PUT - new timestamp edited only
+    // TODO - clear active
     // TODO - useHistory back to profile
   };
 
   // TODO on change dispatches
-  const titleOnChange = () => {
-    
-  }
+  const titleOnChange = () => {};
 
-  const bodyOnChange = () => {
-    
-  }
-
+  const bodyOnChange = () => {};
 
   return (
     <Grid
@@ -104,11 +93,11 @@ export default function JournalEditPage() {
           bgcolor: "transparent",
           width: "100%",
           justifyContent: "flex-end",
-          mt: '5px'
+          mt: "5px",
         }}
       >
-        <Button>cancel</Button>
-        <Button>save</Button>
+        <Button onClick={handleClickCancel}>discard</Button>
+        <Button onClick={handleClickSave}>save</Button>
       </Box>
 
       {/* Question text */}
@@ -119,9 +108,9 @@ export default function JournalEditPage() {
           gutterBottom
           sx={{
             textAlign: "right",
-            m: '-13px 0px 16px 0',
-            width: '540px',
-            textAlign: 'center'
+            m: "-13px 0px 16px 0",
+            width: "540px",
+            textAlign: "center",
           }}
         >
           {questionText}
