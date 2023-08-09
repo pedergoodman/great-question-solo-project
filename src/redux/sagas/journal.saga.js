@@ -32,16 +32,11 @@ function* fetchJournals(action) {
 function* createJournal(action) {
 
   try {
-    // TODO - axios POST
-    console.log('in journal saga, create', action.payload);
-
+    // axios POST journal entry
     yield axios.post('/api/journals', action.payload)
 
-
     // refresh journal list
-    yield put({
-      type: 'FETCH_JOURNALS'
-    })
+    yield put({ type: 'FETCH_JOURNALS' })
   } catch (error) {
     console.log('in saga, error adding journal', error);
   }
@@ -51,15 +46,14 @@ function* createJournal(action) {
 function* updateJournal(action) {
 
   try {
-    // TODO - axios PUT
-    console.log('in journal saga, update', action.payload);
-
+    // axios PUT update journal entry
     yield axios.put('/api/journals', action.payload)
 
     // refresh journal list
     yield put({
       type: 'FETCH_JOURNALS'
     })
+
   } catch (error) {
     console.log('in saga, error updating journal', error);
   }
@@ -67,7 +61,14 @@ function* updateJournal(action) {
 
 
 
+function* deleteJournal(action) {
 
+  try {
+    
+  } catch (error) {
+    
+  }
+};
 
 
 
@@ -76,6 +77,7 @@ function* journalSaga() {
   yield takeLatest('FETCH_JOURNALS', fetchJournals);
   yield takeLatest('CREATE_JOURNAL', createJournal);
   yield takeLatest('UPDATE_JOURNAL', updateJournal);
+  yield takeLatest('DELETE_JOURNAL', deleteJournal);
 }
 
 export default journalSaga;
