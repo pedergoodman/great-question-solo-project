@@ -33,14 +33,10 @@ export default function JournalEditPage() {
     categoryId,
     categoryName,
     createdDate,
-  } = activeJournal;
+  } = userJournals[0];
 
 
-  console.log("activeJournal is:", activeJournal);
-
-
-
-
+  console.log("activeJournal is:", userJournals[0]);
 
 
   useEffect(() => {
@@ -51,15 +47,14 @@ export default function JournalEditPage() {
 
 
   // date formatting
-  // const formattedCreatedDate = new Date(createdDate).toLocaleDateString(
-  //   "en-us",
-  //   { year: "numeric", month: "short", day: "numeric" }
-  // );
-  // const formattedEditedDate = new Date(editedDate).toLocaleDateString("en-us", {
-  //   year: "numeric",
-  //   month: "short",
-  //   day: "numeric",
-  // });
+  const formattedCreatedDate = new Date(createdDate).toLocaleDateString(
+    "en-us",
+    { year: "numeric", month: "short", day: "numeric" }
+  );
+  
+  const formattedEditedDate = new Date(editedDate).toLocaleDateString(
+    "en-us", { year: "numeric", month: "short", day: "numeric" }
+  );
 
 
   const handleClickCancel = () => {
@@ -69,13 +64,11 @@ export default function JournalEditPage() {
 
   const handleClickSave = () => {
     console.log("clicked handleClickSave");
-    // TODO -  put dispatch (only in edit form)
-    // TODO -  post dispatch (only in input form)
+    // TODO -  PUT dispatch (only in edit form)
 
 
-    // TODO - handle createdDate and editedDate
-      // maybe both of these handle in the backend?
-        // POST - timestamp both created & edited in SQL
+    // TODO - handle editedDate
+      // handle in the backend?
         // PUT - new timestamp edited only
   };
 
@@ -97,7 +90,7 @@ export default function JournalEditPage() {
     </>
   );
 
-  
+
   return (
     <Grid
       container
@@ -157,16 +150,16 @@ export default function JournalEditPage() {
             id="standard-basic"
             placeholder="Add a Title"
             variant="standard"
-            sx={{ width: "80%", bgcolor: "blue[900]", m: "6px 0 0px 24px" }}
+            sx={{ width: "80%", bgcolor: "blue[900]", m: "6px 0 8px 24px" }}
             onChange={titleOnChange}
           />
           <Typography
             variant="overline"
             display="block"
             gutterBottom
-            sx={{ textAlign: "right", m: "14px 9px 0px" }}
+            sx={{ textAlign: "right", m: "30px 12px 0px", lineHeight: 1 }}
           >
-            {editedDate}
+            {formattedCreatedDate}
           </Typography>
         </Box>
 
