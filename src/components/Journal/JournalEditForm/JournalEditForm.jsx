@@ -33,7 +33,7 @@ export default function JournalEditPage() {
     categoryId,
     categoryName,
     createdDate,
-  } = userJournals[0];
+  } = activeJournal;
 
 
   console.log("activeJournal is:", userJournals[0]);
@@ -51,7 +51,7 @@ export default function JournalEditPage() {
     "en-us",
     { year: "numeric", month: "short", day: "numeric" }
   );
-  
+
   const formattedEditedDate = new Date(editedDate).toLocaleDateString(
     "en-us", { year: "numeric", month: "short", day: "numeric" }
   );
@@ -70,6 +70,8 @@ export default function JournalEditPage() {
     // TODO - handle editedDate
       // handle in the backend?
         // PUT - new timestamp edited only
+
+    // TODO - useHistory back to profile
   };
 
   // TODO on change dispatches
@@ -80,15 +82,6 @@ export default function JournalEditPage() {
   const bodyOnChange = () => {
     
   }
-
-
-
-  const newJournalBtns = (
-    <>
-      <Button>discard</Button>
-      <Button>save</Button>
-    </>
-  );
 
 
   return (

@@ -40,7 +40,7 @@ export default function JournalEditPage() {
     "en-us",
     { year: "numeric", month: "short", day: "numeric" }
   );
-  
+
   const formattedEditedDate = new Date(editedDate).toLocaleDateString(
     "en-us", 
     {year: "numeric",month: "short",day: "numeric"}
@@ -58,6 +58,8 @@ export default function JournalEditPage() {
     // TODO - handle createdDate and editedDate
       // handle in the backend?
       // POST - timestamp both created & edited in SQL
+    
+    // TODO - useHistory back to profile
   };
 
   // TODO on change dispatches
@@ -135,7 +137,7 @@ export default function JournalEditPage() {
             variant="overline"
             display="block"
             gutterBottom
-            sx={{ textAlign: "right", m: "14px 9px 0px" }}
+            sx={{ textAlign: "right", m: "30px 12px 0px", lineHeight: 1 }}
           >
             {formattedCreatedDate}
           </Typography>
