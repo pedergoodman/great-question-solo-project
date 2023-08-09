@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useDispatch } from "react-redux";
 
 // MUI COMPONENTS
 import Box from "@mui/material/Box";
@@ -45,8 +47,9 @@ const fabStyle = {
   right: 0,
 };
 
-
 export default function JournalPreviewCard({ journalItem }) {
+  const history = useHistory();
+  const dispatch = useDispatch();
   // ~all objects within journalItem
   const {
     journalId,
@@ -55,29 +58,42 @@ export default function JournalPreviewCard({ journalItem }) {
     createdDate,
     editedDate,
     questionText,
-    categoryName
+    categoryName,
   } = journalItem;
 
   // date formatting
-  const formattedCreatedDate = new Date(createdDate).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
-  const formattedEditedDate = new Date(editedDate).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+  const formattedCreatedDate = new Date(createdDate).toLocaleDateString(
+    "en-us",
+    { year: "numeric", month: "short", day: "numeric" }
+  );
+  const formattedEditedDate = new Date(editedDate).toLocaleDateString("en-us", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 
+  // set's active journal, moves to edit page
   const openJournalEditor = () => {
-    console.log('clicked openJournalEditor');
-  }
-  
+    dispatch({
+      type: "SET_ACTIVE_JOURNAL",
+      payload: journalItem,
+    });
+    history.push("/edit-journal");
+  };
+
+  // TODO - open to preview modal
   const openJournalPreview = () => {
-    console.log('clicked openJournalPreview');
-  }
+    console.log("clicked openJournalPreview");
+  };
 
   return (
     <Box xs={6} sx={journalCardContainerStyle}>
       <Card variant="outlined">
         {/* TODO - Opens journal editor */}
-        <Fab 
-          color="primary" 
-          aria-label="edit" 
-          size="small" 
+        <Fab
+          color="primary"
+          aria-label="edit"
+          size="small"
           sx={fabStyle}
           onClick={openJournalEditor}
         >
@@ -85,9 +101,7 @@ export default function JournalPreviewCard({ journalItem }) {
         </Fab>
 
         {/* TODO - action area opens to modal view */}
-        <CardActionArea
-          onClick={openJournalPreview}
-        >
+        <CardActionArea onClick={openJournalPreview}>
           <CardContent sx={{ padding: "2px 8px 12px" }}>
             <Box sx={titleBarStyle}>
               <Typography variant="h5" component="div">
@@ -102,9 +116,7 @@ export default function JournalPreviewCard({ journalItem }) {
                 {formattedCreatedDate}
               </Typography>
             </Box>
-            <Typography variant="body2">
-              {journalBody}
-            </Typography>
+            <Typography variant="body2">{journalBody}</Typography>
           </CardContent>
         </CardActionArea>
       </Card>
