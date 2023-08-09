@@ -32,7 +32,12 @@ function* fetchJournals(action) {
 function* createJournal(action) {
 
   try {
+    // TODO - axios POST
     console.log('in journal saga, create', action.payload);
+
+    yield axios.post('/api/journals', action.payload)
+
+
     // refresh journal list
     yield put({
       type: 'FETCH_JOURNALS'
@@ -46,7 +51,11 @@ function* createJournal(action) {
 function* updateJournal(action) {
 
   try {
+    // TODO - axios PUT
     console.log('in journal saga, update', action.payload);
+
+    yield axios.put('/api/journals', action.payload)
+
     // refresh journal list
     yield put({
       type: 'FETCH_JOURNALS'
