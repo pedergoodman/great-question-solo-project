@@ -109,7 +109,7 @@ export default function QuestionCard({
     <>
       <Box sx={{ ...style, width: 600 }}>
         <div id="question-modal-top-row">
-          <p>{categoryList[0].categoryName}</p>
+          <p>{currentQuestion.categoryName}</p>
           <Button variant="contained" onClick={handleCloseCategory}>
             <ClearIcon />
           </Button>
