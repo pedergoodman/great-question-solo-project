@@ -60,9 +60,15 @@ export default function JournalEditPage() {
   const handleClickSave = () => {
     console.log("clicked handleClickSave, active journal is:", activeJournal);
     // TODO -  PUT dispatch (only in edit form)
+      dispatch({
+        type: 'UPDATE_JOURNAL',
+        payload: activeJournal
+      })
 
     // TODO - handle editedDate
     // handle in the backend?
+      // actually maybe update here so something displays right, 
+      // needs to be conditional if it exists already or not 
     // PUT - new timestamp edited only
     // TODO - clear active
     // TODO - useHistory back to profile

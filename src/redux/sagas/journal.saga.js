@@ -1,5 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
+import { func } from 'prop-types';
 
 
 function* fetchJournals(action) {
@@ -28,6 +29,35 @@ function* fetchJournals(action) {
 } // end fetchQuestions
 
 
+function* createJournal(action) {
+
+  try {
+    console.log('in journal saga, create', action.payload);
+    // refresh journal list
+    yield put({
+      type: 'FETCH_JOURNALS'
+    })
+  } catch (error) {
+    console.log('in saga, error adding journal', error);
+  }
+}
+
+
+function* updateJournal(action) {
+
+  try {
+    console.log('in journal saga, update', action.payload);
+    // refresh journal list
+    yield put({
+      type: 'FETCH_JOURNALS'
+    })
+  } catch (error) {
+    console.log('in saga, error updating journal', error);
+  }
+}
+
+
+
 
 
 
@@ -35,6 +65,8 @@ function* fetchJournals(action) {
 
 function* journalSaga() {
   yield takeLatest('FETCH_JOURNALS', fetchJournals);
+  yield takeLatest('CREATE_JOURNAL', createJournal);
+  yield takeLatest('UPDATE_JOURNAL', updateJournal);
 }
 
 export default journalSaga;
