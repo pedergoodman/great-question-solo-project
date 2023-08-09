@@ -47,14 +47,55 @@ router.get('/', rejectUnauthenticated, (req, res) => {
  * POST route template
  */
 router.post('/', rejectUnauthenticated, (req, res) => {
-  // POST route code here
+  const { journalTitle, journalBody, createdDate, editedDate, questionId, } = req.body
+
+
+  console.log('journalTitle is:', journalTitle);
+  console.log('journalBody is:', journalBody);
+  console.log('createdDate is:', createdDate);
+  console.log('editedDate is:', editedDate);
+  console.log('questionId is:', questionId);
+
+  const valuesToInsert = [
+    journalTitle,
+  journalBody,
+  createdDate,
+  editedDate,
+  questionId, 
+  req.user.id
+  ]
+
+
+  sqlText = `
+  INSERT INTO
+  journals (
+    "title",
+    "journal_entry",
+    "created_date",
+    "edited_date",
+    "question_id",
+    "user_id"
+  )
+VALUES
+    ($1, $2, $3, $4, $5, $6)
+  `
+
+  pool.query(sqlText, valuesToInsert)
+    .then((result) => {
+      res.sendStatus(201)
+    }).catch((err) => {
+      console.log('error ADDING favorite to database', err);
+      res.sendStatus(500)
+    });
+
+
 });
 
 
 /**
  * DELETE route template
  */
-router.delete('/', rejectUnauthenticated, (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
   // DELETE route code here
 });
 
@@ -64,6 +105,12 @@ router.delete('/', rejectUnauthenticated, (req, res) => {
  */
 router.put('/', rejectUnauthenticated, (req, res) => {
   // PUT route code here
+  console.log(req.user.id);
+  console.log('in server journal PUT req.body is:', req.body);
+  res.sendStatus(201)
+
+
+
 });
 
 
