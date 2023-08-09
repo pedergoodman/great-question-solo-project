@@ -16,7 +16,6 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 // CUSTOM COMPONENTS
 import AboutPage from '../AboutPage/AboutPage';
 import ProfilePage from '../UserProfile/_ProfilePage/ProfilePage';
-import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';

@@ -29,17 +29,17 @@ function LandingPage() {
 
 
   // conditional for favorites list, if it's empty don't map it
-  if (favoriteQuestions.length > 0) {
+  if (customQuestions.length > 0) {
     // convert custom list to "category obj" and add to all question list
     const customAsCategory = createCategoryListItem(
       customQuestions,
       "Custom Questions"
     );
-    allQuestionsListToMap.push(customAsCategory);
+    // allQuestionsListToMap.push(customAsCategory);
   }
   
   // conditional for custom list, if it's empty don't map it
-  if (customQuestions.length > 0) {
+  if (favoriteQuestions.length > 0) {
   // convert favorite list to "category obj" and add to all question list
   const favAsQuestionList = createQuestionList(favoriteQuestions);
   const favAsCategory = createCategoryListItem(favAsQuestionList, "Favorites");

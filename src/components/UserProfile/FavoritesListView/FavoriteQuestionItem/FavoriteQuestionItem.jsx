@@ -63,7 +63,7 @@ export default function FavoriteQuestionItem({ questionItem }) {
   return (
     <ListItem>
       <ListItemText primary={questionText} />
-      {userAddedId ? deleteButton : <></>}
+      {/* {userAddedId ? deleteButton : <></>} */}
       <IconButton
         aria-label="favorite"
         color="secondary"

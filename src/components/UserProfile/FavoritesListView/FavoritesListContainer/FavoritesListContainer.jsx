@@ -30,8 +30,9 @@ export default function JournalContainer() {
     customQuestions,
     "Custom Questions"
   );
-  const favoriteListToMap = [...favoriteQuestions, customAsCategory];
-
+  
+  const favoriteListToMap = [...favoriteQuestions];
+  // const favoriteListToMap = [...favoriteQuestions, customAsCategory];
   
   // console.group('Figuring out favs display');
   // console.log("favoritesList is:", favoriteQuestions);
