@@ -58,7 +58,7 @@ export default function JournalEditPage() {
   };
 
   const handleClickSave = () => {
-    console.log("clicked handleClickSave");
+    console.log("clicked handleClickSave, active journal is:", activeJournal);
     // TODO -  post dispatch (only in input form)
 
     // TODO - handle createdDate and editedDate
@@ -68,13 +68,15 @@ export default function JournalEditPage() {
     // TODO - useHistory back to profile
   };
 
-  // TODO on change dispatches
-  const titleOnChange = () => {
-    // TODO - dispatch to reducer (check notes)
-  };
-
-  const bodyOnChange = () => {
-    // TODO - dispatch to reducer (check notes)
+  // on change dispatch
+  const onEditChange = (event, propertyToChange) => {
+    dispatch({
+      type: 'ON_JOURNAL_CHANGE',
+      payload: {
+        propertyToChange: propertyToChange,
+        value: event.target.value
+      }
+    })
   };
 
   return (
@@ -145,7 +147,9 @@ export default function JournalEditPage() {
             placeholder="Add a Title"
             variant="standard"
             sx={{ width: "80%", bgcolor: "blue[900]", m: "6px 0 8px 24px" }}
-            onChange={titleOnChange}
+            onChange={(event) => {
+              onEditChange(event, 'journalTitle')
+            }}
           />
           <Typography
             variant="overline"
@@ -164,7 +168,9 @@ export default function JournalEditPage() {
           size="small"
           placeholder=".....what's on your mind?"
           sx={{ width: "100%" }}
-          onChange={bodyOnChange}
+          onChange={(event) => {
+            onEditChange(event, 'journalBody')
+          }}
         />
       </Box>
     </Grid>

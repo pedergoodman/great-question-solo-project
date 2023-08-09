@@ -30,9 +30,9 @@ const activeJournal = (state = defaultActiveJournalState, action) => {
       // TODO - check note if this needed to be anything special
       // should just be passing a question object or a journal object
       return action.payload;
-    case 'ON_ACTIVE_JOURNAL_CHANGE':
+    case 'ON_JOURNAL_CHANGE':
       // TODO - check notes for formatting
-      return action.payload;
+      return {...state, [action.payload.propertyToChange]: action.payload.value};
     case 'CLEAR_ACTIVE_JOURNAL':
       // TODO - check notes for formatting
       return defaultActiveJournalState;
