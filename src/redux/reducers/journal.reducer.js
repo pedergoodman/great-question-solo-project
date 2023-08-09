@@ -11,11 +11,31 @@ const userJournals = (state = [], action) => {
   }
 }
 
+const defaultActiveJournalState = {
+  journalId: '',
+  journalTitle: '',
+  journalBody: '',
+  questionId: '',
+  questionText: '',
+  // don't need these, here for reference 
+  editedDate: '',
+  categoryId: '',
+  categoryName: '',
+  createdDate: '',
+}
 
-const activeJournal = (state = {title: '', textBody: '', createdDate: '', lastEdited: ''}, action) => {
+const activeJournal = (state = defaultActiveJournalState, action) => {
   switch (action.type) {
-    case 'ON_ACTIVE_JOURNAL_CHANGE':
+    case 'SET_ACTIVE_JOURNAL':
+      // TODO - check note if this needed to be anything special
+      // should just be passing a question object or a journal object
       return action.payload;
+    case 'ON_ACTIVE_JOURNAL_CHANGE':
+      // TODO - check notes for formatting
+      return action.payload;
+    case 'CLEAR_ACTIVE_JOURNAL':
+      // TODO - check notes for formatting
+      return defaultActiveJournalState;
     default:
       return state;
   }
