@@ -50,19 +50,13 @@ router.post('/', rejectUnauthenticated, (req, res) => {
   const { journalTitle, journalBody, createdDate, editedDate, questionId, } = req.body
 
 
-  console.log('journalTitle is:', journalTitle);
-  console.log('journalBody is:', journalBody);
-  console.log('createdDate is:', createdDate);
-  console.log('editedDate is:', editedDate);
-  console.log('questionId is:', questionId);
-
   const valuesToInsert = [
     journalTitle,
-  journalBody,
-  createdDate,
-  editedDate,
-  questionId, 
-  req.user.id
+    journalBody,
+    createdDate,
+    editedDate,
+    questionId,
+    req.user.id
   ]
 
 
@@ -104,10 +98,41 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
  * PUT route template
  */
 router.put('/', rejectUnauthenticated, (req, res) => {
-  // PUT route code here
-  console.log(req.user.id);
-  console.log('in server journal PUT req.body is:', req.body);
-  res.sendStatus(201)
+
+  const { journalTitle, journalBody, createdDate, editedDate, questionId, journalId } = req.body
+
+
+  const valuesToInsert = [
+    journalTitle,
+    journalBody,
+    editedDate,
+    questionId,
+    req.user.id,
+    journalId
+  ]
+
+
+  sqlText = `
+  UPDATE
+    "journals"
+  SET
+    "title" = $1,
+    "journal_entry" = $2,
+    "edited_date" = $3,
+    "question_id" = $4,
+    "user_id" = $5
+  WHERE 
+    journals.id = $6 AND "user_id" = $5
+
+  `
+
+  pool.query(sqlText, valuesToInsert)
+    .then((result) => {
+      res.sendStatus(201)
+    }).catch((err) => {
+      console.log('error ADDING favorite to database', err);
+      res.sendStatus(500)
+    });
 
 
 
