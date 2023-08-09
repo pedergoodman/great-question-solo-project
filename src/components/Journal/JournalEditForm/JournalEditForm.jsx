@@ -31,12 +31,36 @@ export default function JournalEditPage() {
   } = activeJournal;
 
   console.log("activeJournal is:", activeJournal);
+  console.log('created date is:', createdDate);
+  // useEffect(() => {
+  //   dispatch({
+  //     type: "FETCH_JOURNALS",
+  //   });
+  // }, []);
 
-  useEffect(() => {
+
+  // TODO on change dispatches
+  const onEditChange = (value, propertyToChange) => {
     dispatch({
-      type: "FETCH_JOURNALS",
-    });
-  }, []);
+      type: 'ON_JOURNAL_CHANGE',
+      payload: {
+        propertyToChange: propertyToChange,
+        value: value
+      }
+    })
+  };
+
+  if (!createdDate) {
+    const setDateNow = new Date();
+
+    console.log("created date is empty");
+    onEditChange(setDateNow, "createdDate");
+    onEditChange(setDateNow, "editedDate");
+  } else if (!editedDate) {
+    console.log("created date is:", createdDate);
+    const setDateNow = new Date();
+    onEditChange(setDateNow, "editedDate");
+  }
 
   // date formatting
   const formattedCreatedDate = new Date(createdDate).toLocaleDateString(
@@ -50,9 +74,8 @@ export default function JournalEditPage() {
     day: "numeric",
   });
 
+  // Clear activeJournal, take user to profile page
   const handleClickCancel = () => {
-    console.log("clicked handleClickCancel");
-    // TODO - useHistory back to profile
     dispatch({ type: "CLEAR_ACTIVE_JOURNAL" });
     history.push("/user-profile");
   };
@@ -75,16 +98,7 @@ export default function JournalEditPage() {
 
   };
 
-  // TODO on change dispatches
-  const onEditChange = (event, propertyToChange) => {
-    dispatch({
-      type: 'ON_JOURNAL_CHANGE',
-      payload: {
-        propertyToChange: propertyToChange,
-        value: event.target.value
-      }
-    })
-  };
+
 
   return (
     <Grid
@@ -148,7 +162,7 @@ export default function JournalEditPage() {
             value={journalTitle}
             sx={{ width: "80%", bgcolor: "blue[900]", m: "6px 0 8px 24px" }}
             onChange={(event) => {
-              onEditChange(event, 'journalTitle')
+              onEditChange(event.target.value, 'journalTitle')
             }}
           />
           <Typography
@@ -157,7 +171,7 @@ export default function JournalEditPage() {
             gutterBottom
             sx={{ textAlign: "right", m: "30px 12px 0px", lineHeight: 1 }}
           >
-            {formattedCreatedDate}  
+            {formattedEditedDate}  
           </Typography>
         </Box>
 
@@ -169,7 +183,7 @@ export default function JournalEditPage() {
           placeholder=".....what's on your mind?"
           sx={{ width: "100%" }}
           onChange={(event) => {
-            onEditChange(event, 'journalBody')
+            onEditChange(event.target.value, 'journalBody')
           }}
         />
       </Box>
