@@ -27,6 +27,17 @@ export default function JournalEditPage() {
     createdDate,
   } = activeJournal;
 
+  // TODO on change dispatches
+  const onEditChange = (value, propertyToChange) => {
+    dispatch({
+      type: "ON_JOURNAL_CHANGE",
+      payload: {
+        propertyToChange: propertyToChange,
+        value: value,
+      },
+    });
+  };
+
   // setting current date
   const setDateNow = new Date();
 
@@ -57,17 +68,7 @@ export default function JournalEditPage() {
     day: "numeric",
   });
 
-  // TODO on change dispatches
-  const onEditChange = (value, propertyToChange) => {
-    dispatch({
-      type: "ON_JOURNAL_CHANGE",
-      payload: {
-        propertyToChange: propertyToChange,
-        value: value,
-      },
-    });
-  };
-
+  // BUTTONS
   // Clear activeJournal, take user to profile page
   const handleClickCancel = () => {
     dispatch({ type: "CLEAR_ACTIVE_JOURNAL" });
@@ -76,15 +77,22 @@ export default function JournalEditPage() {
 
   // SAVE to database
   const handleClickSave = () => {
-    console.log("clicked handleClickSave, active journal is:", activeJournal);
-    // TODO -  PUT dispatch (only in edit form)
     onEditChange(setDateNow, "editedDate");
 
-    // update journal in DB
-    dispatch({
-      type: "UPDATE_JOURNAL",
-      payload: activeJournal,
-    });
+    // CONDITIONAL update if journalId exists, create if it doesn't 
+    if (journalId) {
+      // update journal in DB
+      dispatch({
+        type: "UPDATE_JOURNAL",
+        payload: activeJournal,
+      });
+    } else {
+      // create journal in DB
+      dispatch({
+        type: "CREATE_JOURNAL",
+        payload: activeJournal,
+      });
+    }
 
     // Clear activeJournal, take user to profile page
     dispatch({ type: "CLEAR_ACTIVE_JOURNAL" });
@@ -114,7 +122,9 @@ export default function JournalEditPage() {
           mt: "5px",
         }}
       >
-        <Button onClick={handleClickCancel}>discard</Button>
+        <Button onClick={handleClickCancel}>
+          {journalId ? "cancel" : "discard"}
+        </Button>
         <Button onClick={handleClickSave}>save</Button>
       </Box>
 

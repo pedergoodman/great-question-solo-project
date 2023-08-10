@@ -71,7 +71,7 @@ export default function QuestionCard({
       payload: currentQuestion,
     });
     
-    history.push('/create-journal')
+    history.push('/edit-journal')
   };
 
   const handleToggleFavorite = () => {

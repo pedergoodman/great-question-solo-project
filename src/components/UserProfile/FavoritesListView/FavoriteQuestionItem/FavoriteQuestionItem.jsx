@@ -48,7 +48,7 @@ export default function FavoriteQuestionItem({ questionItem }) {
         payload: questionItem,
       });
 
-      history.push("/create-journal");
+      history.push("/edit-journal");
   };
 
   // TODO - functionality to delete a custom question from the list
