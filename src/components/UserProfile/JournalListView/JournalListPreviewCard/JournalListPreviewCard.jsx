@@ -47,6 +47,7 @@ const journalCardContainerStyle = {
   padding: "0 0 0 0",
   height: '250px',
   marginBottom: '8px',
+  boxShadow: '0px 0 6px -1px rgb(0 0 0 / 20%)'
 };
 
 const fabStyleEdit = {
