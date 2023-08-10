@@ -11,6 +11,7 @@ import { CardActionArea, Fab } from "@mui/material";
 
 // MUI ICONS
 import EditIcon from "@mui/icons-material/Edit";
+import { Delete } from "@mui/icons-material";
 
 // STYLING
 const titleBarStyle = {
@@ -40,11 +41,19 @@ const journalCardContainerStyle = {
   padding: "0 0 0 0",
 };
 
-const fabStyle = {
+const fabStyleEdit = {
   scale: "65%",
   position: "absolute",
   top: 0,
   right: 0,
+};
+
+const fabStyleDelete = {
+  scale: "65%",
+  position: "absolute",
+  top: 35,
+  right: 0,
+  backgroundColor: 'red'
 };
 
 export default function JournalPreviewCard({ journalItem }) {
@@ -86,6 +95,13 @@ export default function JournalPreviewCard({ journalItem }) {
     console.log("clicked openJournalPreview");
   };
 
+  const handleDelete = () => {
+    dispatch({
+      type: 'DELETE_JOURNAL',
+      payload: journalId
+    })
+  };
+
   return (
     <Box xs={6} sx={journalCardContainerStyle}>
       <Card variant="outlined">
@@ -94,10 +110,19 @@ export default function JournalPreviewCard({ journalItem }) {
           color="primary"
           aria-label="edit"
           size="small"
-          sx={fabStyle}
+          sx={fabStyleEdit}
           onClick={openJournalEditor}
         >
           <EditIcon />
+        </Fab>
+        <Fab
+          color="primary"
+          aria-label="edit"
+          size="small"
+          sx={fabStyleDelete}
+          onClick={handleDelete}
+        >
+          <Delete />
         </Fab>
 
         {/* TODO - action area opens to modal view */}
