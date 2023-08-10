@@ -5,8 +5,8 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 // MUI COMPONENTS
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { Button, Grid, TextField } from "@mui/material";
-
+import { Button, Grid, IconButton, TextField } from "@mui/material";
+import { Delete } from "@mui/icons-material";
 
 // STYLING
 
@@ -17,55 +17,38 @@ export default function JournalEditPage() {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  // active journal display data
   const {
     journalId,
     journalTitle,
     journalBody,
-    questionId,
     questionText,
     editedDate,
-
-    categoryId,
-    categoryName,
     createdDate,
   } = activeJournal;
 
-  console.log("activeJournal is:", activeJournal);
-  console.log('created date is:', createdDate);
-  // useEffect(() => {
-  //   dispatch({
-  //     type: "FETCH_JOURNALS",
-  //   });
-  // }, []);
+  // setting current date
+  const setDateNow = new Date();
 
+  // sets editedDate to today
+  useEffect(() => {
+    onEditChange(setDateNow, "editedDate");
+  }, []);
 
-  // TODO on change dispatches
-  const onEditChange = (value, propertyToChange) => {
-    dispatch({
-      type: 'ON_JOURNAL_CHANGE',
-      payload: {
-        propertyToChange: propertyToChange,
-        value: value
-      }
-    })
-  };
-
+  // conditionally apply date to created date/edited date
   if (!createdDate) {
-    const setDateNow = new Date();
-
-    console.log("created date is empty");
     onEditChange(setDateNow, "createdDate");
-    onEditChange(setDateNow, "editedDate");
-  } else if (!editedDate) {
-    console.log("created date is:", createdDate);
-    const setDateNow = new Date();
-    onEditChange(setDateNow, "editedDate");
+    // onEditChange(setDateNow, "editedDate");
   }
 
   // date formatting
   const formattedCreatedDate = new Date(createdDate).toLocaleDateString(
     "en-us",
-    { year: "numeric", month: "short", day: "numeric" }
+    {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    }
   );
 
   const formattedEditedDate = new Date(editedDate).toLocaleDateString("en-us", {
@@ -74,31 +57,39 @@ export default function JournalEditPage() {
     day: "numeric",
   });
 
+  // TODO on change dispatches
+  const onEditChange = (value, propertyToChange) => {
+    dispatch({
+      type: "ON_JOURNAL_CHANGE",
+      payload: {
+        propertyToChange: propertyToChange,
+        value: value,
+      },
+    });
+  };
+
   // Clear activeJournal, take user to profile page
   const handleClickCancel = () => {
     dispatch({ type: "CLEAR_ACTIVE_JOURNAL" });
     history.push("/user-profile");
   };
 
+  // SAVE to database
   const handleClickSave = () => {
     console.log("clicked handleClickSave, active journal is:", activeJournal);
     // TODO -  PUT dispatch (only in edit form)
-      dispatch({
-        type: 'UPDATE_JOURNAL',
-        payload: activeJournal
-      })
+    onEditChange(setDateNow, "editedDate");
 
-    // TODO - handle editedDate
-    // handle in the backend?
-      // actually maybe update here so something displays right, 
-      // needs to be conditional if it exists already or not 
-    // PUT - new timestamp edited only
-    // TODO - clear active
-    // TODO - useHistory back to profile
+    // update journal in DB
+    dispatch({
+      type: "UPDATE_JOURNAL",
+      payload: activeJournal,
+    });
 
+    // Clear activeJournal, take user to profile page
+    dispatch({ type: "CLEAR_ACTIVE_JOURNAL" });
+    history.push("/user-profile");
   };
-
-
 
   return (
     <Grid
@@ -155,14 +146,15 @@ export default function JournalEditPage() {
             bgColor: "light-grey",
           }}
         >
+          {/* TITLE */}
           <TextField
             id="standard-basic"
             placeholder="Add a Title"
             variant="standard"
             value={journalTitle}
             sx={{ width: "80%", bgcolor: "blue[900]", m: "6px 0 8px 24px" }}
-            onChange={(event) => {
-              onEditChange(event.target.value, 'journalTitle')
+            onChange={event => {
+              onEditChange(event.target.value, "journalTitle");
             }}
           />
           <Typography
@@ -171,10 +163,10 @@ export default function JournalEditPage() {
             gutterBottom
             sx={{ textAlign: "right", m: "30px 12px 0px", lineHeight: 1 }}
           >
-            {formattedEditedDate}  
+            {formattedEditedDate}
           </Typography>
         </Box>
-
+        {/* BODY */}
         <TextField
           multiline
           rows={24}
@@ -182,8 +174,8 @@ export default function JournalEditPage() {
           value={journalBody}
           placeholder=".....what's on your mind?"
           sx={{ width: "100%" }}
-          onChange={(event) => {
-            onEditChange(event.target.value, 'journalBody')
+          onChange={event => {
+            onEditChange(event.target.value, "journalBody");
           }}
         />
       </Box>

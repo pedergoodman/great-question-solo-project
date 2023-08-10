@@ -64,12 +64,8 @@ export default function QuestionCard({
   }
   
 
-  // eventually will go to a new page!!
+  // Sets the active journal and opens a new journal page!
   const handleNewJournalBtn = () => {
-    console.log("New Journal Button Clicked!");
-    console.log("This will take you to a new page 📓");
-    console.log('currentQuestion is', currentQuestion);
-    
     dispatch({
       type: "SET_ACTIVE_JOURNAL",
       payload: currentQuestion,
@@ -125,9 +121,11 @@ export default function QuestionCard({
             <ClearIcon />
           </Button>
         </div>
+
         <div id="question-modal-main-text">
           <h2 id="parent-modal-title">{currentQuestion.questionText}</h2>
         </div>
+
         <div id="question-modal-refresh-button">
           {/* <Button 
             variant="contained"
@@ -149,6 +147,7 @@ export default function QuestionCard({
             <RedoIcon />
           </Button> */}
         </div>
+        
         <div id="question-modal-lower-btn-bar">
           <Button variant="contained" onClick={handleToggleFavorite}>
             {currentQuestion.isFavorited ? (

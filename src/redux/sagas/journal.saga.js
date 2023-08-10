@@ -63,6 +63,7 @@ function* updateJournal(action) {
 
 function* deleteJournal(action) {
 
+  console.log('in delete saga! journalId to delete is:', action.payload);
   try {
     
   } catch (error) {
