@@ -30,6 +30,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       ON question_categories.category_id = categories.id
     WHERE 
       journals.user_id = $1
+    ORDER BY 
+      journals.edited_date DESC
   ;`
 
   pool.query(sqlText, [userId])

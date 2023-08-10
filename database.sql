@@ -19,7 +19,7 @@ CREATE TABLE "journals" (
   "title" varchar(300) NOT NULL,
   "journal_entry" varchar(10000) NOT NULL,
   "created_date" TIMESTAMP(0) NOT NULL DEFAULT NOW(),
-  "edited_date" DATE,
+  "edited_date" TIMESTAMP(0) NOT NULL DEFAULT NOW(),
   "question_id" integer NOT NULL REFERENCES "questions",
   "user_id" integer NOT NULL REFERENCES "user"
 );
