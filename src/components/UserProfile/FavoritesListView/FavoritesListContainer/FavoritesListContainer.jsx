@@ -14,7 +14,7 @@ const listHeaderStyle = {
   bgcolor: "background.paper",
   position: "relative",
   overflow: "auto",
-  maxHeight: "675px",
+  maxHeight: "100%",
   paddingBottom: 0,
   "& ul": { padding: 0 },
 };

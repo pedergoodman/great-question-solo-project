@@ -15,6 +15,7 @@ const viewContainerStyle = {
   display: "flex",
   justifyContent: "center",
   padding: "0 px",
+  height: '80vh',
 };
 
 const favoritesContainerStyle = {
@@ -22,17 +23,14 @@ const favoritesContainerStyle = {
   margin: "0 5px",
   backgroundColor: "cadetblue",
   maxWidth: "45%",
-  minWidth: "40%",
-  width: "45%",
-  maxHeight: "675px",
+
 };
 
 const journalContainerStyle = {
   backgroundColor: "cadetblue",
   padding: "8px",
   maxWidth: "45%",
-  width: "100%",
-  maxHeight: "675px",
+  
 };
 
 

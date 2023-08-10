@@ -12,11 +12,10 @@ import JournalListPreviewCard from "../JournalListPreviewCard/JournalListPreview
 const gridStyling = {
   width: "100%",
   margin: "0 0 0 0",
-  maxHeight: "575px",
+  maxHeight: "100%",
   bgcolor: "background.paper",
   position: "relative",
-  overflow: "auto",
-  maxHeight: "675px",
+  overflow: "scroll",
   backgroundColor: "transparent",
   flexBasis: "calc(50% + -4px)",
   WebkitFlexBasis: "calc(50% - 4px)",

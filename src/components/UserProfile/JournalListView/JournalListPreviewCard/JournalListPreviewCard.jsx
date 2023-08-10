@@ -19,11 +19,11 @@ const titleBarStyle = {
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  overflow: "hidden",
+  overflow: 'hidden',
   textOverflow: "ellipsis",
   display: "flex",
-  WebkitLineClamp: "2",
-  WebkitBoxOrient: "vertical",
+  WebkitLineClamp: 2,
+  WebkitBoxOrient: 'vertical',
 
 };
 
@@ -136,7 +136,11 @@ export default function JournalPreviewCard({ journalItem }) {
 
         {/* TODO - action area opens to modal view */}
         <CardActionArea onClick={openJournalPreview} sx={{height: '100%'}}>
-          <CardContent sx={{ padding: "2px 8px 12px", height: '100%' }}>
+          <CardContent sx={{ 
+            padding: "2px 8px", 
+            height: '100%', 
+            WebkitMaskImage: 'linear-gradient(180deg, #000 60%, transparent)'
+          }}>
             <Box sx={titleBarStyle}>
               <Typography variant="h5" component="div">
                 {journalTitle}
