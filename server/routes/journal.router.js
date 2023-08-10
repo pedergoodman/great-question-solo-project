@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 
-// GET all user journals
+// GET all user journals from database
 router.get('/', rejectUnauthenticated, (req, res) => {
 
   const userId = req?.user?.id;
@@ -39,15 +39,13 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       // console.log(result.rows);
       res.send(result.rows)
     }).catch((err) => {
-      console.log('error ADDING favorite to database', err);
+      console.log('error GETTING journal from database', err);
       res.sendStatus(500)
     });
 });
 
 
-/**
- * POST route template
- */
+// POST new journal to database
 router.post('/', rejectUnauthenticated, (req, res) => {
   const { journalTitle, journalBody, createdDate, editedDate, questionId, } = req.body
 
@@ -80,25 +78,36 @@ VALUES
     .then((result) => {
       res.sendStatus(201)
     }).catch((err) => {
-      console.log('error ADDING favorite to database', err);
+      console.log('error ADDING journal to database', err);
       res.sendStatus(500)
     });
 
 
 });
 
-
-/**
- * DELETE route template
- */
+// DELETE selected journal from database
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
-  // DELETE route code here
+
+  sqlText = `
+    DELETE FROM
+      "journals"
+    WHERE 
+      journals.id = $1 AND "user_id" = $2
+  `
+
+
+  pool.query(sqlText, [req.params.id, req.user.id])
+    .then((result) => {
+      res.sendStatus(201)
+    }).catch((err) => {
+      console.log('error DELETING journal from database', err);
+      res.sendStatus(500)
+    });
+
 });
 
 
-/**
- * PUT route template
- */
+// UPDATE selected journal on database
 router.put('/', rejectUnauthenticated, (req, res) => {
 
   const { journalTitle, journalBody, createdDate, editedDate, questionId, journalId } = req.body
@@ -132,7 +141,7 @@ router.put('/', rejectUnauthenticated, (req, res) => {
     .then((result) => {
       res.sendStatus(201)
     }).catch((err) => {
-      console.log('error ADDING favorite to database', err);
+      console.log('error UPDATING journal in database', err);
       res.sendStatus(500)
     });
 
