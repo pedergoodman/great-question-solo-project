@@ -3,7 +3,7 @@ import LogOutButton from "../../LogOutButton/LogOutButton";
 import { useDispatch, useSelector } from "react-redux";
 
 // MUI IMPORTS
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 
 // CUSTOM COMPONENTS
 import JournalListContainer from "../JournalListView/JournalListContainer/JournalListContainer";
@@ -23,6 +23,8 @@ const favoritesContainerStyle = {
   maxWidth: "45%",
   borderRadius: "9px",
   boxShadow: "0 0 10px 0px rgb(0 0 0 / 55%)",
+  display: "flex",
+  justifyContent: "center",
 };
 
 const journalContainerStyle = {

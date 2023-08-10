@@ -7,14 +7,15 @@ import { createCategoryListItem } from "../../../../utils/utils";
 import List from "@mui/material/List";
 // CUSTOM COMPONENTS
 import FavoriteCategoryHeader from "../FavoriteCategoryHeader/FavoriteCategoryHeader";
+import { Box, Divider, Typography } from "@mui/material";
 
-// styling for favorites list headers 
+// styling for favorites list headers
 const listHeaderStyle = {
   width: "100%",
   bgcolor: "background.paper",
   position: "relative",
   overflow: "auto",
-  maxHeight: "100%",
+  maxHeight: "95%",
   paddingBottom: 0,
   "& ul": { padding: 0 },
 };
@@ -30,10 +31,16 @@ export default function JournalContainer() {
     customQuestions,
     "Custom Questions"
   );
-  
+
+  const favoritesContainerStyle = {
+    maxWidth: "100%",
+    borderRadius: "9px",
+    maxHeight: "100%",
+  };
+
   const favoriteListToMap = [...favoriteQuestions];
   // const favoriteListToMap = [...favoriteQuestions, customAsCategory];
-  
+
   // console.group('Figuring out favs display');
   // console.log("favoritesList is:", favoriteQuestions);
   // console.log("customQuestions is:", customQuestions);
@@ -42,14 +49,20 @@ export default function JournalContainer() {
   // console.groupEnd()
 
   return (
-    <List sx={listHeaderStyle} subheader={<li />}>
-      {/* mapping categories and reflated questions to list */}
-      {favoriteListToMap.map(questionCategory => (
-        <li key={questionCategory.categoryData.categoryName}>
-          <FavoriteCategoryHeader questionCategory={questionCategory} />
-        </li>
-      ))}
-      {/* <FavoriteCategoryHeader customAsCategory={customAsCategory} /> */}
-    </List>
+    <Box sx={favoritesContainerStyle}>
+      <Typography variant="h6" sx={{ padding: "4px 10px" }}>
+        Favorites
+      </Typography>
+      <Divider />
+      <List sx={listHeaderStyle} subheader={<li />}>
+        {/* mapping categories and reflated questions to list */}
+        {favoriteListToMap.map(questionCategory => (
+          <li key={questionCategory.categoryData.categoryName}>
+            <FavoriteCategoryHeader questionCategory={questionCategory} />
+          </li>
+        ))}
+        {/* <FavoriteCategoryHeader customAsCategory={customAsCategory} /> */}
+      </List>
+    </Box>
   );
 }
