@@ -2,33 +2,31 @@ import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 import { func } from 'prop-types';
 
-
+// FETCH journal list from DB, set list in reducer
 function* fetchJournals(action) {
-  // const userId = action.payload
-  // console.log('in question saga, payload is:', action.payload);
-  // console.log('isAuthenticated is:', isAuthenticated);
 
   try {
     // allQuestions comes in as an array of category objects
     const userJournalResult = yield axios.get(`/api/journals`)
+
     // query results 
     const userJournalList = userJournalResult.data
     console.log('userJournalList saga, userJournalList data is:', userJournalList);
 
-    // send allQuestionsList to reducer 
+    // send userJournalList to reducer 
     yield put({
       type: 'SET_JOURNAL_LIST',
       payload: userJournalList
     })
 
-
   } catch (error) {
-    console.log('Error getting journals List', error);
+    console.log('in saga, error getting journals List', error);
   }
 
-} // end fetchQuestions
+}
 
 
+// POST journal in DB, refresh journal list
 function* createJournal(action) {
 
   try {
@@ -42,9 +40,8 @@ function* createJournal(action) {
   }
 }
 
-
+// UPDATE journal in DB, refresh journal list
 function* updateJournal(action) {
-
   try {
     // axios PUT update journal entry
     yield axios.put('/api/journals', action.payload)
@@ -60,14 +57,18 @@ function* updateJournal(action) {
 }
 
 
-
+// DELETE journal from DB, refresh journal list
 function* deleteJournal(action) {
-
-  console.log('in delete saga! journalId to delete is:', action.payload);
   try {
-    
+    // send delete request
+    yield axios.delete(`/api/journals/${action.payload}`)
+
+    // refresh journal list
+    yield put({
+      type: 'FETCH_JOURNALS'
+    })
   } catch (error) {
-    
+    console.log('in saga, error deleting journal', error);
   }
 };
 
