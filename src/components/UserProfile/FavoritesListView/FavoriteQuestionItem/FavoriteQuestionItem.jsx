@@ -11,14 +11,15 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 // FAVORITE QUESTION ITEM
 export default function FavoriteQuestionItem({ questionItem }) {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   // values from questionItem
   const { questionId, questionText, isFavorited, userAddedId } = questionItem;
-
 
   // toggle favorite dispatch
   const handleToggleFavorite = () => {
@@ -41,13 +42,19 @@ export default function FavoriteQuestionItem({ questionItem }) {
 
   // TODO - functionality to open journal page and start new journal
   const startJournal = () => {
-    console.log("clicked start journal! Question selected is:", questionId);
+    // Sets the active journal and opens a new journal page!
+      dispatch({
+        type: "SET_ACTIVE_JOURNAL",
+        payload: questionItem,
+      });
+
+      history.push("/create-journal");
   };
 
   // TODO - functionality to delete a custom question from the list
   const deleteCustomQuestion = () => {
-    console.log('Delete Clicked!, question id is:', questionId);
-  }
+    console.log("Delete Clicked!, question id is:", questionId);
+  };
 
   // create delete button
   const deleteButton = (
