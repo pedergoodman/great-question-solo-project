@@ -40,3 +40,26 @@ export function createCategoryListItem(questionListArray, categoryName) {
 
   return categoryListItem;
 }
+
+
+export function getRandomIndex(categoryList) {
+
+  let randomIndex;
+  let lastIndex;
+
+  do {
+    randomIndex = Math.floor(Math.random() * categoryList.length);
+
+  } while (randomIndex === lastIndex);
+
+  lastIndex = randomIndex
+
+
+      // get random index
+    
+    // return random index in categoryList
+    return categoryList[randomIndex];
+
+
+
+}
