@@ -136,7 +136,7 @@ export default function JournalPreviewCard({ journalItem }) {
         </Fab>
 
         {/* TODO - action area opens to modal view */}
-        <CardActionArea onClick={openJournalPreview} sx={{height: '100%'}}>
+        <CardActionArea onClick={openJournalPreview} sx={{height: '100%', backgroundColor: '#fdf9f8'}}>
           <CardContent sx={{ 
             padding: "2px 8px", 
             height: '100%', 

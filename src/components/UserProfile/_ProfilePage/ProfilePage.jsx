@@ -14,7 +14,7 @@ const viewContainerStyle = {
   display: "flex",
   justifyContent: "center",
   padding: "0 px",
-  height: "80vh",
+  height: '90vh'
 };
 
 const favoritesContainerStyle = {
@@ -25,7 +25,8 @@ const favoritesContainerStyle = {
   boxShadow: "0 0 10px 0px rgb(0 0 0 / 55%)",
   display: "flex",
   justifyContent: "center",
-  overflow: 'hidden'
+  overflow: 'hidden',
+  background: '#a0b5bc',
 };
 
 const journalContainerStyle = {
@@ -33,7 +34,8 @@ const journalContainerStyle = {
   maxWidth: "45%",
   borderRadius: "9px",
   boxShadow: "0 0 10px 0px rgb(0 0 0 / 55%)",
-  overflow: 'hidden'
+  overflow: 'hidden',
+  background: '#a0b5bc',
 };
 
 // USER PAGE

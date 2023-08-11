@@ -18,6 +18,7 @@ const listHeaderStyle = {
   maxHeight: "95%",
   paddingBottom: 0,
   "& ul": { padding: 0 },
+  backgroundColor: '#fdf9f8',
 };
 
 // JOURNAL CONTAINER
