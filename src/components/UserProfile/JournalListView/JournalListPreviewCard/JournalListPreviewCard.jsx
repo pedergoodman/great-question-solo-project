@@ -7,12 +7,13 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, Fab, IconButton } from "@mui/material";
+import { CardActionArea, Fab, IconButton, Modal } from "@mui/material";
 
 // MUI ICONS
 import EditIcon from "@mui/icons-material/Edit";
 import { Delete } from "@mui/icons-material";
-
+import { useState } from "react";
+import JournalViewModal from '../../../Journal/JournalViewModal/JournalViewModal'
 
 // STYLING
 const titleBarStyle = {
@@ -65,6 +66,8 @@ const fabStyleDelete = {
   backgroundColor: "red",
 };
 
+
+// JOURNAL PREVIEW CARD
 export default function JournalPreviewCard({ journalItem }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -100,9 +103,6 @@ export default function JournalPreviewCard({ journalItem }) {
   };
 
   // TODO - open to preview modal
-  const openJournalPreview = () => {
-    console.log("clicked openJournalPreview");
-  };
 
   const handleDelete = () => {
     dispatch({
@@ -110,6 +110,24 @@ export default function JournalPreviewCard({ journalItem }) {
       payload: journalId,
     });
   };
+
+
+  // QuestionCard Modal control
+  const [open, setOpen] = useState(false);
+  const openJournalPreview = () => {
+    setOpen(true);
+    dispatch({
+      type: "SET_ACTIVE_JOURNAL",
+      payload: journalItem,
+    });
+  };
+  const closeJournalPreview = () => {
+    setOpen(false);
+    dispatch({
+      type: "CLEAR_ACTIVE_JOURNAL",
+    });
+  };
+
 
   return (
     <Box xs={6} sx={journalCardContainerStyle}>
@@ -162,6 +180,18 @@ export default function JournalPreviewCard({ journalItem }) {
           </CardContent>
         </CardActionArea>
       </Card>
+      <Modal
+        sx={{ backdropFilter: "blur(8px)" }}
+        open={open}
+        onClose={closeJournalPreview}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <JournalViewModal 
+          journalItem={journalItem}
+          closeJournalPreview={closeJournalPreview}
+        />
+      </Modal>
     </Box>
   );
 }
