@@ -1,51 +1,107 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import './Nav.css';
-import { useSelector } from 'react-redux';
+import React from "react";
+import "./Nav.css";
+
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useSelector } from "react-redux";
+
+// CUSTOM COMPONENTS
+import LogOutButton from "../LogOutButton/LogOutButton";
+
+// MUI
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  Toolbar,
+} from "@mui/material";
+
+
 
 function Nav() {
-  const user = useSelector((store) => store.user);
+  const history = useHistory();
+  const user = useSelector(store => store.user);
 
   return (
-    <div className="nav">
-      <Link to="/home">
-        <h2 className="nav-title">Great Question!</h2>
-      </Link>
-      <div>
-        {/* If no user is logged in, show these links */}
-        {!user.id && (
-          // If there's no user, show login/registration links
-          <>
-            <Link className="navLink" to="/home">
+    <>
+      <AppBar position="static" sx={{mb: '60px'}}>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Box
+              sx={{
+                height: "65px",
+                display: "flex",
+                justifyContent: "flex-start",
+                alignContent: "center",
+                flexDirection: "row",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                history.push("/home");
+              }}
+            >
+              <img
+                src="images/scaled-cropped-horizontal-great-question-logos_white.png"
+                alt="The logo"
+              />
+            </Box>
+
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", md: "flex" },
+                justifyContent: "flex-end",
+              }}
+            >
+              <Button
+                onClick={() => {
+                  history.push("/home");
+                }}
+                sx={{ my: 2, color: "white" }}
+              >
                 Home
-              </Link>
-            <Link className="navLink" to="/login">
-              Login / Register
-            </Link>
-          </>
-        )}
+              </Button>
 
-        {/* If a user is logged in, show these links */}
-        {user.id && (
-          <>
-            <Link className="navLink" to="/home">
-              Home
-            </Link>
+              {!user.id && (
+                <>
+                  <Button
+                    sx={{ my: 2, color: "white", whiteSpace: "nowrap" }}
+                    onClick={() => {
+                      history.push("/login");
+                    }}
+                  >
+                    Login / Register
+                  </Button>
+                </>
+              )}
 
-            <Link className="navLink" to="/user-profile">
-              Profile
-            </Link>
+              {user.id && (
+                <>
+                  <Button
+                    onClick={() => {
+                      history.push("/user-profile");
+                    }}
+                    sx={{ my: 2, color: "white" }}
+                  >
+                    Profile
+                  </Button>
+                  <LogOutButton />
+                </>
+              )}
 
-            <LogOutButton className="navLink" />
-          </>
-        )}
-
-        <Link className="navLink" to="/about">
-          About
-        </Link>
-      </div>
-    </div>
+              <Button
+                onClick={() => {
+                  history.push("/about");
+                }}
+                sx={{ my: 2, color: "white" }}
+              >
+                About
+              </Button>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </>
   );
 }
 
