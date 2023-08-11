@@ -99,6 +99,9 @@ export default function JournalEditPage() {
     history.push("/user-profile");
   };
 
+  const isDisabled = journalTitle && journalBody ? false : true;
+
+
   return (
     <Grid
       container
@@ -125,7 +128,7 @@ export default function JournalEditPage() {
         <Button onClick={handleClickCancel}>
           {journalId ? "cancel" : "discard"}
         </Button>
-        <Button onClick={handleClickSave}>save</Button>
+        <Button disabled={isDisabled} onClick={handleClickSave}>save</Button>
       </Box>
 
       {/* Question text */}
