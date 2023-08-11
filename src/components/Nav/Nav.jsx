@@ -24,7 +24,7 @@ function Nav() {
 
   return (
     <>
-      <AppBar position="static" sx={{mb: '60px'}}>
+      <AppBar position="static" sx={{mb: '60px', bgcolor: '#386270'}}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box

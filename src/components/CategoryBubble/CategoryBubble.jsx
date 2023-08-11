@@ -8,38 +8,55 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import { createQuestionList } from "../../utils/utils";
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
-
+import Modal from "@mui/material/Modal";
 
 // CUSTOM COMPONENTS
-import QuestionCard from '../QuestionCard/QuestionCard'
-
+import QuestionCard from "../QuestionCard/QuestionCard";
 
 // CategoryCard function
-  // 
-function CategoryCard({ questionCategory }) {
-  const dispatch = useDispatch();
-  const history = useHistory();
+//
+function CategoryCard({ questionCategory, color }) {
   const categoryName = questionCategory.categoryData.categoryName;
-  const questionData = questionCategory.questionData;
+
+  // console.log(color);
+  const arrayOfColors = [
+    // blues
+    "#64acc4",
+    "#669fb2",
+    "#89c0d2",
+
+    // sandy
+    "#bc8b7b",
+    "#d1afa3",
+
+    // greens
+    "#93bd9e",
+    "#adcdb5",
+
+    // purples
+    "#d5c3da",
+    "#c1cdf0",
+
+    // reds
+    "#e3a28c",
+    // red-orange maybe delete
+    "#e0b080",
+    "#e8caf2",
+  ];
+
+  const randomIndex = Math.floor(Math.random() * arrayOfColors.length);
 
   // CategoryBubble styling
   const bubbleContainerStyling = {
-    width: "150px",
-    height: "150px",
+    width: "200px",
+    height: "200px",
     borderRadius: "100%",
-    background: "chocolate",
+    background: arrayOfColors[randomIndex],
     m: "10px",
   };
   // console.log('in CategoryCard: questionCategory is:', questionCategory);
 
   const categoryList = createQuestionList([questionCategory]);
-  const handleClickCategory = () => {
-
-    console.log(`${categoryName} clicked! questions are:`, categoryList);
-  };
 
   // QuestionCard Modal control
   const [open, setOpen] = useState(false);
@@ -59,7 +76,12 @@ function CategoryCard({ questionCategory }) {
               gutterBottom
               variant="subtitle1"
               component="div"
-              sx={{ textAlign: "center", m: 0 }}
+              sx={{
+                textAlign: "center",
+                m: 0,
+                fontSize: "1.5rem",
+                fontWeight: "600",
+              }}
             >
               {categoryName}
             </Typography>
@@ -67,12 +89,16 @@ function CategoryCard({ questionCategory }) {
         </CardActionArea>
       </Card>
       <Modal
-        open={open} 
+        sx={{ backdropFilter: "blur(8px)" }}
+        open={open}
         onClose={handleCloseCategory}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <QuestionCard handleCloseCategory={handleCloseCategory} categoryList={categoryList}/>
+        <QuestionCard
+          handleCloseCategory={handleCloseCategory}
+          categoryList={categoryList}
+        />
       </Modal>
     </>
   );

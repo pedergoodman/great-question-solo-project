@@ -14,17 +14,13 @@ import Button from "@mui/material/Button";
 import QuestionCard from "../QuestionCard/QuestionCard";
 import { createQuestionList } from "../../utils/utils";
 
-
-
 // RANDOM ALL BUBBLE
-  // Button to 
-function RandomAllBubble({allQuestionsListToMap}) {
-
+// Button to
+function RandomAllBubble({ allQuestionsListToMap }) {
   // create list of all all questions with category data attached to each question
   const categoryList = createQuestionList(allQuestionsListToMap);
 
   // console.log('in random bubbule allQuestionsList is:', categoryList);
-
 
   // QuestionCard Modal control
   const [open, setOpen] = useState(false);
@@ -39,12 +35,11 @@ function RandomAllBubble({allQuestionsListToMap}) {
 
   // styling for "random all" button
   const bubbleContainerStyling = {
-    width: "150px",
-    height: "150px",
+    width: "200px",
+    height: "200px",
     borderRadius: "100%",
-    background: "chocolate",
+    background: "#386270",
     m: "auto",
-    backgroundColor: "blue",
   };
 
   return (
@@ -56,21 +51,30 @@ function RandomAllBubble({allQuestionsListToMap}) {
               gutterBottom
               variant="subtitle1"
               component="div"
-              sx={{ textAlign: "center", m: 0 }}
+              sx={{
+                textAlign: "center",
+                m: 0,
+                fontSize: "1.6rem",
+                fontWeight: "600",
+              }}
             >
-              RANDOM ALL
+              RANDOM!
             </Typography>
           </CardContent>
         </CardActionArea>
       </Card>
       <>
         <Modal
+          sx={{ backdropFilter: "blur(8px)" }}
           open={open}
           onClose={handleCloseCategory}
           aria-labelledby="parent-modal-title"
           aria-describedby="parent-modal-description"
         >
-          <QuestionCard handleCloseCategory={handleCloseCategory} categoryList={categoryList}/>
+          <QuestionCard
+            handleCloseCategory={handleCloseCategory}
+            categoryList={categoryList}
+          />
         </Modal>
       </>
     </>

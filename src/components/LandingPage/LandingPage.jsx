@@ -72,10 +72,11 @@ function LandingPage() {
           justifyContent: "space-evenly",
         }}
       >
-        {allQuestionsListToMap?.map(questionCategory => (
+        {allQuestionsListToMap?.map((questionCategory, color) => (
           <CategoryCard
             key={questionCategory.categoryData.categoryName}
             questionCategory={questionCategory}
+            color={color}
           />
         ))}
       </Box>
