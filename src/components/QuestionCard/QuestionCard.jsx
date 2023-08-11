@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import "./QuestionCard.css";
 
@@ -15,6 +15,7 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton } from "@mui/material";
+import { getRandomIndex } from "../../utils/utils";
 
 
 // STYLING 
@@ -23,84 +24,101 @@ const questionCardStyle = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  width: 650,
+  borderRadius: '16px',
   boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
+  padding: '2px 20px 22px',
 };
 
-// 
+// currentRandomQuestion
 
 // Question Card
 export default function QuestionCard({
   handleCloseCategory,
   categoryList,
   selectedQuestion,
+  bubbleColor
+
 }) {
   // managing data state
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [currentQuestion, setCurrentQuestion] = useState("");
+ const activeQuestion = useSelector(store => store.randomCard.currentRandomQuestion);
   // const [questionHistory, setQuestionHistory] = useState([]);
 
   useEffect(() => {
     // selected question would be passed from the profile page,
     // it isn't always expected, but if received needs to display first
-    if (selectedQuestion) {
-      setCurrentQuestion(selectedQuestion);
-    } else {
-      setCurrentQuestion(getRandomQuestion(categoryList));
-    }
+      //   if (selectedQuestion) {
+      //     dispatch({ type: 'SET_ACTIVE_QUESTION'})
+      //   } else {
+      //     activeQuestion(getRandomIndex(categoryList));
+      //   }
+
+      dispatch({ 
+        type: 'SET_ACTIVE_QUESTION',
+        payload: getRandomIndex(categoryList)
+      })
   }, []);
 
-  function getRandomQuestion(categoryList) {
-    // get random index
-    const randomIndex = Math.floor(Math.random() * categoryList.length);
-    // return random index in categoryList
-    return categoryList[randomIndex];
-  }
+
+  // function getRandomIndex(categoryList) {
+  //   // get random index
+  //   const randomIndex = Math.floor(Math.random() * categoryList.length);
+  //   // return random index in categoryList
+  //   return categoryList[randomIndex];
+  // }
   
 
   // Sets the active journal and opens a new journal page!
   const handleNewJournalBtn = () => {
+    
+    // dispatch({ 
+    //   type: 'SET_QUESTION_HISTORY',
+    //   payload: activeQuestion
+    // });
+
     dispatch({
       type: "SET_ACTIVE_JOURNAL",
-      payload: currentQuestion,
+      payload: activeQuestion,
     });
     
     history.push('/edit-journal')
   };
 
   const handleToggleFavorite = () => {
-    // check if currentQuestion.isFavorited is true or not
-    if (currentQuestion.isFavorited) {
+    // check if activeQuestion.isFavorited is true or not
+    if (activeQuestion.isFavorited) {
       // Sends an update to the DB to remove a favorite
       console.log('sending remove favorite');
-      // !currentQuestion.isFavorited
+      // !activeQuestion.isFavorited
       dispatch({
         type: "REMOVE_FAVORITE",
-        payload: currentQuestion.questionId,
+        payload: activeQuestion.questionId,
       });
-      
+
+      activeQuestion.isFavorited = !activeQuestion.isFavorited
     } else {
-      // !currentQuestion.isFavorited
+      // !activeQuestion.isFavorited
       // Sends an update to the DB to add a favorite
       console.log('sending add favorite');
       dispatch({
         type: "ADD_FAVORITE",
-        payload: currentQuestion.questionId,
+        payload: activeQuestion.questionId,
       });
+
+      activeQuestion.isFavorited = !activeQuestion.isFavorited
     }
   };
 
   const handleNewQuestion = () => {
-    // setQuestionHistory([...questionHistory, currentQuestion]);
+    // setQuestionHistory([...questionHistory, activeQuestion]);
     // console.log(questionHistory);
-    setCurrentQuestion(getRandomQuestion(categoryList));
+    dispatch({ 
+      type: 'SET_ACTIVE_QUESTION',
+      payload: getRandomIndex(categoryList)
+    })
   };
 
   /*   
@@ -115,16 +133,16 @@ export default function QuestionCard({
 
   return (
     <>
-      <Box sx={{ ...questionCardStyle, width: 600 }}>
+      <Box sx={{ ...questionCardStyle, bgcolor: '#ece2df', }}>
         <div id="question-modal-top-row">
-          <p>{currentQuestion.categoryName}</p>
+          <p>{activeQuestion.categoryName}</p>
           <IconButton onClick={handleCloseCategory}>
             <ClearIcon />
           </IconButton>
         </div>
 
         <div id="question-modal-main-text">
-          <h2 id="parent-modal-title">{currentQuestion.questionText}</h2>
+          <h2 id="parent-modal-title">{activeQuestion.questionText}</h2>
         </div>
 
         <div id="question-modal-refresh-button">
@@ -138,6 +156,13 @@ export default function QuestionCard({
             variant="contained"
             endIcon={<RefreshIcon />}
             onClick={handleNewQuestion}
+            sx={{
+              width: '35%',
+              height: '45px',
+              minWidth: 'fit-content',
+              backgroundColor: '#6da67c', 
+              '&:hover': { backgroundColor: '#81a68b',}
+            }}
           >
             New Question
           </Button>
@@ -151,7 +176,7 @@ export default function QuestionCard({
         
         <div id="question-modal-lower-btn-bar">
           <IconButton onClick={handleToggleFavorite}>
-            {currentQuestion.isFavorited ? (
+            {activeQuestion.isFavorited ? (
               <FavoriteIcon sx={{color: '#386270',}}/>
             ) : (
               <FavoriteBorderIcon sx={{color: '#386270',}}/>
@@ -161,6 +186,10 @@ export default function QuestionCard({
             variant="contained"
             endIcon={<ChevronRightIcon />}
             onClick={handleNewJournalBtn}
+            sx={{
+              backgroundColor: '#386270', 
+              '&:hover': { backgroundColor: '#527885',}
+            }}
           >
             New Journal
           </Button>
