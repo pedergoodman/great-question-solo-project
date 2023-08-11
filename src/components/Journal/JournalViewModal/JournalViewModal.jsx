@@ -28,7 +28,17 @@ export default function JournalEditPage() {
   } = activeJournal;
 
 
-
+// STYLING 
+const modalPositioning = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 650,
+  borderRadius: '16px',
+  boxShadow: 24,
+  padding: '2px 20px 22px',
+};
 
 
 
@@ -46,27 +56,9 @@ export default function JournalEditPage() {
   };
 
   // SAVE to database
-  const handleClickSave = () => {
-    onEditChange(setDateNow, "editedDate");
+  const openJournalEditor = () => {
 
-    // CONDITIONAL update if journalId exists, create if it doesn't 
-    if (journalId) {
-      // update journal in DB
-      dispatch({
-        type: "UPDATE_JOURNAL",
-        payload: activeJournal,
-      });
-    } else {
-      // create journal in DB
-      dispatch({
-        type: "CREATE_JOURNAL",
-        payload: activeJournal,
-      });
-    }
-
-    // Clear activeJournal, take user to profile page
-    dispatch({ type: "CLEAR_ACTIVE_JOURNAL" });
-    history.push("/user-profile");
+    history.push("/edit-journal");
   };
 
   return (
@@ -76,10 +68,12 @@ export default function JournalEditPage() {
       direction="column"
       alignItems="center"
       sx={{
+        ...modalPositioning,
         boxShadow: "0 0 10px -5px #000000a8",
         width: "840px",
         height: "auto",
         m: "auto",
+        backgroundColor: '#ece2df',
       }}
     >
       {/* button box! */}
@@ -93,9 +87,9 @@ export default function JournalEditPage() {
         }}
       >
         <Button onClick={handleClickCancel}>
-          {journalId ? "cancel" : "discard"}
+          close
         </Button>
-        <Button onClick={handleClickSave}>save</Button>
+        <Button onClick={openJournalEditor}>edit</Button>
       </Box>
 
       {/* Question text */}
@@ -127,7 +121,15 @@ export default function JournalEditPage() {
           }}
         >
           {/* TITLE */}
-          <TextField
+          <Typography
+            variant="h5"
+            display="block"
+            gutterBottom
+            sx={{ textAlign: "left", m: "30px 12px 0px", fontWeight: 600 }}
+          >
+            {journalTitle}
+          </Typography>
+          {/* <TextField
             id="standard-basic"
             placeholder="Add a Title"
             variant="standard"
@@ -136,7 +138,7 @@ export default function JournalEditPage() {
             onChange={event => {
               onEditChange(event.target.value, "journalTitle");
             }}
-          />
+          /> */}
           <Typography
             variant="overline"
             display="block"
@@ -147,17 +149,15 @@ export default function JournalEditPage() {
           </Typography>
         </Box>
         {/* BODY */}
-        <TextField
-          multiline
-          rows={24}
-          size="small"
-          value={journalBody}
-          placeholder=".....what's on your mind?"
-          sx={{ width: "100%" }}
-          onChange={event => {
-            onEditChange(event.target.value, "journalBody");
-          }}
-        />
+        <Typography
+            variant="body1"
+            display="block"
+            gutterBottom
+            sx={{ textAlign: "center", m: "30px 12px 0px", height: '300px', fontSize: '1.4rem', fontFamily: 'ui-monospace' }}
+          >
+            {journalBody}
+          </Typography>
+
       </Box>
     </Grid>
   );
