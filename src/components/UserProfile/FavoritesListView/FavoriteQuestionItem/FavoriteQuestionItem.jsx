@@ -72,6 +72,7 @@ export default function FavoriteQuestionItem({ questionItem }) {
       <ListItemText primary={questionText} />
       {/* {userAddedId ? deleteButton : <></>} */}
       <IconButton
+      sx={{color: '#386270'}}
         aria-label="favorite"
         color="secondary"
         onClick={handleToggleFavorite}
@@ -79,6 +80,7 @@ export default function FavoriteQuestionItem({ questionItem }) {
         {isFavorited ? <FavoriteIcon /> : <FavoriteBorderIcon />}
       </IconButton>
       <IconButton
+      sx={{color: '#6da67c'}} 
         aria-label="start-journal"
         color="secondary"
         onClick={startJournal}

@@ -45,9 +45,9 @@ export default function JournalContainer() {
   // console.groupEnd()
 
   return (
-    <Box>
+    <Box sx={{width: '100%'}}>
       <Typography variant="h6" sx={{ padding: "4px 10px",fontWeight: '800' }}>
-        Favorites
+        Your Favorites
       </Typography>
       <Divider sx={{mb: '5px'}}/>
       <List sx={listHeaderStyle} subheader={<li />}>

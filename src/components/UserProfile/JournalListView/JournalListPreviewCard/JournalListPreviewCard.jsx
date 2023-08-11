@@ -56,6 +56,8 @@ const fabStyleEdit = {
   position: "absolute",
   top: 0,
   right: 0,
+    backgroundColor: '#386270', 
+    '&:hover': { backgroundColor: '#527885',}
 };
 
 const fabStyleDelete = {
@@ -63,7 +65,8 @@ const fabStyleDelete = {
   position: "absolute",
   top: 35,
   right: 0,
-  backgroundColor: "red",
+  backgroundColor: '#d15959', 
+  '&:hover': { backgroundColor: '#df2626',}
 };
 
 

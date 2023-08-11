@@ -26,13 +26,33 @@ export default function FavoriteCategoryHeader({ questionCategory }) {
     setOpen(!open);
   };
 
+
+  const arrayOfColors = [
+    // blues
+    "#89c0d2",
+
+    // sandy
+    "#d1afa3",
+
+    // greens
+    "#adcdb5",
+
+    // purples
+    "#c1cdf0",
+
+    // reds
+    "#e3a28c",
+  ];
+
+  const randomIndex = Math.floor(Math.random() * arrayOfColors.length);
+
   return (
     <ul>
       {/* List header with  */}
-      <ListSubheader sx={{ display: "flex", alignItems: "center" }}>
+      <ListSubheader sx={{ display: "flex", alignItems: "center", backgroundColor: arrayOfColors[randomIndex] }}>
         <IconButton
           aria-label="fingerprint"
-          color="secondary"
+          color='#386270'
           onClick={toggleCategorySection}
         >
           {open ? <ExpandMore /> : <ChevronRight />}

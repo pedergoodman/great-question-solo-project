@@ -21,6 +21,7 @@ const favoritesContainerStyle = {
   padding: "6px",
   margin: "0 5px",
   maxWidth: "45%",
+  minWidth: "45%",
   borderRadius: "9px",
   boxShadow: "0 0 10px 0px rgb(0 0 0 / 55%)",
   display: "flex",
@@ -32,6 +33,7 @@ const favoritesContainerStyle = {
 const journalContainerStyle = {
   padding: "8px",
   maxWidth: "45%",
+  minWidth: "45%",
   borderRadius: "9px",
   boxShadow: "0 0 10px 0px rgb(0 0 0 / 55%)",
   overflow: 'hidden',
