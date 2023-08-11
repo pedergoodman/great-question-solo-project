@@ -13,13 +13,13 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
+// CUSTOM COMPONENTS
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+import ProfilePage from '../UserProfile/_ProfilePage/ProfilePage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+import JournalEditForm from '../Journal/JournalEditForm/JournalEditForm';
 import './App.css';
 
 function App() {
@@ -55,17 +55,17 @@ function App() {
           <ProtectedRoute
             // logged in shows UserPage else shows LoginPage
             exact
-            path="/user"
+            path="/user-profile"
           >
-            <UserPage />
+            <ProfilePage />
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in allows user to edit their saved journals
             exact
-            path="/info"
+            path="/edit-journal"
           >
-            <InfoPage />
+            <JournalEditForm />
           </ProtectedRoute>
 
           <Route
@@ -74,8 +74,8 @@ function App() {
           >
             {user.id ?
               // If the user is already logged in, 
-              // redirect to the /user page
-              <Redirect to="/user" />
+              // redirect to the /home page
+              <Redirect to="/home" />
               :
               // Otherwise, show the login page
               <LoginPage />
@@ -88,8 +88,8 @@ function App() {
           >
             {user.id ?
               // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/user" />
+              // redirect them to the /home page
+              <Redirect to="/home" />
               :
               // Otherwise, show the registration page
               <RegisterPage />
@@ -100,14 +100,7 @@ function App() {
             exact
             path="/home"
           >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the Landing page
               <LandingPage />
-            }
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}

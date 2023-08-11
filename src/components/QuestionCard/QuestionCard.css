@@ -1,0 +1,24 @@
+#question-modal-top-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+#question-modal-main-text {
+  display: flex;
+  margin: 6px 30px 18px;
+  text-align: center;
+  line-height: 2.2em; 
+}
+
+#question-modal-refresh-button {
+  display: flex;
+  margin: 0 auto 30px;
+  justify-content: center;
+}
+
+#question-modal-lower-btn-bar {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 10px 0;
+}
