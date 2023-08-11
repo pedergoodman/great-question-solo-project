@@ -160,9 +160,14 @@ export default function QuestionCard({
               width: '35%',
               height: '45px',
               minWidth: 'fit-content',
-              backgroundColor: '#6da67c', 
-              '&:hover': { backgroundColor: '#81a68b',}
+              backgroundColor: '#386270', 
+              '&:hover': { backgroundColor: '#527885',}
             }}
+            // onKeyDown={(event) => {
+            //   console.log('key pressed is:', event.key );
+            // }}
+  
+      
           >
             New Question
           </Button>
@@ -187,8 +192,8 @@ export default function QuestionCard({
             endIcon={<ChevronRightIcon />}
             onClick={handleNewJournalBtn}
             sx={{
-              backgroundColor: '#386270', 
-              '&:hover': { backgroundColor: '#527885',}
+              backgroundColor: '#6da67c', 
+              '&:hover': { backgroundColor: '#81a68b',}
             }}
           >
             New Journal
