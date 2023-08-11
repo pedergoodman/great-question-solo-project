@@ -32,11 +32,6 @@ export default function JournalContainer() {
     "Custom Questions"
   );
 
-  const favoritesContainerStyle = {
-    maxWidth: "100%",
-    borderRadius: "9px",
-    maxHeight: "100%",
-  };
 
   const favoriteListToMap = [...favoriteQuestions];
   // const favoriteListToMap = [...favoriteQuestions, customAsCategory];
@@ -49,11 +44,11 @@ export default function JournalContainer() {
   // console.groupEnd()
 
   return (
-    <Box sx={favoritesContainerStyle}>
-      <Typography variant="h6" sx={{ padding: "4px 10px" }}>
+    <Box>
+      <Typography variant="h6" sx={{ padding: "4px 10px",fontWeight: '800' }}>
         Favorites
       </Typography>
-      <Divider />
+      <Divider sx={{mb: '5px'}}/>
       <List sx={listHeaderStyle} subheader={<li />}>
         {/* mapping categories and reflated questions to list */}
         {favoriteListToMap.map(questionCategory => (

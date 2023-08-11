@@ -140,7 +140,7 @@ export default function JournalPreviewCard({ journalItem }) {
           <CardContent sx={{ 
             padding: "2px 8px", 
             height: '100%', 
-            WebkitMaskImage: 'linear-gradient(180deg, #000 60%, transparent)'
+            WebkitMaskImage: 'linear-gradient(180deg, #000 85%, transparent)'
           }}>
             <Box sx={titleBarStyle}>
               <Typography variant="h5" component="div">

@@ -25,6 +25,7 @@ const favoritesContainerStyle = {
   boxShadow: "0 0 10px 0px rgb(0 0 0 / 55%)",
   display: "flex",
   justifyContent: "center",
+  overflow: 'hidden'
 };
 
 const journalContainerStyle = {
@@ -32,6 +33,7 @@ const journalContainerStyle = {
   maxWidth: "45%",
   borderRadius: "9px",
   boxShadow: "0 0 10px 0px rgb(0 0 0 / 55%)",
+  overflow: 'hidden'
 };
 
 // USER PAGE

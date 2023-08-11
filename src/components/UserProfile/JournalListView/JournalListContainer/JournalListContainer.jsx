@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import "./JournalListContainer.css";
 
 // MUI COMPONENTS
-import { Grid } from "@mui/material";
+import { Divider, Grid, Typography } from "@mui/material";
 
 // MUI ICONS
 import JournalListPreviewCard from "../JournalListPreviewCard/JournalListPreviewCard";
@@ -32,6 +32,10 @@ export default function JournalContainer() {
 
   return (
     <>
+      <Typography variant="h6" sx={{ padding: "4px 10px", fontWeight: "800" }}>
+        Your Journals
+      </Typography>
+      <Divider sx={{ mb: "5px" }} />
       <Grid container spacing={1} rowSpacing={2} sx={gridStyling}>
         {userJournals.map(journalItem => (
           <JournalListPreviewCard
