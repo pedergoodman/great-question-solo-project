@@ -9,7 +9,9 @@ function* addFavorite(action) {
   // console.log('in saga, addFavorite, question id is:', questionID);
 
   try {
+    
     yield axios.post('/api/favorite', questionID)
+
     yield put({
       type: 'FETCH_QUESTIONS'
     })
