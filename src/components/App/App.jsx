@@ -20,7 +20,6 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import JournalEditForm from '../Journal/JournalEditForm/JournalEditForm';
-import JournalInputForm from '../Journal/JournalInputForm/JournalInputForm'
 import './App.css';
 
 function App() {
@@ -67,15 +66,6 @@ function App() {
             path="/edit-journal"
           >
             <JournalEditForm />
-          </ProtectedRoute>
-
-
-          <ProtectedRoute
-            // logged in allows user to edit their saved journals
-            exact
-            path="/create-journal"
-          >
-            <JournalInputForm />
           </ProtectedRoute>
 
           <Route
