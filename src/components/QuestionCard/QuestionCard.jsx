@@ -14,6 +14,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { IconButton } from "@mui/material";
 
 
 // STYLING 
@@ -117,9 +118,9 @@ export default function QuestionCard({
       <Box sx={{ ...questionCardStyle, width: 600 }}>
         <div id="question-modal-top-row">
           <p>{currentQuestion.categoryName}</p>
-          <Button variant="contained" onClick={handleCloseCategory}>
+          <IconButton onClick={handleCloseCategory}>
             <ClearIcon />
-          </Button>
+          </IconButton>
         </div>
 
         <div id="question-modal-main-text">
@@ -149,13 +150,13 @@ export default function QuestionCard({
         </div>
         
         <div id="question-modal-lower-btn-bar">
-          <Button variant="contained" onClick={handleToggleFavorite}>
+          <IconButton onClick={handleToggleFavorite}>
             {currentQuestion.isFavorited ? (
-              <FavoriteIcon />
+              <FavoriteIcon sx={{color: '#386270',}}/>
             ) : (
-              <FavoriteBorderIcon />
+              <FavoriteBorderIcon sx={{color: '#386270',}}/>
             )}
-          </Button>
+          </IconButton>
           <Button
             variant="contained"
             endIcon={<ChevronRightIcon />}
