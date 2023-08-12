@@ -43,19 +43,20 @@ export default function QuestionCard({
   // managing data state
   const dispatch = useDispatch();
   const history = useHistory();
-
+const hiddenQuestion = categoryList.find(x => x.questionId == 14 )
  const activeQuestion = useSelector(store => store.randomCard.currentRandomQuestion);
   // const [questionHistory, setQuestionHistory] = useState([]);
 
-  useEffect(() => {
-    // selected question would be passed from the profile page,
-    // it isn't always expected, but if received needs to display first
-      //   if (selectedQuestion) {
-      //     dispatch({ type: 'SET_ACTIVE_QUESTION'})
-      //   } else {
-      //     activeQuestion(getRandomIndex(categoryList));
-      //   }
+console.log('hiddenQuestion is', hiddenQuestion);
+const hiddenButton = () => {
+  dispatch({ 
+    type: 'SET_ACTIVE_QUESTION',
+    payload: hiddenQuestion
+  })
+}
 
+
+  useEffect(() => {
       dispatch({ 
         type: 'SET_ACTIVE_QUESTION',
         payload: getRandomIndex(categoryList)
@@ -63,17 +64,11 @@ export default function QuestionCard({
   }, []);
 
 
-  // function getRandomIndex(categoryList) {
-  //   // get random index
-  //   const randomIndex = Math.floor(Math.random() * categoryList.length);
-  //   // return random index in categoryList
-  //   return categoryList[randomIndex];
-  // }
+
   
 
   // Sets the active journal and opens a new journal page!
   const handleNewJournalBtn = () => {
-    
     // dispatch({ 
     //   type: 'SET_QUESTION_HISTORY',
     //   payload: activeQuestion
@@ -141,7 +136,7 @@ export default function QuestionCard({
           </IconButton>
         </div>
 
-        <div id="question-modal-main-text">
+        <div id="question-modal-main-text" onClick={hiddenButton}>
           <h2 id="parent-modal-title">{activeQuestion.questionText}</h2>
         </div>
 
