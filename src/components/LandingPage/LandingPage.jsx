@@ -60,9 +60,9 @@ function LandingPage() {
         gutterBottom
         variant="h4"
         component="div"
-        sx={{ textAlign: "center" }}
+        sx={{ textAlign: "center", mb: '1.7em', textAlign: "center",fontFamily: "ui-monospace", fontSize: "2em", }}
       >
-        Select a Category!
+        Select a Category. Find a question.
       </Typography>
       <RandomAllBubble allQuestionsListToMap={allQuestionsListToMap} />
       <Box

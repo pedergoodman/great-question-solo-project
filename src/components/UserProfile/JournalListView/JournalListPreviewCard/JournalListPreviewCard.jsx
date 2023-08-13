@@ -176,7 +176,7 @@ export default function JournalPreviewCard({ journalItem }) {
                 {categoryName}
               </Typography> */}
               <Typography sx={{ m: "-6px 0 10px 7px", fontSize: '14px' }} color="text.secondary">
-                {formattedCreatedDate}
+                {formattedEditedDate}
               </Typography>
             </Box>
             <Typography variant="body2">{journalBody}</Typography>
