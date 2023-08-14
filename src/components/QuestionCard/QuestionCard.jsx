@@ -17,17 +17,16 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton } from "@mui/material";
 import { getRandomIndex } from "../../utils/utils";
 
-
-// STYLING 
+// STYLING
 const questionCardStyle = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 650,
-  borderRadius: '16px',
+  borderRadius: "16px",
   boxShadow: 24,
-  padding: '2px 20px 22px',
+  padding: "2px 20px 22px",
 };
 
 // currentRandomQuestion
@@ -37,39 +36,37 @@ export default function QuestionCard({
   handleCloseCategory,
   categoryList,
   selectedQuestion,
-  bubbleColor
-
+  bubbleColor,
 }) {
   // managing data state
   const dispatch = useDispatch();
   const history = useHistory();
-const hiddenQuestion = categoryList.find(x => x.questionId == 14 )
- const activeQuestion = useSelector(store => store.randomCard.currentRandomQuestion);
+  const hiddenQuestion = categoryList.find(x => x.questionId == 14);
+  const activeQuestion = useSelector(
+    store => store.randomCard.currentRandomQuestion
+  );
   // const [questionHistory, setQuestionHistory] = useState([]);
 
-console.log('hiddenQuestion is', hiddenQuestion);
-const hiddenButton = () => {
-  dispatch({ 
-    type: 'SET_ACTIVE_QUESTION',
-    payload: hiddenQuestion
-  })
-}
-
+  console.log("hiddenQuestion is", hiddenQuestion);
+  const hiddenButton = () => {
+    if (hiddenQuestion) {
+      dispatch({
+        type: "SET_ACTIVE_QUESTION",
+        payload: hiddenQuestion,
+      });
+    }
+  };
 
   useEffect(() => {
-      dispatch({ 
-        type: 'SET_ACTIVE_QUESTION',
-        payload: getRandomIndex(categoryList)
-      })
+    dispatch({
+      type: "SET_ACTIVE_QUESTION",
+      payload: getRandomIndex(categoryList),
+    });
   }, []);
-
-
-
-  
 
   // Sets the active journal and opens a new journal page!
   const handleNewJournalBtn = () => {
-    // dispatch({ 
+    // dispatch({
     //   type: 'SET_QUESTION_HISTORY',
     //   payload: activeQuestion
     // });
@@ -78,42 +75,42 @@ const hiddenButton = () => {
       type: "SET_ACTIVE_JOURNAL",
       payload: activeQuestion,
     });
-    
-    history.push('/edit-journal')
+
+    history.push("/edit-journal");
   };
 
   const handleToggleFavorite = () => {
     // check if activeQuestion.isFavorited is true or not
     if (activeQuestion.isFavorited) {
       // Sends an update to the DB to remove a favorite
-      console.log('sending remove favorite');
+      console.log("sending remove favorite");
       // !activeQuestion.isFavorited
       dispatch({
         type: "REMOVE_FAVORITE",
         payload: activeQuestion.questionId,
       });
 
-      activeQuestion.isFavorited = !activeQuestion.isFavorited
+      activeQuestion.isFavorited = !activeQuestion.isFavorited;
     } else {
       // !activeQuestion.isFavorited
       // Sends an update to the DB to add a favorite
-      console.log('sending add favorite');
+      console.log("sending add favorite");
       dispatch({
         type: "ADD_FAVORITE",
         payload: activeQuestion.questionId,
       });
 
-      activeQuestion.isFavorited = !activeQuestion.isFavorited
+      activeQuestion.isFavorited = !activeQuestion.isFavorited;
     }
   };
 
   const handleNewQuestion = () => {
     // setQuestionHistory([...questionHistory, activeQuestion]);
     // console.log(questionHistory);
-    dispatch({ 
-      type: 'SET_ACTIVE_QUESTION',
-      payload: getRandomIndex(categoryList)
-    })
+    dispatch({
+      type: "SET_ACTIVE_QUESTION",
+      payload: getRandomIndex(categoryList),
+    });
   };
 
   /*   
@@ -128,7 +125,7 @@ const hiddenButton = () => {
 
   return (
     <>
-      <Box sx={{ ...questionCardStyle, bgcolor: '#ece2df', }}>
+      <Box sx={{ ...questionCardStyle, bgcolor: "#ece2df" }}>
         <div id="question-modal-top-row">
           <p>{activeQuestion.categoryName}</p>
           <IconButton onClick={handleCloseCategory}>
@@ -152,17 +149,15 @@ const hiddenButton = () => {
             endIcon={<RefreshIcon />}
             onClick={handleNewQuestion}
             sx={{
-              width: '35%',
-              height: '45px',
-              minWidth: 'fit-content',
-              backgroundColor: '#386270', 
-              '&:hover': { backgroundColor: '#527885',}
+              width: "35%",
+              height: "45px",
+              minWidth: "fit-content",
+              backgroundColor: "#386270",
+              "&:hover": { backgroundColor: "#527885" },
             }}
             // onKeyDown={(event) => {
             //   console.log('key pressed is:', event.key );
             // }}
-  
-      
           >
             New Question
           </Button>
@@ -173,13 +168,13 @@ const hiddenButton = () => {
             <RedoIcon />
           </Button> */}
         </div>
-        
+
         <div id="question-modal-lower-btn-bar">
           <IconButton onClick={handleToggleFavorite}>
             {activeQuestion.isFavorited ? (
-              <FavoriteIcon sx={{color: '#386270',}}/>
+              <FavoriteIcon sx={{ color: "#386270" }} />
             ) : (
-              <FavoriteBorderIcon sx={{color: '#386270',}}/>
+              <FavoriteBorderIcon sx={{ color: "#386270" }} />
             )}
           </IconButton>
           <Button
@@ -187,8 +182,8 @@ const hiddenButton = () => {
             endIcon={<ChevronRightIcon />}
             onClick={handleNewJournalBtn}
             sx={{
-              backgroundColor: '#6da67c', 
-              '&:hover': { backgroundColor: '#81a68b',}
+              backgroundColor: "#6da67c",
+              "&:hover": { backgroundColor: "#81a68b" },
             }}
           >
             New Journal
