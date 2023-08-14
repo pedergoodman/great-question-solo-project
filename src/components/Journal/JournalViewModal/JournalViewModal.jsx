@@ -83,7 +83,7 @@ const modalPositioning = {
           bgcolor: "transparent",
           width: "100%",
           justifyContent: "flex-end",
-          mt: "5px",
+          mt: "8px",
         }}
       >
         <Button onClick={handleClickCancel}>
@@ -100,7 +100,7 @@ const modalPositioning = {
           gutterBottom
           sx={{
             textAlign: "right",
-            m: "-13px 0px 16px 0",
+            margin: '20px 0px 30px 0',
             width: "540px",
             textAlign: "center",
           }}

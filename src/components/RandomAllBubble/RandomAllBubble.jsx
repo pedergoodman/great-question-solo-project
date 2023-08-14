@@ -58,7 +58,7 @@ function RandomAllBubble({ allQuestionsListToMap }) {
                 fontWeight: "600",
               }}
             >
-              RANDOM!
+              Wildcard
             </Typography>
           </CardContent>
         </CardActionArea>

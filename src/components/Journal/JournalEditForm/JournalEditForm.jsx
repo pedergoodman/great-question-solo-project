@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 // MUI COMPONENTS
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { Button, Grid, IconButton, TextField } from "@mui/material";
+import { Button, IconButton, TextField } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 
 // STYLING
@@ -112,11 +112,7 @@ const hiddenJournalBody = `Beneath the moon's glow, I faced a test of my warrior
 
 
   return (
-    <Grid
-      container
-      spacing={0}
-      direction="column"
-      alignItems="center"
+    <Box
       sx={{
         boxShadow: "0 0 10px -5px #000000a8",
         width: "840px",
@@ -129,9 +125,8 @@ const hiddenJournalBody = `Beneath the moon's glow, I faced a test of my warrior
         sx={{
           display: "flex",
           bgcolor: "transparent",
-          width: "100%",
           justifyContent: "flex-end",
-          mt: "5px",
+          padding: '8px 8px 6px 0'
         }}
       >
         <Button onClick={handleClickCancel}>
@@ -150,7 +145,7 @@ const hiddenJournalBody = `Beneath the moon's glow, I faced a test of my warrior
           gutterBottom
           sx={{
             textAlign: "right",
-            m: "-13px 0px 16px 0",
+            margin: '10px auto 20px',
             width: "540px",
             textAlign: "center",
           }}
@@ -177,7 +172,7 @@ const hiddenJournalBody = `Beneath the moon's glow, I faced a test of my warrior
             placeholder="Add a Title"
             variant="standard"
             value={journalTitle}
-            sx={{ width: "80%", bgcolor: "blue[900]", m: "6px 0 8px 24px" }}
+            sx={{ width: "80%", bgcolor: "blue[900]", m: "6px 0 8px 24px",  }}
             onChange={event => {
               onEditChange(event.target.value, "journalTitle");
             }}
@@ -198,12 +193,15 @@ const hiddenJournalBody = `Beneath the moon's glow, I faced a test of my warrior
           size="small"
           value={journalBody}
           placeholder=".....what's on your mind?"
-          sx={{ width: "100%" }}
+          inputProps={{
+            sx: {fontFamily: 'ui-monospace', fontSize: '1.3em', lineHeight: '1.5em',}
+          }}
+          sx={{ width: "100%",  }}
           onChange={event => {
             onEditChange(event.target.value, "journalBody");
           }}
         />
       </Box>
-    </Grid>
+    </Box>
   );
 }
