@@ -16,6 +16,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton } from "@mui/material";
 import { getRandomIndex } from "../../utils/utils";
+import PleaseLogInPopover from "../PleaseLogInPopover/PleaseLogInPopover";
 
 // STYLING
 const questionCardStyle = {
@@ -44,6 +45,7 @@ export default function QuestionCard({
   const activeQuestion = useSelector(
     store => store.randomCard.currentRandomQuestion
   );
+  const [anchorEl, setAnchorEl] = React.useState(null);
   // const [questionHistory, setQuestionHistory] = useState([]);
 
   useEffect(() => {
@@ -100,6 +102,16 @@ export default function QuestionCard({
       type: "SET_ACTIVE_QUESTION",
       payload: getRandomIndex(categoryList),
     });
+  };
+
+
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
   };
 
   /*   
@@ -159,7 +171,11 @@ export default function QuestionCard({
         </div>
 
         <div id="question-modal-lower-btn-bar">
-          <IconButton onClick={handleToggleFavorite}>
+          <IconButton
+            onClick={handleToggleFavorite}
+            onMouseEnter={handlePopoverOpen}
+            onMouseLeave={handlePopoverClose}
+          >
             {activeQuestion.isFavorited ? (
               <FavoriteIcon sx={{ color: "#386270" }} />
             ) : (
@@ -170,6 +186,8 @@ export default function QuestionCard({
             variant="contained"
             endIcon={<ChevronRightIcon />}
             onClick={handleNewJournalBtn}
+            onMouseEnter={handlePopoverOpen}
+            onMouseLeave={handlePopoverClose}
             sx={{
               backgroundColor: "#6da67c",
               "&:hover": { backgroundColor: "#81a68b" },
@@ -179,6 +197,7 @@ export default function QuestionCard({
           </Button>
         </div>
       </Box>
+      <PleaseLogInPopover anchorEl={anchorEl} />
     </>
   );
 }
