@@ -41,21 +41,10 @@ export default function QuestionCard({
   // managing data state
   const dispatch = useDispatch();
   const history = useHistory();
-  const hiddenQuestion = categoryList.find(x => x.questionId == 14);
   const activeQuestion = useSelector(
     store => store.randomCard.currentRandomQuestion
   );
   // const [questionHistory, setQuestionHistory] = useState([]);
-
-  console.log("hiddenQuestion is", hiddenQuestion);
-  const hiddenButton = () => {
-    if (hiddenQuestion) {
-      dispatch({
-        type: "SET_ACTIVE_QUESTION",
-        payload: hiddenQuestion,
-      });
-    }
-  };
 
   useEffect(() => {
     dispatch({
@@ -133,7 +122,7 @@ export default function QuestionCard({
           </IconButton>
         </div>
 
-        <div id="question-modal-main-text" onClick={hiddenButton}>
+        <div id="question-modal-main-text">
           <h2 id="parent-modal-title">{activeQuestion.questionText}</h2>
         </div>
 
