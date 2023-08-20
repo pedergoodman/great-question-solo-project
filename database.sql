@@ -10,8 +10,9 @@ CREATE TABLE "user" (
 CREATE TABLE "questions" (
   "id" serial PRIMARY KEY,
   "question" varchar(300) NOT NULL,
-  "user_added_id" integer REFERENCES "user"
+  "user_added_id" integer REFERENCES "user" ("id")
 );
+
 
 -- journal entry data.
 CREATE TABLE "journals" (
@@ -20,8 +21,8 @@ CREATE TABLE "journals" (
   "journal_entry" varchar(10000) NOT NULL,
   "created_date" TIMESTAMP(0) NOT NULL DEFAULT NOW(),
   "edited_date" TIMESTAMP(0) NOT NULL DEFAULT NOW(),
-  "question_id" integer NOT NULL REFERENCES "questions",
-  "user_id" integer NOT NULL REFERENCES "user"
+  "question_id" integer NOT NULL REFERENCES "questions" ("id"),
+  "user_id" integer NOT NULL REFERENCES  "user" ("id")
 );
 
 -- list of question categories 
@@ -33,20 +34,20 @@ CREATE TABLE "categories" (
 -- links questions and category tables
 CREATE TABLE "question_categories" (
   "id" serial PRIMARY KEY,
-  "question_id" integer NOT NULL REFERENCES "questions",
-  "category_id" integer NOT NULL REFERENCES "category"
+  "question_id" integer NOT NULL REFERENCES "questions" ("id"),
+  "category_id" integer NOT NULL REFERENCES "categories" ("id")
 );
 
 CREATE TABLE "user_favorited" (
   "id" serial NOT NULL PRIMARY KEY,
-  "user_id" integer NOT NULL REFERENCES "user",
-  "question_id" integer NOT NULL REFERENCES "questions"
+  "user_id" integer NOT NULL REFERENCES  "user" ("id"),
+  "question_id" integer NOT NULL REFERENCES "questions" ("id")
 );
 
 -- THIS IS TEMP DATA
 -- categories
 INSERT INTO
-  "category" ("category_name")
+  "categories" ("category_name")
 VALUES
   ('Self-Discovery'),
   ('Philosophy'),
@@ -147,100 +148,77 @@ VALUES
   ),
   (
     'Discuss the role of social media in modern society and its impact on relationships and mental health.'
-  );
-
--- user added questions
-INSERT INTO
-  questions ("question", "user_added_id")
-VALUES
+  ),
   (
-    'What are your most significant strengths, and how do you leverage them in your life?',
-    1
+    'What are your most significant strengths, and how do you leverage them in your life?'
   ),
   -- Self-Discovery
   (
-    'Reflect on a decision you made recently. How did it align with your values and beliefs?',
-    3
+    'Reflect on a decision you made recently. How did it align with your values and beliefs?'
   ),
   -- Self-Discovery
   (
-    'Do you think there is an ultimate purpose or meaning to human existence? Why or why not?',
-    1
+    'Do you think there is an ultimate purpose or meaning to human existence? Why or why not?'
   ),
   -- Philosophy
   (
-    'How does your perception of time influence your perspective on life?',
-    3
+    'How does your perception of time influence your perspective on life?'
   ),
   -- Philosophy 
   (
-    'What is a personal mantra or affirmation that helps you stay focused and positive?',
-    1
+    'What is a personal mantra or affirmation that helps you stay focused and positive?'
   ),
   -- Reflection
   (
-    'Describe a situation where stepping out of your comfort zone led to personal growth.',
-    3
+    'Describe a situation where stepping out of your comfort zone led to personal growth.'
   ),
   -- Reflection
   (
-    'If you had the ability to invent something, what problem would you solve, and how?',
-    1
+    'If you had the ability to invent something, what problem would you solve, and how?'
   ),
   -- Creativity
   (
-    'Describe a book, movie, or artwork that profoundly impacted your way of thinking.',
-    3
+    'Describe a book, movie, or artwork that profoundly impacted your way of thinking.'
   ),
   -- Creativity 
   (
-    'Discuss a moral dilemma you witnessed recently and how different people reacted to it.',
-    1
+    'Discuss a moral dilemma you witnessed recently and how different people reacted to it.'
   ),
   -- Ethics 
   (
-    'What values do you consider non-negotiable in making important life choices?',
-    3
+    'What values do you consider non-negotiable in making important life choices?'
   ),
   -- Ethics 
   (
-    'Share an experience in nature that left you in awe and inspired a sense of interconnectedness.',
-    1
+    'Share an experience in nature that left you in awe and inspired a sense of interconnectedness.'
   ),
   -- Environment
   (
-    'What changes can you make in your daily life to reduce your environmental footprint?',
-    3
+    'What changes can you make in your daily life to reduce your environmental footprint?'
   ),
   -- Environment
   (
-    'How do you practice active listening in your conversations with others?',
-    1
+    'How do you practice active listening in your conversations with others?'
   ),
   -- Relationships 
   (
-    'Describe a time when empathy helped you build a stronger connection with someone.',
-    3
+    'Describe a time when empathy helped you build a stronger connection with someone.'
   ),
   -- Relationships 
   (
-    'What steps are you taking to achieve your long-term goals, and how do you measure progress?',
-    1
+    'What steps are you taking to achieve your long-term goals, and how do you measure progress?'
   ),
   -- Aspirations
   (
-    'Reflect on a past achievement and how it motivates you to pursue new goals.',
-    3
+    'Reflect on a past achievement and how it motivates you to pursue new goals.'
   ),
   -- Aspirations
   (
-    'How do you maintain a healthy balance between technology use and unplugging from screens?',
-    1
+    'How do you maintain a healthy balance between technology use and unplugging from screens?'
   ),
   -- Society
   (
-    'Discuss the potential implications of artificial intelligence on society in the next decade.',
-    3
+    'Discuss the potential implications of artificial intelligence on society in the next decade.'
   );
 
 
@@ -275,7 +253,6 @@ VALUES
   (25, 9),
   (26, 9),
   (27, 9),
-  -- linking custom user question data to categories
   (28, 1),
   (29, 1),
   (30, 2),
@@ -362,6 +339,12 @@ VALUES
     22,
     3
   );
+
+
+
+
+
+
 
 -- Add Favs to list
 INSERT INTO
