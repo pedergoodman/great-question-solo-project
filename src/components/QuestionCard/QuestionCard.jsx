@@ -14,9 +14,9 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import { getRandomIndex } from "../../utils/utils";
-import PleaseLogInPopover from "../PleaseLogInPopover/PleaseLogInPopover";
+
 
 // STYLING
 const questionCardStyle = {
@@ -30,9 +30,8 @@ const questionCardStyle = {
   padding: "2px 20px 22px",
 };
 
-// currentRandomQuestion
 
-// Question Card
+// QUESTION CARD
 export default function QuestionCard({
   handleCloseCategory,
   categoryList,
@@ -45,7 +44,7 @@ export default function QuestionCard({
   const activeQuestion = useSelector(
     store => store.randomCard.currentRandomQuestion
   );
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const isLoggedIn = useSelector(store => store.user.id);
   // const [questionHistory, setQuestionHistory] = useState([]);
 
   useEffect(() => {
@@ -70,6 +69,7 @@ export default function QuestionCard({
     history.push("/edit-journal");
   };
 
+  // toggles isFavorite for a given question
   const handleToggleFavorite = () => {
     // check if activeQuestion.isFavorited is true or not
     if (activeQuestion.isFavorited) {
@@ -95,6 +95,7 @@ export default function QuestionCard({
     }
   };
 
+  // shuffles questions and returns a new random question 
   const handleNewQuestion = () => {
     // setQuestionHistory([...questionHistory, activeQuestion]);
     // console.log(questionHistory);
@@ -104,23 +105,14 @@ export default function QuestionCard({
     });
   };
 
-
-
-  const handlePopoverOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
-
+  // TODO - add history to question card
   /*   
   const handleUndo = () => {
-    
+  
   }
 
   const handleRedo = () => {
-    
+  
   } 
   */
 
@@ -171,33 +163,41 @@ export default function QuestionCard({
         </div>
 
         <div id="question-modal-lower-btn-bar">
-          <IconButton
-            onClick={handleToggleFavorite}
-            onMouseEnter={handlePopoverOpen}
-            onMouseLeave={handlePopoverClose}
+          <Tooltip
+            title={isLoggedIn ? "" : "Login to Favorite."}
+            placement="top"
           >
-            {activeQuestion.isFavorited ? (
-              <FavoriteIcon sx={{ color: "#386270" }} />
-            ) : (
-              <FavoriteBorderIcon sx={{ color: "#386270" }} />
-            )}
-          </IconButton>
-          <Button
-            variant="contained"
-            endIcon={<ChevronRightIcon />}
-            onClick={handleNewJournalBtn}
-            onMouseEnter={handlePopoverOpen}
-            onMouseLeave={handlePopoverClose}
-            sx={{
-              backgroundColor: "#6da67c",
-              "&:hover": { backgroundColor: "#81a68b" },
-            }}
+            <span>
+              <IconButton onClick={handleToggleFavorite} disabled={!isLoggedIn}>
+                {activeQuestion.isFavorited ? (
+                  <FavoriteIcon sx={{ color: "#386270" }} />
+                ) : (
+                  <FavoriteBorderIcon sx={{ color: "#386270" }} />
+                )}
+              </IconButton>
+            </span>
+          </Tooltip>
+          <Tooltip
+            title={isLoggedIn ? "" : "Login to Journal."}
+            placement="top"
           >
-            New Journal
-          </Button>
+            <span>
+              <Button
+                variant="contained"
+                endIcon={<ChevronRightIcon />}
+                onClick={handleNewJournalBtn}
+                disabled={!isLoggedIn}
+                sx={{
+                  backgroundColor: "#6da67c",
+                  "&:hover": { backgroundColor: "#81a68b" },
+                }}
+              >
+                New Journal
+              </Button>
+            </span>
+          </Tooltip>
         </div>
       </Box>
-      <PleaseLogInPopover anchorEl={anchorEl} />
     </>
   );
 }
