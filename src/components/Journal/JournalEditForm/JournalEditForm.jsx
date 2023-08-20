@@ -99,14 +99,6 @@ export default function JournalEditPage() {
     history.push("/user-profile");
   };
 
-const hiddenJournalTitle = `Crossroads of Morality: A Warrior's Choice`
-
-const hiddenJournalBody = `Beneath the moon's glow, I faced a test of my warrior's code. A lost kit from a rival clan wandered into our territory. My instincts warred within me – protect our borders or show compassion? Remembering our ancestors' tales of unity, I carried the kit to the border. Facing the rival warriors, I laid it down, intertwining empathy with duty. In that moment, I realized a warrior's path isn't just battles but navigating with compassion and wisdom. I resolved the dilemma by honoring both our code and the bond shared under the moon.`
-
- const hiddenButton = () => {
-  onEditChange(hiddenJournalTitle, "journalTitle");
-  onEditChange(hiddenJournalBody, "journalBody");
- };
 
   const isDisabled = journalTitle && journalBody ? false : true;
 
@@ -149,7 +141,6 @@ const hiddenJournalBody = `Beneath the moon's glow, I faced a test of my warrior
             width: "540px",
             textAlign: "center",
           }}
-          onClick={hiddenButton}
         >
           {questionText}
         </Typography>
