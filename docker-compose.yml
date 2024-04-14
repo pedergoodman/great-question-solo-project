@@ -1,0 +1,50 @@
+# docker-compose.yml
+version: "3.8" # docker compose version
+services:
+  server:
+    container_name: prime-backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    # Maps our current project directory `.` to
+    # our working directory in the container
+    volumes:
+      - ./:/usr/app
+      # - ./node_modules:/usr/app/node_modules
+    # Environment variables
+    environment:
+      PORT: 5005
+    # Map our ports
+    ports:
+      - "5005:5005"
+    depends_on:
+        - db
+  client:
+    container_name: prime-client
+    image: node:18
+    working_dir: /usr/app
+    build:
+      context: .
+    command: npm run client
+    volumes:
+      - ./:/usr/app
+      - ./node_modules:/usr/app/node_modules
+    depends_on:
+      - server
+    ports:
+      - "3000:3000"
+  db:
+    image: postgres:15
+    container_name: prime-postgres
+    expose:
+      - "5432"
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+      - ./seeds.sql:/docker-entrypoint-initdb.d/seeds.sql
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: docker-workshop
